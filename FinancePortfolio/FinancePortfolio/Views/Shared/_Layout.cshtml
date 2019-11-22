@@ -16,26 +16,45 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/css/footer.css" />
+    <link rel="stylesheet" href="~/css/typography.css" />
+    <link rel="stylesheet" href="~/css/responsive.css" />
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FinancePortfolio</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <nav class="navbar navbar-expand-lg py-3 header">
+            <div class="container d-flex justify-content-between">
+                <div>
+                    <h1 class="mb-0 header-title">My Stocks Portfolio</h1>
+                    @(Html.Kendo().DropDownList()
+                                  .Name("currency")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .BindTo(new List<SelectListItem>() {
+                                      new SelectListItem() {
+                                          Text = "USD",
+                                          Value = "1"
+                                      },
+                                      new SelectListItem() {
+                                          Text = "EUR",
+                                          Value = "2"
+                                      },
+                                      new SelectListItem() {
+                                          Text = "GBP",
+                                          Value = "3"
+                                      }
+                                  })
+                                  .Value("1")
+                                  .ValueTemplate("<span>Currency in #= data.Text #</span>")
+                                  .HtmlAttributes(new { style = "width: 160px" })
+                                  
+                    ) 
+                </div>
+                <div class="profile-wrapper d-flex flex-column align-self-center" routerLink="/profile">
+                    <div class="profile-image"></div>
+                    <div class="text-white-50">Collin Johnson</div>
                 </div>
             </div>
         </nav>
@@ -46,9 +65,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - FinancePortfolio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="container-fluid footer text-center d-flex align-items-center">
+        <div class="w-100">
+            <span class="footer-copyright text-center">Copyright © 2019 Progress Software Corporation and/or its subsidiaries or affiliates.</span>
+            <span class="progress-logo d-inline-flex"></span>
         </div>
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

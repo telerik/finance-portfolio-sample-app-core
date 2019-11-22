@@ -1,0 +1,74 @@
+﻿.header {
+    height: 140px;
+    background: url('../../../assets/header-bg.svg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.header h1 {
+    padding-top: .5rem;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 200;
+    color: #FFF;
+}
+
+.header .profile-wrapper {
+    outline: none;
+    cursor: pointer;
+}
+
+.header .profile-image {
+    align-self: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-image: url('../../../assets/user.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.k-dropdown {
+    background: transparent;
+}
+.k-dropdown-wrap.k-state-default {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+.k-dropdown-wrap span {
+    color: rgba(255, 255, 255, .5);
+}
+
+.k-dropdown-wrap .k-input{
+    text-indent: 0.1em;
+}
+.k-dropdown :hover {
+    background: transparent;
+}
+
+
+    .k-dropdown :focus {
+        background: transparent;
+        border: none;
+    }
+
+.k-dropdown .k-dropdown-wrap .k-input {
+    font-size: 16px;
+    padding: 0;
+}
+
+.k-dropdown .k-select {
+    color: #FFF;
+}
+
+.k-popup {
+    padding: 0;
+}
+
+.k-popup .k-list .k-item.k-state-selected {
+    background: #E9ECEF;
+    color: #1C7CD5;
+}
+
+
+
