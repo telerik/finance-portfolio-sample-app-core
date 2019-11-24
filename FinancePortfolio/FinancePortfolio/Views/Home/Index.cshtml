@@ -2,9 +2,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@(Html.Kendo().Splitter()
+      .Name("vertical")
+      .Orientation(SplitterOrientation.Vertical)
+      .HtmlAttributes(new { style = "width: 100%;" })
+      .Panes(verticalPanes =>
+            {
+                verticalPanes.Add()
+                    .HtmlAttributes(new { id = "top-pane"})
+                    .Scrollable(false)
+                    .Collapsible(false)
+                    .Size("50%")
+                    .Content(@<div class="pane-content">
+                    <h3>Outer splitter / middle pane</h3>
+                    <p>Resizable only.</p>
+                    </div>);
 
-@Html.Kendo().DatePicker().Name("picker")
+                verticalPanes.Add()
+                    .HtmlAttributes(new { id = "bottom-pane" })
+                    .Scrollable(false)
+                    .Collapsible(false)
+                    .MinSize("300px")
+                    .Size("50%")
+                    .Content(@<div class="pane-content">
+                    <h3>Outer splitter / middle pane</h3>
+                    <p>Resizable only.</p>
+                    </div>);
+            })
+)
+
+<style>
+    html, body, .container , main, #vertical{
+        height:100%;
+    }
+
+    .container {
+        max-width: none;
+        padding: 0px;
+    }
+
+    #top-pane {
+        background-color: #FFF;
+    }
+</style>
