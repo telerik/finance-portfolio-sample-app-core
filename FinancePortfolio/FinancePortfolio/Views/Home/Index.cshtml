@@ -7,27 +7,21 @@
       .Orientation(SplitterOrientation.Vertical)
       .HtmlAttributes(new { style = "width: 100%;" })
       .Panes(verticalPanes =>
-            {
-                verticalPanes.Add()
-                    .HtmlAttributes(new { id = "top-pane"})
-                    .Scrollable(false)
-                    .Collapsible(false)
-                    .Size("50%")
-                    .Content(@<div class="pane-content">
-                    <h3>Outer splitter / middle pane</h3>
-                    <p>Resizable only.</p>
-                    </div>);
+      {
+          verticalPanes.Add()
+                  .HtmlAttributes(new { id = "top-pane" })
+                  .Scrollable(false)
+                  .Collapsible(false)
+                  .Size("50%")
+                  .LoadContentFrom("GetTopPaneContent", "Home");
 
-                verticalPanes.Add()
-                    .HtmlAttributes(new { id = "bottom-pane" })
-                    .Scrollable(false)
-                    .Collapsible(false)
-                    .MinSize("300px")
-                    .Size("50%")
-                    .Content(@<div class="pane-content">
-                    <h3>Outer splitter / middle pane</h3>
-                    <p>Resizable only.</p>
-                    </div>);
+          verticalPanes.Add()
+                .HtmlAttributes(new { id = "bottom-pane" })
+                .Scrollable(false)
+                .Collapsible(false)
+                .MinSize("300px")
+                .Size("50%")
+                .LoadContentFrom("GetBottomPaneContent", "Home");
             })
 )
 
