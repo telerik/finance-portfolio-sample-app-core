@@ -12,9 +12,10 @@ namespace FinancePortfolio.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly StockService service;
         public HomeController(ILogger<HomeController> logger)
         {
+            this.service = new StockService();
             _logger = logger;
         }
 
@@ -30,7 +31,9 @@ namespace FinancePortfolio.Controllers
 
         public IActionResult GetBottomPaneContent()
         {
-            return PartialView("BottomPane");
+            var data = service.GetPortfolioStocks();
+
+            return PartialView("BottomPane", data);
         }
 
         public IActionResult HeatMap()

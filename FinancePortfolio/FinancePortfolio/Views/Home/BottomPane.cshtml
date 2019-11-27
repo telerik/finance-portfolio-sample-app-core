@@ -1,8 +1,16 @@
 ﻿<div id="bottom-pane-content">
     Bottom pane
-    @Html.Partial("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
-</div>
+    @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
 
+    @model IEnumerable<Stock>
+
+    @{
+        foreach (var item in Model)
+        {
+            <div>@item.Name</div>
+        }
+    }
+</div>
 
 <style>
     #bottom-pane{
