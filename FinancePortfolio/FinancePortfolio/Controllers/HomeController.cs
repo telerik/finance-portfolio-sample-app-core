@@ -23,6 +23,26 @@ namespace FinancePortfolio.Controllers
             return View();
         }
 
+        public IActionResult GetTopPaneContent()
+        {
+            return PartialView("TopPane");
+        }
+
+        public IActionResult GetBottomPaneContent()
+        {
+            return PartialView("BottomPane");
+        }
+
+        public IActionResult HeatMap()
+        {
+            return View("HeatMap");
+        }
+
+        public IActionResult DataVirtualization()
+        {
+            return View("DataVirtualization");
+        }
+
         public IActionResult Privacy()
         {
             return View();

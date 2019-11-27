@@ -1,0 +1,53 @@
+﻿@model NavigationModel
+<script>
+    function onSelect(e) {
+        if (e.indices[0] === 0 && "@Html.Raw(Model.currentView)" !== "Home") {
+            return window.location.href = '@Url.Action("Index", "Home")';
+        }   
+        else if (e.indices[0] === 1 && "@Html.Raw(Model.currentView)" !=="HeatMap") {
+            return window.location.href = '@Url.Action("HeatMap", "Home")';
+        }  
+        else if (e.indices[0] === 2 && "@Html.Raw(Model.currentView)" !=="DataVirtualization") {
+            return window.location.href = '@Url.Action("DataVirtualization", "Home")';
+        }  
+    }
+</script>
+
+<div class="bottom-pane k-content">
+    @(Html.Kendo().ButtonGroup()
+       .Name("select-period")
+       .Index(Model.navigationIndex)
+       .Items(t =>
+       {
+           t.Add().Text("Result");
+           t.Add().Text("Heatmap View");
+           t.Add().Text("Data Virtualization");
+       })
+       .Events(e => e.Select("onSelect"))
+    )
+</div>
+
+
+
+<style>
+    .bottom-pane {
+        text-align: center;
+        background-color: transparent;
+    }
+
+    .k-button {
+        width: 150px;
+        text-transform: none;
+    }
+
+    .k-button-group {
+        margin-top: 15px;
+    }
+
+    .k-button-group .k-button.k-state-active {
+        background-color: #1C7CD5;
+        border-color: #1C7CD5;
+        color: #FFF;
+    }
+
+</style>
