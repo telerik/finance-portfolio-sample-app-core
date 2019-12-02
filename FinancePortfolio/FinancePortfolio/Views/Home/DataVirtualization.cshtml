@@ -3,7 +3,34 @@
     ViewData["Title"] = "DataVirtualization";
 }
 
-@Html.Partial("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
+@await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
 <h1>DataVirtualization</h1>
 
-
+@(Html.Kendo().Grid<FinancePortfolio.Models.GridStock>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Symbol).Width(90).Locked(true);
+            columns.Bound(p => p.Name).Width(120);
+            columns.Bound(p => p.StockExchangeShort).Title("Stock Name").Width(120);
+            columns.Bound(p => p.StockExchangeLong).Title("Full Name").Width(240);
+            columns.Bound(p => p.DayChange).Width(90).Title("Change");
+            columns.Bound(p => p.Price).Width(90);
+            columns.Bound(p => p.YearLow).Width(120).Format("{0:n2}");
+            columns.Bound(p => p.YearHigh).Width(120).Format("{0:n2}");
+            columns.Bound(p => p.Timezone).Width(90);
+            columns.Bound(p => p.TimezoneName).Width(180);
+            columns.Bound(p => p.Volume).Width(190);
+            columns.Bound(p => p.MarketCap).Width(220);
+        })
+        .Groupable()
+        .Pageable()
+        .Scrollable()
+        .Editable()
+        .HtmlAttributes(new { style = "height:100%;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read=>read.Action("Stocks_Read", "StockGrid"))
+            .PageSize(20)
+        )
+)
