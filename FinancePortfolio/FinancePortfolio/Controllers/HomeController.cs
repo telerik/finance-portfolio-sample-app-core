@@ -13,15 +13,22 @@ namespace FinancePortfolio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly StockService service;
+        private readonly StockDataGenerator generator;
         public HomeController(ILogger<HomeController> logger)
         {
             this.service = new StockService();
+            this.generator = new StockDataGenerator();
             _logger = logger;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult MyFunc(string symbol, DateTime start, DateTime end, int interval)
+        {
+            return new JsonResult(generator.GetStockIntervalDetails(symbol, start, end, interval));
         }
 
         public IActionResult GetTopPaneContent()

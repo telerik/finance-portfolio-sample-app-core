@@ -12,8 +12,8 @@ namespace FinancePortfolio.Interfaces
         public decimal Price { get; set; }
         public decimal DayChange { get; set; }
         public decimal ChangePct { get; set; }
-        public decimal Volumn { get; set; }
-        public decimal VolumnAvg { get; set; }
+        public decimal Volume { get; set; }
+        public decimal VolumeAvg { get; set; }
         public decimal MarketCap { get; set; }
         public decimal? Pe { get; set; } //price-to-earnings ratio
     }
