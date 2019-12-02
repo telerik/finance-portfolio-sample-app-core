@@ -5,14 +5,14 @@
 @(Html.Kendo().Splitter()
       .Name("vertical")
       .Orientation(SplitterOrientation.Vertical)
-      .HtmlAttributes(new { style = "width: 100%;" })
+      .HtmlAttributes(new { style = "width: 100%; height: 1400px;" })
       .Panes(verticalPanes =>
       {
           verticalPanes.Add()
                   .HtmlAttributes(new { id = "top-pane" })
                   .Scrollable(false)
                   .Collapsible(false)
-                  .Size("50%")
+                  .Size("30%")
                   .LoadContentFrom("GetTopPaneContent", "Home");
 
           verticalPanes.Add()
@@ -20,7 +20,7 @@
                 .Scrollable(false)
                 .Collapsible(false)
                 .MinSize("300px")
-                .Size("50%")
+                .Size("70%")
                 .LoadContentFrom("GetBottomPaneContent", "Home");
             })
 )

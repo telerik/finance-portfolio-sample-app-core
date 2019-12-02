@@ -33,7 +33,20 @@ namespace FinancePortfolio.Controllers
 
         public IActionResult GetTopPaneContent()
         {
+            
             return PartialView("TopPane");
+        }
+
+        public IActionResult GetChartData()
+        {
+            var list = service.GetPortfolioStocks();
+            return new JsonResult(list);
+        }
+
+        public IActionResult GetGridData()
+        {
+            var list = service.GetTreeMapStocks();
+            return new JsonResult(list);
         }
 
         public IActionResult GetBottomPaneContent()

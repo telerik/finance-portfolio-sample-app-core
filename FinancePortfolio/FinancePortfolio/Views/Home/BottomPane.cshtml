@@ -1,19 +1,137 @@
-﻿<div id="bottom-pane-content">
-    Bottom pane
-    @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
+﻿@*<div id="bottom-pane-content">
+        Bottom pane
+        @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
 
-    @model IEnumerable<Stock>
+        @model IEnumerable<Stock>
 
-    @{
-        foreach (var item in Model)
-        {
-            <div>@item.Name</div>
+        @{
+            foreach (var item in Model)
+            {
+                <div>@item.Name</div>
+            }
         }
-    }
+    </div>*@
+
+
+
+@await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
+
+<div class="container">
+    <div class="row py-4 d-flex justify-content-between">
+        <div class="col col-3 d-flex justify-content-start px-0">
+            @(Html.Kendo().DropDownList()
+                .Name("addNew")
+                .DataTextField("Symbol")
+                .DataValueField("Symbol")
+                .Filter("Contains")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("GetChartData", "Home");
+                    });
+                })
+                .Height(400)
+                .ValueTemplate("<span class=\"k-icon k-i-plus\"></span>" +
+                              "<span>Add new</span>"
+                              )
+                //.Template("<span class=\"k-state-default\" style=\"background-image: url(" + Url.Content("~/shared/web/Customers/") + "#:data.CustomerID#.jpg" + ");\" ></span>" +
+                 //         "<span class=\"k-state-default\"><h3>#: data.ContactName #</h3><p>#: data.CompanyName #</p></span>")
+                //.ValueTemplate("<span class=\"selected-value\" style=\"background-image: url(" + Url.Content("~/shared/web/Customers/") + "#:data.CustomerID#.jpg" + ");\" ></span>" + "<span>#:data.ContactName#</span>")
+            )
+            @(Html.Kendo().Button()
+                    .Name("button")
+                    .Icon("trash")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Remove"))
+        </div>
+    </div>
+
+    <div class="row">
+        @model IEnumerable<FinancePortfolio.Models.Stock>
+
+        @(Html.Kendo().Grid(Model)
+            .Name("Grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.Symbol);
+                columns.Bound(p => p.Name);
+                columns.Bound(p => p.Price);
+                columns.Bound(p => p.DayChange);
+                columns.Bound(p => p.ChangePct);
+                columns.Bound(p => p.Volumn);
+                columns.Bound(p => p.VolumnAvg);
+                columns.Bound(p => p.MarketCap);
+                columns.Bound(p => p.Pe);
+                columns.Bound(p => p.Intraday);
+            })
+            // .HtmlAttributes(new { style = "height: 550px;" })
+            .Sortable()
+            // .Scrollable(scr => scr.Height(430))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .ServerOperation(false)
+             )
+        )
+    </div>
 </div>
 
+<script>
+
+</script>
+
+
 <style>
-    #bottom-pane{
+    #Grid{
+        margin: auto;
+    }
+    .k-widget .k-dropdown {
+        padding-left: 0;
+        width: auto;
+    }
+
+    .k-dropdown-wrap {
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #373A3C;
+        padding: 8px;
+        width: 125px;
+        height: 40px;
+        align-items: center;
+    }
+
+    .k-select .k-icon {
+        color: #373A3C;
+    }
+
+    .k-i-arrow-s {
+        display: none;
+    }
+
+    .k-input .k-icon .k-i-plus {
+        margin-right: 4px;
+    }
+
+    .k-dropdown-wrap span {
+        color: black;
+    }
+    .k-dropdown-wrap:hover {
+        border-color: #e6e6e6;
+        background-color: #e6e6e6;
+    }
+
+
+    .k-widget .k-dropdown .k-dropdown-wrap {
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #373a3c;
+        padding: 8px;
+        width: 125px;
+        left: 30px;
+    }
+
+    #bottom-pane {
         height: 100%;
     }
 
@@ -22,4 +140,3 @@
         height: 100%;
     }
 </style>
-
