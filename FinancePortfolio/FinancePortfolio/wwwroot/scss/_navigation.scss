@@ -1,0 +1,18 @@
+@import "_variables.scss";
+
+.k-button {
+    width: $nav-button-width;
+
+    &.k-state-active {
+        color: $white;
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &.k-state-active {
+        background: $nav-button-active-bg;
+        border-color: $nav-button-active-bg;
+    }
+}

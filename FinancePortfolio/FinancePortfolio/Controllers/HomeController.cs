@@ -49,6 +49,13 @@ namespace FinancePortfolio.Controllers
             return new JsonResult(list);
         }
 
+        public JsonResult GetHeatMapData()
+        {
+            var list = service.GetTreeMapStocks();
+
+            return Json(new[] { new { Items = list } });
+        }
+
         public IActionResult GetBottomPaneContent()
         {
             var data = service.GetPortfolioStocks();
