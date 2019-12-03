@@ -3294,5 +3294,158 @@ a {
   .profile-wrapper div:last-child {
     display: none; } }
 
+.header {
+  height: 140px;
+  background: url("./../assets/header-bg.svg");
+  background-position: bottom;
+  background-repeat: no-repeat; }
+  .header h1 {
+    padding-top: 0.5rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 200;
+    color: #fff; }
+  .header .profile-wrapper {
+    outline: none;
+    cursor: pointer; }
+  .header .profile-image {
+    align-self: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-image: url("./../assets/user.jpg");
+    background-size: cover;
+    background-position: center; }
+  .header .profile-text {
+    color: rgba(255, 255, 255, 0.5); }
+  .header .k-widget.k-dropdown {
+    color: rgba(255, 255, 255, 0.5); }
+  .header .k-dropdown {
+    background-color: transparent;
+    border: none;
+    box-shadow: none; }
+    .header .k-dropdown .k-dropdown-wrap .k-input {
+      font-size: 16px;
+      padding: 0;
+      text-indent: 0em; }
+    .header .k-dropdown .k-dropdown-wrap {
+      /*background-color: transparent;
+            border-color: transparent;*/ }
+    .header .k-dropdown .k-input {
+      color: rgba(255, 255, 255, 0.5); }
+    .header .k-dropdown .k-select {
+      color: #fff; }
+    .header .k-dropdown .k-dropdown-wrap .k-state-default .k-state-hover {
+      color: rgba(255, 255, 255, 0.5);
+      border: 0px;
+      box-shadow: none; }
+    .header .k-dropdown .k-dropdown-wrap > hover {
+      border: none;
+      box-shadow: none; }
+    .header .k-dropdown .k-dropdown :focus {
+      background: transparent;
+      border: none; }
+    .header .k-dropdown .k-dropdown-wrap .k-state-focused {
+      box-shadow: 0px;
+      border: none; }
+    .header .k-dropdown .k-dropdown-wrap.k-state-default {
+      background-color: transparent;
+      border: none;
+      box-shadow: none; }
+  .header .k-popup {
+    padding: 0; }
+    .header .k-popup .k-list .k-item.k-state-selected {
+      background: #E9ECEF;
+      color: #1C7CD5; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background: url("../assets/footer-bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: blue;
+  z-index: 999;
+  font-size: 16px;
+  color: #fff; }
+  .footer .progress-logo {
+    width: 100px;
+    height: 20px;
+    vertical-align: middle;
+    background-image: url("./../assets/progress-logo.svg");
+    background-position: center;
+    background-repeat: no-repeat; }
+
+.k-splitter {
+  border-width: 0; }
+  .k-splitter .k-splitbar {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    background: none; }
+  .k-splitter .k-splitbar-draggable-vertical .k-resize-handle {
+    display: none; }
+  .k-splitter .k-pane:not(.k-pane-static) {
+    background-color: rgba(236, 238, 239, 0.5); }
+  .k-splitter .k-pane.splitter-upper-pane {
+    background-color: #fff; }
+
+.k-button {
+  width: 150px; }
+  .k-button.k-state-active {
+    color: #fff; }
+  .k-button:focus {
+    box-shadow: none; }
+  .k-button.k-state-active {
+    background: #1C7CD5;
+    border-color: #1C7CD5; }
+
+body {
+  background: rgba(236, 238, 239, 0.5); }
+
+.size-container {
+  margin-bottom: -35px; }
+
+.scale-wrap {
+  width: 385px; }
+
+.scale-blocks span {
+  width: 35px;
+  height: 18px; }
+
+.heatmap-container {
+  margin-bottom: 50px; }
+  .heatmap-container .py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important; }
+
+.heatmap {
+  margin-top: 70px; }
+
+.k-widget.k-treemap {
+  border-width: 0;
+  background-color: transparent; }
+  .k-widget.k-treemap .k-treemap-title {
+    display: none; }
+  .k-widget.k-treemap .k-treemap-tile {
+    background-color: transparent;
+    border-width: 0;
+    margin: 0; }
+
+.k-tooltip .k-tooltip-content {
+  padding: 6px 12px; }
+
+.k-tooltip .hm-symbol {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1C7CD5; }
+
+.k-tooltip .hm-symbol-long-name {
+  margin-bottom: 8px; }
+
+.k-tooltip .positive-value {
+  color: #5CB85C; }
+
+.k-tooltip .negative-value {
+  color: #D9534F; }
+
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif; }
