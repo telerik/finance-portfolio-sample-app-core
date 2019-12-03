@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/css/variables.min.css",
+    "inputFiles": [
+      "wwwroot/scss/variables.css"
+    ]
+  }
+]
