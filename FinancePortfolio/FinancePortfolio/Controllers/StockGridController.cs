@@ -17,9 +17,9 @@ namespace FinancePortfolio.Controllers
             this.generator = new StockDataGenerator();
         }
 
-        public ActionResult Stocks_Read([DataSourceRequest]DataSourceRequest request)
+        public ActionResult Stocks_Read([DataSourceRequest]DataSourceRequest request, string currency)
         {
-            return new JsonResult(generator.GetRandomStocks(2, true).ToDataSourceResult(request));
+            return new JsonResult(generator.GetRandomStocks(20, currency).ToDataSourceResult(request));
         }
     }
 }

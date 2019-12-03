@@ -20,7 +20,7 @@ namespace FinancePortfolio.Models
             this.rand = new Random();
         }
 
-        public IEnumerable<GridStock> GetRandomStocks(int count, bool initial)
+        public IEnumerable<GridStock> GetRandomStocks(int count, string currency)
         {
             ICollection<GridStock> list = new List<GridStock>();
 
@@ -33,7 +33,7 @@ namespace FinancePortfolio.Models
                     Id = i,
                     Symbol = symbol,
                     Name = symbol + " Inc.",
-                    // currency
+                    Currency = currency,
                     Price = price,
                     DayChange = 0,
                     StockExchangeLong = "New York Stock Exchange",
