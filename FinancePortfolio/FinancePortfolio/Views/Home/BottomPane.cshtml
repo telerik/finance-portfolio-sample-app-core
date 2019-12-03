@@ -54,19 +54,23 @@
             .Name("Grid")
             .Columns(columns =>
             {
-                columns.Bound(p => p.Symbol);
-                columns.Bound(p => p.Name);
-                columns.Bound(p => p.Price);
-                columns.Bound(p => p.DayChange);
-                columns.Bound(p => p.ChangePct);
-                columns.Bound(p => p.Volume);
-                columns.Bound(p => p.VolumeAvg);
-                columns.Bound(p => p.MarketCap);
-                columns.Bound(p => p.Pe);
-                columns.Bound(p => p.Intraday);
-            })
+            columns.Bound(p => p.Symbol);
+            columns.Bound(p => p.Name);
+            columns.Bound(p => p.Price);
+            columns.Bound(p => p.DayChange);
+            columns.Bound(p => p.ChangePct);
+            columns.Bound(p => p.Volume);
+            columns.Bound(p => p.VolumeAvg);
+            columns.Bound(p => p.MarketCap);
+            columns.Bound(p => p.Pe);
+            columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>");
+        })
             // .HtmlAttributes(new { style = "height: 550px;" })
             .Sortable()
+            .Events(e =>
+                          {
+                              e.DataBound("onDataBound");
+                          })
             // .Scrollable(scr => scr.Height(430))
             .DataSource(dataSource => dataSource
                 .Ajax()
@@ -77,9 +81,7 @@
     </div>
 </div>
 
-<script>
 
-</script>
 
 
 @*<style>

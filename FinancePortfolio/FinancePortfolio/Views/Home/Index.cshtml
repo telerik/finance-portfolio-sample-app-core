@@ -34,3 +34,64 @@
         background-color: #FFF;
     }
 </style>
+
+<script>
+    function onDataBound(e) {
+        var intradayCollection = [];
+        var data = this.dataSource.view();
+        $(data).each(function () {
+            intradayCollection.push(this.Intraday)
+        })
+        console.log("intradayCollection", intradayCollection)
+
+    $('.chart').each(function(i) {
+
+        var chart = $(this);
+
+        chart.kendoChart({
+            chartArea:{
+                background: "transparent"
+            },
+            dataSource: {
+                    data: data
+                },
+            legend: {
+                visible: false
+            },
+            seriesDefaults: {
+                type: "area",
+                labels: {
+                        visible: false,
+                        background: "transparent"
+                    }
+            },
+            series: [{
+                data: intradayCollection[i]
+            }],
+            valueAxis: {
+                line: {
+                    visible: false
+                },
+                majorGridLines: {
+                    visible: false
+                },
+                labels: {
+                    visible: false,
+                }
+            },
+            categoryAxis: {
+                line: {
+                    visible: false
+                },
+                majorGridLines: {
+                    visible: false,
+                }
+            },
+            tooltip: {
+                visible: true
+            }
+        });
+    });
+
+}
+</script>
