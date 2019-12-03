@@ -1,0 +1,83 @@
+@import "_variables.scss";
+
+.header {
+    height: $header-height;
+    background: url('./../assets/header-bg.svg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+
+    h1 {
+        padding-top: $header-title-padding;
+        font-family: $ubunto;
+        font-weight: $font-weight-200;
+        color: $white;
+    }
+
+    .profile-wrapper {
+        outline: none;
+        cursor: pointer;
+    }
+
+    .profile-image {
+        align-self: center;
+        width: $profile-image-width;
+        height: $profile-image-height;
+        border-radius: 50%;
+        background-image: url('./../assets/user.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .profile-text {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+
+    .k-widget.k-dropdown {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .k-dropdown {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+
+        .k-dropdown-wrap .k-input {
+            font-size: $dropdownlist-font-size;
+            padding: 0;
+            text-indent: 0em;
+        }
+
+        .k-dropdown-wrap {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .k-input {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .k-select {
+            color: $white;
+        }
+
+        .k-dropdown-wrap .k-state-hover {
+            color: $white-50;
+        }
+
+        .k-dropdown-wrap .k-state-focused {
+            box-shadow: none;
+        }
+    }
+
+    .k-popup {
+        padding: 0;
+
+        .k-list {
+            .k-item.k-state-selected {
+                background: $dropdownlist-item-selected-bg;
+                color: $dropdownlist-item-selected-text;
+            }
+        }
+    }
+}

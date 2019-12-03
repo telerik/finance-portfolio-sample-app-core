@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FinancePortfolio</title>
 
-    <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.material.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.aspnetmvc.min.js"></script>
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/css/bootstrap.css" />*@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/footer.css" />
-    <link rel="stylesheet" href="~/css/typography.css" />
-    <link rel="stylesheet" href="~/css/responsive.css" />
+    @*<link rel="stylesheet" href="~/css/responsive.css" />*@
     <link rel="stylesheet" href="~/css/splitter.css" />
 
 
@@ -56,7 +54,7 @@
                 </div>
                 <div class="profile-wrapper d-flex flex-column align-self-center" routerLink="/profile">
                     <div class="profile-image"></div>
-                    <div class="text-white-50">Collin Johnson</div>
+                    <div class="profile-text">Collin Johnson</div>
                 </div>
             </div>
         </nav>
@@ -73,7 +71,7 @@
             <span class="progress-logo d-inline-flex"></span>
         </div>
     </footer>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
