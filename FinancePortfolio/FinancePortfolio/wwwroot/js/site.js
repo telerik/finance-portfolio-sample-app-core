@@ -5,7 +5,7 @@
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
 
 function onChange(e) {
-    $("#stocksGrid").getKendoGrid().dataSource.read();
+    //$("#stocksGrid").getKendoGrid().dataSource.read();
 }
 
 function additionalData(e) {

@@ -3,6 +3,7 @@
         <div class="col col-4 d-flex daterange-input-wrap">
             @(Html.Kendo().DateRangePicker()
             .Name("daterangepicker")
+            .Max(DateTime.Today)
             .Labels(false)
             .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
             )
@@ -40,14 +41,15 @@
               }
           })
           .Value("1")
-          .HtmlAttributes(new { style = "width: 30%" })
+          .HtmlAttributes(new { style = "width: 40%" })
             )
 
             @(Html.Kendo().DropDownList()
           .Name("dropdown-list-selection")
           .DataTextField("Text")
           .DataValueField("Value")
-          .Template("<span><img src='/assets/#: Value #.png' alt='#: Text #' />#: Text #</span>")
+          .ValueTemplate("<span><img src='/assets/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
+          .Template("<span><img src='/assets/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
           //.Events(e => e.Change("change"))
           .BindTo(new List<SelectListItem>() {
               new SelectListItem() {
@@ -64,7 +66,7 @@
               }
           })
           .Value("1")
-          .HtmlAttributes(new { style = "width: 30%" })
+          .HtmlAttributes(new { style = "width: 40%" })
             )
         </div>
     </div>

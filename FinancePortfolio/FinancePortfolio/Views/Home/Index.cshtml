@@ -5,7 +5,7 @@
 @(Html.Kendo().Splitter()
       .Name("vertical")
       .Orientation(SplitterOrientation.Vertical)
-      .HtmlAttributes(new { style = "width: 100%; height: 1400px;" })
+      .HtmlAttributes(new { style = "width: 100%; height: 1600px;" })
       .Panes(verticalPanes =>
       {
           verticalPanes.Add()
@@ -112,5 +112,16 @@
             //e.sender.dataSource.data(e.sender.dataSource.data().splice(e.sender.select(), 1));
             grid.dataSource.insert(item, 0);
         }
+    }
+
+    function currency(data) {
+        var currency = $("#currency").data("kendoDropDownList").value();
+          if(currency == 1 ){
+            return kendo.toString(data.Price, "$###.##")  
+        }
+          if (currency == 2) {
+          return kendo.toString(data.Price, "€###.##")
+        }
+          return kendo.toString(data.Price, "£###.##")
     }
 </script>
