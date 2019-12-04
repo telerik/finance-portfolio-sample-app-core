@@ -39,7 +39,7 @@ namespace FinancePortfolio.Controllers
 
         public IActionResult GetChartData()
         {
-            var list = service.GetPortfolioStocks();
+            var list = service.GetUncategorizedStocks();
             return new JsonResult(list);
         }
 

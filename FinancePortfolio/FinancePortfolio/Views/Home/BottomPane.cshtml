@@ -30,30 +30,28 @@
                     {
                         read.Action("GetChartData", "Home");
                     });
+                    source.ServerFiltering(false);
                 })
                 .Height(400)
+                .Events(e => e.Change("addStock"))
                 .ValueTemplate("<span class=\"k-icon k-i-plus\"></span>" +
-                              "<span>Add new</span>"
-                              )
-                //.Template("<span class=\"k-state-default\" style=\"background-image: url(" + Url.Content("~/shared/web/Customers/") + "#:data.CustomerID#.jpg" + ");\" ></span>" +
-                 //         "<span class=\"k-state-default\"><h3>#: data.ContactName #</h3><p>#: data.CompanyName #</p></span>")
-                //.ValueTemplate("<span class=\"selected-value\" style=\"background-image: url(" + Url.Content("~/shared/web/Customers/") + "#:data.CustomerID#.jpg" + ");\" ></span>" + "<span>#:data.ContactName#</span>")
+                              "<span>Add new</span>")
             )
             @(Html.Kendo().Button()
                     .Name("button")
                     .Icon("trash")
                     .HtmlAttributes(new { type = "button" })
+                    .Events(ev => ev.Click("removeRow"))
                     .Content("Remove"))
         </div>
     </div>
 
     <div class="row">
-        @model IEnumerable<FinancePortfolio.Models.Stock>
-
-        @(Html.Kendo().Grid(Model)
+        @(Html.Kendo().Grid<FinancePortfolio.Models.Stock>()
             .Name("Grid")
             .Columns(columns =>
             {
+                columns.Select().Width(30);
                 columns.Bound(p => p.Symbol);
                 columns.Bound(p => p.Name);
                 columns.Bound(p => p.Price);
@@ -65,15 +63,18 @@
                 columns.Bound(p => p.Pe);
                 columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>");
             })
+            .Editable(c=>c.DisplayDeleteConfirmation(true))
             // .HtmlAttributes(new { style = "height: 550px;" })
             .Sortable()
             .Events(e =>
-            {
-                e.DataBound("onDataBound");
-            })
-            // .Scrollable(scr => scr.Height(430))
+                          {
+                              e.DataBound("onDataBound");
+                          })
+            //git pull.Scrollable(scr => scr.Height(600))
             .DataSource(dataSource => dataSource
                 .Ajax()
+                .Model(m => m.Id(id=>id.Symbol))
+                .Read(read => read.Action("ReadGridData", "Grid"))
                 .PageSize(20)
                 .ServerOperation(false)
              )
@@ -81,9 +82,22 @@
     </div>
 </div>
 
+<script>
+
+</script>
 
 
-
+<style>
+    #Grid {
+        border-width: 0;
+    }
+    .k-grid tr td {
+        border-width: 0;
+    }
+    #grid thead tr th {
+        border-width: 0;
+    }
+</style>
 @*<style>
     #Grid{
         margin: auto;

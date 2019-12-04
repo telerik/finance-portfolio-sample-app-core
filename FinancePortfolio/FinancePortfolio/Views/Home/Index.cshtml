@@ -42,56 +42,75 @@
         $(data).each(function () {
             intradayCollection.push(this.Intraday)
         })
-        console.log("intradayCollection", intradayCollection)
 
-    $('.chart').each(function(i) {
+        $('.chart').each(function (i) {
 
-        var chart = $(this);
+            var chart = $(this);
 
-        chart.kendoChart({
-            chartArea:{
-                background: "transparent"
-            },
-            dataSource: {
+            chart.kendoChart({
+                chartArea: {
+                    background: "transparent"
+                },
+                dataSource: {
                     data: data
                 },
-            legend: {
-                visible: false
-            },
-            seriesDefaults: {
-                type: "area",
-                labels: {
+                legend: {
+                    visible: false
+                },
+                seriesDefaults: {
+                    type: "area",
+                    labels: {
                         visible: false,
                         background: "transparent"
                     }
-            },
-            series: [{
-                data: intradayCollection[i]
-            }],
-            valueAxis: {
-                line: {
-                    visible: false
                 },
-                majorGridLines: {
-                    visible: false
+                series: [{
+                    data: intradayCollection[i]
+                }],
+                valueAxis: {
+                    line: {
+                        visible: false
+                    },
+                    majorGridLines: {
+                        visible: false
+                    },
+                    labels: {
+                        visible: false,
+                    }
                 },
-                labels: {
-                    visible: false,
+                categoryAxis: {
+                    line: {
+                        visible: false
+                    },
+                    majorGridLines: {
+                        visible: false,
+                    }
+                },
+                tooltip: {
+                    visible: true
                 }
-            },
-            categoryAxis: {
-                line: {
-                    visible: false
-                },
-                majorGridLines: {
-                    visible: false,
-                }
-            },
-            tooltip: {
-                visible: true
-            }
+            });
         });
-    });
 
-}
+    }
+
+    function removeRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        grid.dataSource.remove(selectedItem)
+
+        $("#addNew").data("kendoDropDownList").dataSource.data().unshift(selectedItem);
+        $("#addNew").data("kendoDropDownList").dataSource.data()
+    }
+
+    function addStock(e) {
+        var grid = $("#Grid").data("kendoGrid");
+        if (e.sender.select() != -1) {
+            var item = e.sender.dataSource.data()[e.sender.select()].toJSON();
+            e.sender.dataSource.remove(e.sender.dataSource.data()[e.sender.select()]);
+            //e.sender.dataSource.data().splice(e.sender.select(), 1)
+            //e.sender.dataSource.data(e.sender.dataSource.data().splice(e.sender.select(), 1));
+            grid.dataSource.insert(item, 0);
+        }
+    }
 </script>
