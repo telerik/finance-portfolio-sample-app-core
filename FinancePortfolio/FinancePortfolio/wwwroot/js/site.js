@@ -5,7 +5,7 @@
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
 
 function onChange(e) {
-    //$("#stocksGrid").getKendoGrid().dataSource.read();
+    $("#stocksGrid").getKendoGrid().dataSource.read();
 }
 
 function additionalData(e) {
@@ -29,4 +29,14 @@ function changeTemplate(dataItem) {
     var color = dataItem.DayChange == 0 ? "none" : (dataItem.Price > 0 ? "green" : "red");
 
     return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
+}
+
+function additionalChartData() {
+    debugger
+    return {
+        symbol: "AAN",
+        start: new Date(2019, 7, 10).toUTCString(),
+        end: new Date(2019, 7, 14).toUTCString(),
+        interval: 15
+    }
 }
