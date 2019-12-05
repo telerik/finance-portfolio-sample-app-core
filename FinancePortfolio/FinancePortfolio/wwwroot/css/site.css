@@ -3447,5 +3447,50 @@ body {
 .k-tooltip .negative-value {
   color: #D9534F; }
 
+h1 {
+  font-family: "Ubuntu", sans-serif; }
+
+td {
+  padding: 8px 12px 8px 0; }
+
+td:last-of-type {
+  font-weight: bold; }
+
+.green {
+  color: #5CB85C; }
+
+.red {
+  color: #D9534F; }
+
+.current-value {
+  font-size: 1em; }
+
+.symbol-col {
+  color: #007BFF; }
+
+.k-icon {
+  cursor: pointer;
+  outline: none; }
+  .k-icon.icon-close {
+    background: url("./../assets/cross-out.svg") center no-repeat;
+    width: 38px;
+    height: 38px; }
+
+.profile-stocks-grid {
+  border-width: 1px; }
+
+.user-profile-wrapper {
+  max-width: 210px; }
+  .user-profile-wrapper .profile-image {
+    align-self: center;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background-image: url("./../assets/user.jpg");
+    background-size: cover;
+    background-position: center; }
+  .user-profile-wrapper h3 {
+    font-size: 1.8em; }
+
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif; }

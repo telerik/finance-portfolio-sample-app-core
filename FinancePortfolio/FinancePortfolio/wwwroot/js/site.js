@@ -50,6 +50,10 @@ function changeTemplate(dataItem) {
     return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
 }
 
+
+function onProfileClick() {
+    window.location.href = '/Home/Profile';
+}
 function additionalChartData() {
     return {
         symbol: "AAN",
