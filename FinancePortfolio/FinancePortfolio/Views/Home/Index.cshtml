@@ -114,14 +114,4 @@
         }
     }
 
-    function currency(data) {
-        var currency = $("#currency").data("kendoDropDownList").value();
-          if(currency == 1 ){
-            return kendo.toString(data.Price, "$###.##")  
-        }
-          if (currency == 2) {
-          return kendo.toString(data.Price, "€###.##")
-        }
-          return kendo.toString(data.Price, "£###.##")
-    }
 </script>

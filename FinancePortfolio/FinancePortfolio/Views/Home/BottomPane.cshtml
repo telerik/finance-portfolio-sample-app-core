@@ -54,9 +54,9 @@
                 columns.Select().Width(30);
                 columns.Bound(p => p.Symbol);
                 columns.Bound(p => p.Name);
-                columns.Bound(p => p.Price).ClientTemplate("<strong>#= currency(data)# </strong>");
-                columns.Bound(p => p.DayChange);
-                columns.Bound(p => p.ChangePct);
+                columns.Bound(p => p.Price).ClientTemplate("<strong>#= currencyTemplate(data)# </strong>");
+                columns.Bound(p => p.DayChange).ClientTemplate("#= dayChangeTemplate(data)#");
+                columns.Bound(p => p.ChangePct).ClientTemplate("#= dayChangePctTemplate(data)#");
                 columns.Bound(p => p.Volume);
                 columns.Bound(p => p.VolumeAvg);
                 columns.Bound(p => p.MarketCap);

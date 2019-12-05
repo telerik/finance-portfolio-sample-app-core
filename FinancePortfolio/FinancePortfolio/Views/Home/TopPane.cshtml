@@ -73,36 +73,48 @@
 
     <div class="row">
         <div class="col">
-            @(Html.Kendo().StockChart<FinancePortfolio.Models.TreeMapStock>()
-        .Name("stockChart")
-        .DataSource(ds => ds.Read(read => read
-            .Action("GetChartData", "Home")
-        ))
-        .DateField("LastTradeTime")
-        .Panes(panes =>
-        {
-            panes.Add().Title("Value");
-            panes.Add("volumePane").Title("Volume").Height(150);
-        })
-        .CategoryAxis(axis => axis.Pane("LastTradeTime"))
-        .ValueAxis(axis => axis.Numeric().Line(line => line.Visible(false)))
-        //.ValueAxis(axis => axis.Numeric("volumeAxis").Pane("volumePane").Visible(false))
-            .Series(series =>
-            {
-                series.Candlestick(s => s.PriceOpen, s => s.DayHigh, s => s.DayLow, s => s.CloseYesterday).Aggregate(c=>c.Open(ChartSeriesAggregate.Min).High(ChartSeriesAggregate.Max).Low(ChartSeriesAggregate.Min).Close(ChartSeriesAggregate.Max));
-            //series.Column(s => s.Volume).Axis("volumeAxis")
-            //        .Tooltip(tooltip => tooltip.Format("{0:C0}"));
-            })
-            //.Navigator(nav => nav
-            //    .Series(series =>
-            //    {
-            //        series.Area(s => s.Close);
-            //    })
-            //    .Select(
-            //        DateTime.Parse("2009/02/05"),
-            //        DateTime.Parse("2011/10/07")
-            //    )
-            //)
+            @(Html.Kendo().StockChart<FinancePortfolio.Models.StockIntervalDetails>()
+                .Name("stockChart")
+                .DataSource(ds =>
+                    ds.Read(read => read.Action("MyFunc", "Home").Data("additionalChartData")
+                ))
+                .DateField("Date")
+                .CategoryAxis(axis => axis
+                    .Field("Date")
+                    .BaseUnitStep(1)
+                    .BaseUnit(ChartAxisBaseUnit.Hours)
+                    .Crosshair(xh => xh.Visible(true))
+                    .MaxDateGroups(20)
+                    .MinorGridLines(mgl => mgl.Visible(true))
+                    .MajorGridLines(mgl => mgl.Visible(true))
+                    .BaseUnit(ChartAxisBaseUnit.Hours)
+                    .BaseUnitStep(1)
+            )
+                .ValueAxis(axis => axis.Name("volume").Min(0))
+                // .ValueAxis(axis => axis.Numeric().Line(line => line.Visible(false)))
+                //.ValueAxis(axis => axis.Numeric("volumeAxis").Pane("volumePane").Visible(false))
+                .Series(series =>
+                {
+                    series.Candlestick(s => s.Open, s => s.High, s => s.Low, s => s.Close)
+                        .Aggregate(c => c.Open(ChartSeriesAggregate.Min).High(ChartSeriesAggregate.Max).Low(ChartSeriesAggregate.Min).Close(ChartSeriesAggregate.Max))
+                        .Border(b => b.Color("transparent"))
+                        .Color("#5CB85C")
+                        .DownColor("#D9534F")
+                        //.Axis("Close")
+                        .OpenField("Open")
+                        .CloseField("Close")
+                        .HighField("High")
+                        .Gap(0.75);
+                    //series.Column(s => s.Volume).Axis("Volume");
+                    //    .CategoryField("Date");
+
+                })
+                .Navigator(nav => nav
+                .Series(series =>
+                {
+                    series.Area(s => s.Close).CategoryField("Date").Aggregate(ChartSeriesAggregate.Avg);
+                })
+                )
             )
         </div>
     </div>
@@ -113,7 +125,10 @@
 
     $("#timeFilter li span").click(function () {
        $($(this)).css('font-weight', 'bold');
-});
+    });
+
+
+
 </script>
 
 <style>
