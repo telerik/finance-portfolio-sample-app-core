@@ -95,8 +95,7 @@
                 //.ValueAxis(axis => axis.Numeric("volumeAxis").Pane("volumePane").Visible(false))
                 .Series(series =>
                 {
-                    series
-                        .Candlestick(s => s.Open, s => s.High, s => s.Low, s => s.Close)
+                    series.Candlestick(s => s.Open, s => s.High, s => s.Low, s => s.Close)
                         .Aggregate(c => c.Open(ChartSeriesAggregate.Min).High(ChartSeriesAggregate.Max).Low(ChartSeriesAggregate.Min).Close(ChartSeriesAggregate.Max))
                         .Border(b => b.Color("transparent"))
                         .Color("#5CB85C")
@@ -106,9 +105,9 @@
                         .CloseField("Close")
                         .HighField("High")
                         .Gap(0.75);
+                    //series.Column(s => s.Volume).Axis("Volume");
+                    //    .CategoryField("Date");
 
-                    //series.Column(s => s.Volume).Axis("volumeAxis")
-                    //       .Tooltip(tooltip => tooltip.Format("{0:C0}"));
                 })
                 .Navigator(nav => nav
                 .Series(series =>
