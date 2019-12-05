@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container py-5">
+    <div class="col d-flex justify-content-between align-items-center py-5">
+        <h1>My Portfolio</h1>
+        <span routerLink="/stocks" class="k-icon icon-close"></span>
+    </div>
+    <div class=" row d-flex justify-content-between pt-5">
+        <div class="col col-3">
+            <div class="user-profile-wrapper d-flex flex-column align-self-end">
+                <div class="profile-image"></div>
+                <h3 class="pt-4 pb-5">Collin Johnson</h3>
+            </div>
+            <table>
+                <tr>
+                    <td>CURRENT VALUE:</td>
+                    <td class="current-value">$1694.88</td>
+                </tr>
+                <tr>
+                    <td>24H CHANGE:</td>
+                    <td class="green">$20</td>
+                </tr>
+                <tr>
+                    <td>% CHANGE:</td>
+                    <td class="green">+1.2%</td>
+                </tr>
+                <tr>
+                    <td>TOTAL COST:</td>
+                    <td>$9.185</td>
+                </tr>
+                <tr>
+                    <td>TOTAL PROFIT:</td>
+                    <td class="red">-$2.638</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col user-data">
+            @(Html.Kendo().Grid<Stock>()
+                        .Name("grid-profile")
+                        .HtmlAttributes(new { @class = "profile-stocks-grid" })
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.Symbol);
+                            columns.Bound(p => p.Name).Width(240);
+                            columns.Bound(p => p.Price).Width(100);
+
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(20)
+                            .Read(read => read.Action("GetProfileData", "Home"))
+                         )
+            )
+        </div>
+        <div class="col col-5 pb-5">
+            @(Html.Kendo().Chart<Stock>()
+                 .Name("chart")
+                 .Legend(legend => legend
+                     .Visible(true)
+                     .Position(ChartLegendPosition.Bottom)
+                 )
+                 .ChartArea(chart => chart
+                     .Background("transparent")
+                  )
+                 .DataSource(ds => ds.Read("GetProfileDataChart", "Home"))
+
+                 .Series(series => series
+                     .Pie(model => model.Price, model => model.Name)
+                 //.Labels(labels => labels
+                 //    .Template("#= category #: \n $#= value#")
+                 //    .Background("transparent")
+                 //    .Visible(true)
+                 //)
+                 .StartAngle(150)
+                 )
+                 .Tooltip(tooltip => tooltip
+                     .Visible(true)
+                     .Format("${0}")
+                 )
+            )
+        </div>
+    </div>
+</div>
+<style>
+    header, footer {
+        display:none;
+    }
+</style>

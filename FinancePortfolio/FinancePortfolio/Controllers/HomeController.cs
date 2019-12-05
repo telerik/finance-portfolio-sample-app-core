@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FinancePortfolio.Models;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace FinancePortfolio.Controllers
 {
@@ -56,6 +58,40 @@ namespace FinancePortfolio.Controllers
             return Json(new[] { new { Items = list } });
         }
 
+        public JsonResult GetProfileData([DataSourceRequest] DataSourceRequest request)
+        {
+            var list = new List<Stock>();
+            list.Add(new Stock() { Symbol = "AAN", Name = "Aaron's, Inc.", Price = 76.61M });
+            list.Add(new Stock() { Symbol = "AAPL", Name = "Apple Inc.", Price = 246.58M });
+            list.Add(new Stock() { Symbol = "ACN", Name = "Accenture plc", Price = 183.07M });
+            list.Add(new Stock() { Symbol = "ADBE", Name = "Adobe Inc.", Price = 270.98M });
+            list.Add(new Stock() { Symbol = "AGM", Name = "Federal Agricultural Mortgage Corporation", Price = 84.57M });
+            list.Add(new Stock() { Symbol = "AMZN", Name = "Amazon.com, Inc.", Price = 1779.99M });
+            list.Add(new Stock() { Symbol = "ASML", Name = "ASML Holding N.V.	", Price = 263.99M });
+            list.Add(new Stock() { Symbol = "AVGO", Name = "Broadcom Inc.", Price = 289.82M }); 
+            list.Add(new Stock() { Symbol = "BNPQY", Name = "BNP Paribas SA", Price = 26.43M });
+            list.Add(new Stock() { Symbol = "CACC", Name = "Credit Acceptance Corporation", Price = 439.20M });
+            return Json(list.ToDataSourceResult(request));
+        }
+
+        public JsonResult GetProfileDataChart([DataSourceRequest] DataSourceRequest request)
+        {
+            var list = new Stock[] {
+            new Stock() { Symbol = "AAN", Name = "Aaron's, Inc.", Price = 76.61M },
+            new Stock() { Symbol = "AAPL", Name = "Apple Inc.", Price = 246.58M },
+            new Stock() { Symbol = "ACN", Name = "Accenture plc", Price = 183.07M },
+            new Stock() { Symbol = "ADBE", Name = "Adobe Inc.", Price = 270.98M },
+            new Stock() { Symbol = "AGM", Name = "Federal Agricultural Mortgage Corporation", Price = 84.57M },
+            new Stock() { Symbol = "AMZN", Name = "Amazon.com, Inc.", Price = 1779.99M },
+            new Stock() { Symbol = "ASML", Name = "ASML Holding N.V.	", Price = 263.99M },
+            new Stock() { Symbol = "AVGO", Name = "Broadcom Inc.", Price = 289.82M },
+            new Stock() { Symbol = "BNPQY", Name = "BNP Paribas SA", Price = 26.43M },
+            new Stock() { Symbol = "CACC", Name = "Credit Acceptance Corporation", Price = 439.20M }
+            };
+
+            return Json(list);
+        }
+
         public IActionResult GetBottomPaneContent()
         {
             var data = service.GetPortfolioStocks();
@@ -66,6 +102,10 @@ namespace FinancePortfolio.Controllers
         public IActionResult HeatMap()
         {
             return View("HeatMap");
+        }
+        public IActionResult Profile()
+        {
+            return View("Profile");
         }
 
         public IActionResult DataVirtualization()
