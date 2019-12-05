@@ -47,7 +47,7 @@ function dayChangePctTemplate(data) {
 function changeTemplate(dataItem) {
     var color = dataItem.DayChange == 0 ? "none" : (dataItem.Price > 0 ? "green" : "red");
 
-    return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
+    return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00") + "%</span>";
 }
 
 function onProfileClick() {
