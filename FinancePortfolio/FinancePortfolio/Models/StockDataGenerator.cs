@@ -135,7 +135,9 @@ namespace FinancePortfolio.Models
                 var newPrice = previousInterval.Close + change;
                 var high = Math.Max(newPrice, previousInterval.Close);
                 var low = Math.Min(newPrice, previousInterval.Close);
-
+                TimeSpan time = TimeSpan.FromMilliseconds(dateInMs);
+                DateTime date = new DateTime(1970, 1, 1) + time;
+                
                 data.Add(new StockIntervalDetails
                 {
                     Open = Math.Round(previousInterval.Close, 2),
@@ -143,7 +145,7 @@ namespace FinancePortfolio.Models
                     High = Math.Round(high + (0.015m * high), 2),
                     Low = Math.Round(low + (0.015m * low), 2),
                     Volume = GetStocksTradeVolume(previousInterval.Volume),
-                    Date = new DateTime(dateInMs)
+                    Date = date
                 });
             }
 
