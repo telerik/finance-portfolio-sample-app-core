@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinancePortfolio.Hubs;
+using FinancePortfolio.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,13 @@ namespace FinancePortfolio
                     .AddNewtonsoftJson(options =>
                             options.SerializerSettings.ContractResolver =
                                 new DefaultContractResolver());
+
+            services.AddSignalR()
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+                });
+            services.AddHostedService<StockGridService>();
 
             services.AddKendo();
             services.AddControllersWithViews();
@@ -58,6 +67,8 @@ namespace FinancePortfolio
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<StockHub>("/stockHub");
             });
         }
     }

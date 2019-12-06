@@ -6,6 +6,15 @@
     @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
     <h1>DataVirtualization</h1>
 
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/stockHub").build();
+
+    connection.on("Read", function (list) {
+        $("#stocksGrid").data("kendoGrid").dataSource.data(list);
+    });
+    var hubStart = connection.start();
+</script>
+
     @(Html.Kendo().Grid<FinancePortfolio.Models.GridStock>()
             .Name("stocksGrid")
             .Columns(columns =>
@@ -29,9 +38,14 @@
             .Editable()
             .HtmlAttributes(new { style = "height:100%;" })
             .DataSource(dataSource => dataSource
-                .Ajax()
-                .Read(read => read.Action("Stocks_Read", "StockGrid").Data("additionalData"))
-                .PageSize(20)
+                .SignalR()
+                .AutoSync(true)
+                .Transport(t=>t
+                    .Hub("connection")
+                    .Promise("hubStart")
+                    .Server(s=>s.Read("Read"))
+                )
+                .PageSize(12)
             )
     )
 </div>
