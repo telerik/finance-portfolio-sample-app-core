@@ -50,6 +50,27 @@ function changeTemplate(dataItem) {
     return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
 }
 
+function numbersTemplate(data, fieldName) {
+
+    return formatCurrency(data[fieldName])
+}
+
+function formatCurrency (value) {
+    if (value >= 1000000000) {
+        return (value / 1000000000).toFixed(3) + 'B';
+    }
+
+    if (value >= 1000000) {
+        return (value / 1000000).toFixed(3) + 'M';
+    }
+
+    if (value >= 1000) {
+        return (value / 1000).toFixed(3) + 'K';
+    }
+
+    return value;
+};
+
 
 function onProfileClick() {
     window.location.href = '/Home/Profile';
@@ -65,12 +86,4 @@ function additionalChartData() {
 
 function showDeletBttnOnChange() {
     return $('#removeButton').css('visibility') == 'visible' ? $("#removeButton").css("visibility", "hidden") : $("#removeButton").css("visibility", "visible")
-    //if ($('#removeButton').css('visibility') == 'visible') {
-    //    console.log(2)
-    //    $("#removeButton").css("visibility", "hidden");
-    //} else {
-    //    $("#removeButton").css("visibility", "visible");
-    //    console.log(1)
-    //}
-
 }

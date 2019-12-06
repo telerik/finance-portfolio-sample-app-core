@@ -57,9 +57,9 @@
                 columns.Bound(p => p.Price).ClientTemplate("<strong>#= currencyTemplate(data)# </strong>");
                 columns.Bound(p => p.DayChange).ClientTemplate("#= dayChangeTemplate(data)#");
                 columns.Bound(p => p.ChangePct).ClientTemplate("#= dayChangePctTemplate(data)#");
-                columns.Bound(p => p.Volume);
-                columns.Bound(p => p.VolumeAvg);
-                columns.Bound(p => p.MarketCap);
+                columns.Bound(p => p.Volume).ClientTemplate("#= numbersTemplate(data, 'Volume')#");
+                columns.Bound(p => p.VolumeAvg).ClientTemplate("#= numbersTemplate(data, 'VolumeAvg')#");
+                columns.Bound(p => p.MarketCap).ClientTemplate("#= numbersTemplate(data, 'MarketCap')#").Format("");
                 columns.Bound(p => p.Pe);
                 columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>");
             })
