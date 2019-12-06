@@ -40,8 +40,8 @@ function dayChangeTemplate(data) {
     return "<span style='color: " + color + "'>" + kendo.toString(data.DayChange, "0.00") + "</span>";
 }
 function dayChangePctTemplate(data) {
-    var color = data.DayChange == 0 ? "none" : (data.DayChange > 0 ? "green" : "red");
-    return "<span style='color: " + color + "'>" + kendo.toString(data.DayChange, "0.00") + "%</span>";
+    var color = data.ChangePct == 0 ? "none" : (data.ChangePct > 0 ? "green" : "red");
+    return "<span style='color: " + color + "'>" + kendo.toString(data.ChangePct, "0.00") + "%</span>";
 }
 
 function changeTemplate(dataItem) {
@@ -61,4 +61,16 @@ function additionalChartData() {
         end: new Date(2019, 7, 14).toUTCString(),
         interval: 15
     }
+}
+
+function showDeletBttnOnChange() {
+    return $('#removeButton').css('visibility') == 'visible' ? $("#removeButton").css("visibility", "hidden") : $("#removeButton").css("visibility", "visible")
+    //if ($('#removeButton').css('visibility') == 'visible') {
+    //    console.log(2)
+    //    $("#removeButton").css("visibility", "hidden");
+    //} else {
+    //    $("#removeButton").css("visibility", "visible");
+    //    console.log(1)
+    //}
+
 }

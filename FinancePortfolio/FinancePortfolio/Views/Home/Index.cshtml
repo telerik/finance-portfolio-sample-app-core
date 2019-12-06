@@ -33,6 +33,10 @@
     #top-pane {
         background-color: #FFF;
     }
+
+    #removeButton {
+        visibility: hidden;
+    }
 </style>
 
 <script>
@@ -101,6 +105,8 @@
 
         $("#addNew").data("kendoDropDownList").dataSource.data().unshift(selectedItem);
         $("#addNew").data("kendoDropDownList").dataSource.data()
+        $("#removeButton").css("visibility", "hidden");
+
     }
 
     function addStock(e) {

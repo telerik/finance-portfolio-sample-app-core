@@ -38,9 +38,9 @@
                               "<span>Add new</span>")
             )
             @(Html.Kendo().Button()
-                    .Name("button")
+                    .Name("removeButton")
                     .Icon("trash")
-                    .HtmlAttributes(new { type = "button" })
+                    .HtmlAttributes(new { type = "button"  })
                     .Events(ev => ev.Click("removeRow"))
                     .Content("Remove"))
         </div>
@@ -64,13 +64,12 @@
                 columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>");
             })
             .Editable(c=>c.DisplayDeleteConfirmation(true))
-            // .HtmlAttributes(new { style = "height: 550px;" })
             .Sortable()
             .Events(e =>
                           {
                               e.DataBound("onDataBound");
+                              e.Change("showDeletBttnOnChange");
                           })
-            //git pull.Scrollable(scr => scr.Height(600))
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .Model(m => m.Id(id=>id.Symbol))
@@ -82,10 +81,6 @@
     </div>
 </div>
 
-<script>
-
-</script>
-
 
 <style>
     #Grid {
@@ -94,65 +89,8 @@
     .k-grid tr td {
         border-width: 0;
     }
-    #grid thead tr th {
+    .k-grid-header th.k-header {
         border-width: 0;
     }
 </style>
-@*<style>
-    #Grid{
-        margin: auto;
-    }
-    .k-widget .k-dropdown {
-        padding-left: 0;
-        width: auto;
-    }
 
-    /*.k-dropdown-wrap {
-        border: 1px solid #ddd;
-        background: #fff;
-        color: #373A3C;
-        padding: 8px;
-        width: 125px;
-        height: 40px;
-        align-items: center;
-    }*/
-
-    .k-select .k-icon {
-        color: #373A3C;
-    }
-
-    .k-i-arrow-s {
-        display: none;
-    }
-
-    .k-input .k-icon .k-i-plus {
-        margin-right: 4px;
-    }
-
-    .k-dropdown-wrap span {
-        color: black;
-    }
-    .k-dropdown-wrap:hover {
-        border-color: #e6e6e6;
-        background-color: #e6e6e6;
-    }
-
-
-    .k-widget .k-dropdown .k-dropdown-wrap {
-        border: 1px solid #ddd;
-        background: #fff;
-        color: #373a3c;
-        padding: 8px;
-        width: 125px;
-        left: 30px;
-    }
-
-    #bottom-pane {
-        height: 100%;
-    }
-
-    #bottom-pane-content {
-        background: #FFF;
-        height: 100%;
-    }
-</style>*@
