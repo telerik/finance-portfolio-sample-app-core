@@ -1,9 +1,10 @@
-﻿<div class="container">
+﻿<div class="container data-virtualization-container">
     @{
         ViewData["Title"] = "DataVirtualization";
     }
-
-    @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
+    <div class="d-flex justify-content-center py-5 align-items-center">
+        @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
+    </div>
     <h1>DataVirtualization</h1>
 
 <script>

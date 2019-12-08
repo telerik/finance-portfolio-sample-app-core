@@ -35,79 +35,108 @@
         </div>
         <div class="heatmap">
             @(Html.Kendo().TreeMap()
-                      .Name("treeMap")
-                      .DataSource(dataSource => dataSource
-                          .Read(read => read
-                              .Action("GetHeatMapData", "Home")
-                          )
-                      .Model(m => m.Children("Items"))
-                      )
-                      .ValueField("DayChange")
-                      .TextField("Symbol")
-                      .HtmlAttributes(new { style = "height:600px; font-size: 12px;" })
+                        .Name("treeMap")
+                        .DataSource(dataSource => dataSource
+                            .Read(read => read
+                                .Action("GetHeatMapData", "Home")
+                            )
+                            .Model(m => m.Children("Items"))
+                        )
+                        .ValueField("Value")
+                        .TextField("Name")
+                        .Colors(colors => colors
+                                        .AddRange("#09E98B", "#00A95B")
+                                        .AddRange("#FF9693", "#EC0006"))
+                        .Type(TreeMapType.Squarified)
+                        .HtmlAttributes(new { style = "height:600px; font-size: 12px;" })
+                        .TemplateId("leafTemplate")
             )
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+      $("#treeMap").kendoTooltip({
+          filter: ".k-leaf",
+          position: "center",
+          showOn: "click",
+          content: function(e) {
+              var target = e.target; 
+              console.log(target.data());
+          return target.data("title") + " " + target.text(); // set the element text as content of the tooltip
+        }
+      });
+    });
+</script>
+
+<script id="leafTemplate" type="text/x-kendo-template">
+    <div style="text-align:center">
+        #=dataItem.Symbol#
+        <div>
+            #=dataItem.Value#%
+        </div>
+    </div>
+</script>
+
 <style>
     body {
-    background: rgba(236, 238, 239, 0.5);
-}
+        background: rgba(236, 238, 239, 0.5);
+    }
 
-.size-container {
-    margin-bottom: -35px;
-}
+    .size-container {
+        margin-bottom: -35px;
+    }
 
-.scale-wrap {
-    width: 385px;
-}
+    .scale-wrap {
+        width: 385px;
+    }
 
-.scale-blocks span {
+    .scale-blocks span {
         width: 35px;
         height: 18px;
     }
 
-.heatmap-container {
-    margin-bottom: 50px;
-}
+    .heatmap-container {
+        margin-bottom: 50px;
+    }
 
 
     .k-widget .k-treemap {
         border-width: 0;
         background-color: transparent;
     }
-       .k-widget .k-treemap  .k-treemap-title {
+
+        .k-widget .k-treemap .k-treemap-title {
             display: none;
         }
 
-       .k-widget .k-treemap  .k-treemap-tile {
+        .k-widget .k-treemap .k-treemap-tile {
             background-color: transparent;
             border-width: 0;
             margin: 0;
         }
- 
 
 
-   .k-tooltip .k-tooltip-content {
+
+    .k-tooltip .k-tooltip-content {
         padding: 6px 12px;
     }
 
-   .k-tooltip  .hm-symbol {
+    .k-tooltip .hm-symbol {
         font-weight: bold;
         font-size: 16px;
         color: #1C7CD5;
     }
 
-   .k-tooltip  .hm-symbol-long-name {
+    .k-tooltip .hm-symbol-long-name {
         margin-bottom: 8px;
     }
 
-   .k-tooltip  .positive-value {
+    .k-tooltip .positive-value {
         color: #5CB85C;
     }
 
-   .k-tooltip  .negative-value {
+    .k-tooltip .negative-value {
         color: #D9534F;
     }
-
 </style>

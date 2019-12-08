@@ -63,4 +63,35 @@ td:last-of-type {
     }
 }
 
+.k-alt{
+    background-color: #FFF;
+}
 
+
+
+tr td[role="gridcell"]:first-child {
+    color: $grid-row-selection-bg;
+    font-weight: bold;
+}
+
+.profile-stocks-grid.k-grid {
+    tr td {
+        border: 0;
+    }
+
+    table .k-grid-header [role="columnheader"] {
+        color: $grid-header-text;
+        font-weight: bold;
+        border: 0;
+    }
+}
+
+.profile-stocks-grid.k-grid tr td {
+    border: 0;
+}
+
+.profile-pie-chart {
+    transform: scale(1.3);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

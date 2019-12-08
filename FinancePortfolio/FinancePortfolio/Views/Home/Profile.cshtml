@@ -6,7 +6,7 @@
 <div class="container py-5">
     <div class="col d-flex justify-content-between align-items-center py-5">
         <h1>My Portfolio</h1>
-        <span routerLink="/stocks" class="k-icon icon-close"></span>
+        <span class="k-icon icon-close" onclick="closeProfile()"></span>
     </div>
     <div class=" row d-flex justify-content-between pt-5">
         <div class="col col-3">
@@ -55,26 +55,21 @@
                          )
             )
         </div>
-        <div class="col col-5 pb-5">
+        <div class="col col-5 pb-5 profile-pie-chart">
             @(Html.Kendo().Chart<Stock>()
                  .Name("chart")
                  .Legend(legend => legend
                      .Visible(true)
                      .Position(ChartLegendPosition.Bottom)
+                     .Width(380)
                  )
                  .ChartArea(chart => chart
                      .Background("transparent")
                   )
                  .DataSource(ds => ds.Read("GetProfileDataChart", "Home"))
-
+                 .SeriesColors("#0275d8",  "#5bc0de", "#5cb85c", "#f0ad4e", "#e67d4a","#d9534f")
                  .Series(series => series
-                     .Pie(model => model.Price, model => model.Name)
-                 //.Labels(labels => labels
-                 //    .Template("#= category #: \n $#= value#")
-                 //    .Background("transparent")
-                 //    .Visible(true)
-                 //)
-                 .StartAngle(150)
+                     .Pie(model => model.Price, model => model.Symbol)
                  )
                  .Tooltip(tooltip => tooltip
                      .Visible(true)
@@ -84,6 +79,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+                var CONTAINER_SIZE = 1300;
+})
+</script>
 <style>
     header, footer {
         display:none;

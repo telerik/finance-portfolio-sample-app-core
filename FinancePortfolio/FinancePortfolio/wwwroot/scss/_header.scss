@@ -37,19 +37,28 @@
         color: rgba(255, 255, 255, 0.5);
     }
 
+    .k-list > .k-state-focused.k-state-selected, .k-popup .k-list .k-state-focused {
+        box-shadow: none;
+    }
+
+    .k-item .k-state-hover {
+
+    .k-state-selected {
+        background-color: red;
+        box-shadow: none;
+    }
+
     .k-dropdown {
         background-color: transparent;
         border: none;
         box-shadow: none;
+
+
+
         .k-dropdown-wrap .k-input {
             font-size: $dropdownlist-font-size;
             padding: 0;
             text-indent: 0em;
-        }
-
-        .k-dropdown-wrap {
-            /*background-color: transparent;
-            border-color: transparent;*/
         }
 
         .k-input {
@@ -59,6 +68,7 @@
         .k-select {
             color: $white;
         }
+
         .k-dropdown-wrap .k-state-default .k-state-hover {
             color: $white-50;
             border: 0px;
@@ -96,5 +106,10 @@
                 color: $dropdownlist-item-selected-text;
             }
         }
+    }
+
+    .k-list-scroller {
+        background-color: red;
+        color: red;
     }
 }
