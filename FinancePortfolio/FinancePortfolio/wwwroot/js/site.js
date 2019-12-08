@@ -87,3 +87,7 @@ function additionalChartData() {
 function showDeletBttnOnChange() {
     return $('#removeButton').css('visibility') == 'visible' ? $("#removeButton").css("visibility", "hidden") : $("#removeButton").css("visibility", "visible")
 }
+
+function closeProfile() {
+    window.location.href = '/Home';
+}

@@ -3319,6 +3319,13 @@ a {
     color: rgba(255, 255, 255, 0.5); }
   .header .k-widget.k-dropdown {
     color: rgba(255, 255, 255, 0.5); }
+  .header .k-list > .k-state-focused.k-state-selected, .header .k-popup .k-list .k-state-focused {
+    box-shadow: none; }
+  .header .k-item .k-state-hover {
+    background-color: transparent; }
+  .header .k-state-selected {
+    background-color: red;
+    box-shadow: none; }
   .header .k-dropdown {
     background-color: transparent;
     border: none;
@@ -3327,9 +3334,6 @@ a {
       font-size: 16px;
       padding: 0;
       text-indent: 0em; }
-    .header .k-dropdown .k-dropdown-wrap {
-      /*background-color: transparent;
-            border-color: transparent;*/ }
     .header .k-dropdown .k-input {
       color: rgba(255, 255, 255, 0.5); }
     .header .k-dropdown .k-select {
@@ -3356,6 +3360,9 @@ a {
     .header .k-popup .k-list .k-item.k-state-selected {
       background: #E9ECEF;
       color: #1C7CD5; }
+  .header .k-list-scroller {
+    background-color: red;
+    color: red; }
 
 .footer {
   position: fixed;
@@ -3419,6 +3426,9 @@ body {
 
 .heatmap {
   margin-top: 70px; }
+  .heatmap .k-widget {
+    box-shadow: none;
+    margin-top: -120px; }
 
 .k-widget.k-treemap {
   border-width: 0;
@@ -3428,7 +3438,8 @@ body {
   .k-widget.k-treemap .k-treemap-tile {
     background-color: transparent;
     border-width: 0;
-    margin: 0; }
+    margin: 0;
+    font-size: 1rem; }
 
 .k-tooltip .k-tooltip-content {
   padding: 6px 12px; }
@@ -3446,6 +3457,9 @@ body {
 
 .k-tooltip .negative-value {
   color: #D9534F; }
+
+.k-treemap-title {
+  display: none; }
 
 h1 {
   font-family: "Ubuntu", sans-serif; }
@@ -3491,6 +3505,33 @@ td:last-of-type {
     background-position: center; }
   .user-profile-wrapper h3 {
     font-size: 1.8em; }
+
+.k-alt {
+  background-color: #FFF; }
+
+tr td[role="gridcell"]:first-child {
+  color: #007BFF;
+  font-weight: bold; }
+
+.profile-stocks-grid.k-grid tr td {
+  border: 0; }
+
+.profile-stocks-grid.k-grid table .k-grid-header [role="columnheader"] {
+  color: #55595C;
+  font-weight: bold;
+  border: 0; }
+
+.profile-stocks-grid.k-grid tr td {
+  border: 0; }
+
+.profile-pie-chart {
+  transform: scale(1.3);
+  padding-left: 1rem;
+  padding-right: 1rem; }
+
+.data-virtualization-container .py-5 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important; }
 
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif; }

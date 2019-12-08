@@ -51,11 +51,33 @@ namespace FinancePortfolio.Controllers
             return new JsonResult(list);
         }
 
-        public JsonResult GetHeatMapData()
+        public ActionResult GetHeatMapData()
         {
             var list = service.GetTreeMapStocks();
 
-            return Json(new[] { new { Items = list } });
+            var result = new List<StocksDayChange>();
+            StocksDayChange all = new StocksDayChange("Stock Prices", 1, new List<StocksDayChange>(), null, 0);
+            result.Add(all);
+
+            StocksDayChange positive = new StocksDayChange("Stock Prices", 2, new List<StocksDayChange>(),null, 0);
+            StocksDayChange negative = new StocksDayChange("Stock Prices", 1, new List<StocksDayChange>(),null, 0);
+
+            all.Items.Add(positive);
+            all.Items.Add(negative);
+
+            foreach (TreeMapStock symbol in list)
+            {
+                if (symbol.DayChange > 0) {
+                    positive.Items.Add(new StocksDayChange(symbol.Name, symbol.DayChange, null, symbol.Symbol, symbol.ChangePct));
+                }
+                else
+                {
+                    negative.Items.Add(new StocksDayChange(symbol.Name, symbol.DayChange, null, symbol.Symbol, symbol.ChangePct));
+                }
+
+            }
+
+            return Json(result);
         }
 
         public JsonResult GetProfileData([DataSourceRequest] DataSourceRequest request)
