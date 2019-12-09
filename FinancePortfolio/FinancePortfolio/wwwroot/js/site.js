@@ -85,9 +85,10 @@ function additionalChartData() {
 }
 
 function showDeletBttnOnChange() {
-    return $('#removeButton').css('visibility') == 'visible' ? $("#removeButton").css("visibility", "hidden") : $("#removeButton").css("visibility", "visible")
+    var grid = $("#Grid").data("kendoGrid");
+    var row = grid.select()
+    return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
 }
-
 function closeProfile() {
     window.location.href = '/Home';
 }

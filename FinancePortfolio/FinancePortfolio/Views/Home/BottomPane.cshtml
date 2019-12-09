@@ -52,20 +52,21 @@
             .Name("Grid")
             .Columns(columns =>
             {
-                columns.Select().Width(30);
-                columns.Bound(p => p.Symbol);
-                columns.Bound(p => p.Name);
-                columns.Bound(p => p.Price).ClientTemplate("<strong>#= currencyTemplate(data)# </strong>");
-                columns.Bound(p => p.DayChange).ClientTemplate("#= dayChangeTemplate(data)#");
-                columns.Bound(p => p.ChangePct).ClientTemplate("#= dayChangePctTemplate(data)#");
-                columns.Bound(p => p.Volume).ClientTemplate("#= numbersTemplate(data, 'Volume')#");
-                columns.Bound(p => p.VolumeAvg).ClientTemplate("#= numbersTemplate(data, 'VolumeAvg')#");
-                columns.Bound(p => p.MarketCap).ClientTemplate("#= numbersTemplate(data, 'MarketCap')#").Format("");
-                columns.Bound(p => p.Pe);
-                columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>");
+                columns.Select().Width(27);
+                columns.Bound(p => p.Symbol).Title("Symbol").Width(80);
+                columns.Bound(p => p.Name).Title("Name").Width(140);
+                columns.Bound(p => p.Price).Title("Price").ClientHeaderTemplate("Price <span class='grid-header-subtitle'>(Intraday)</span>").ClientTemplate("<strong>#= currencyTemplate(data)# </strong>").Width(80);
+                columns.Bound(p => p.DayChange).ClientTemplate("#= dayChangeTemplate(data)#").Title("Change").Media("(min-width: 768px)");
+                columns.Bound(p => p.ChangePct).ClientTemplate("#= dayChangePctTemplate(data)#").Title("%Change").Media("(min-width: 768px)");
+                columns.Bound(p => p.Volume).ClientTemplate("#= numbersTemplate(data, 'Volume')#").Title("Volume").Width(100).Media("(min-width: 768px)");
+                columns.Bound(p => p.VolumeAvg).ClientHeaderTemplate("Avg Vol <span class='grid-header-subtitle'>(3 month)</span>").ClientTemplate("#= numbersTemplate(data, 'VolumeAvg')#").Title("Avg Vol").Media("(min-width: 768px)");
+                columns.Bound(p => p.MarketCap).ClientTemplate("#= numbersTemplate(data, 'MarketCap')#").Format("").Title("Market Cap").Media("(min-width: 1200px)");
+                columns.Bound(p => p.Pe).ClientHeaderTemplate("PE Ratio <span class='grid-header-subtitle'>(TTM)</span>").Title("PE Ratio").Media("(min-width: 1200px)");
+                columns.Bound(p => p.Intraday).ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>").Title("1 Day Chart").Width(170).Sortable(false);
             })
             .Editable(c=>c.DisplayDeleteConfirmation(true))
-            .Sortable()
+            .Selectable(selectable => selectable.Mode(GridSelectionMode.Single))
+            .Sortable(true)
             .Events(e =>
                           {
                               e.DataBound("onDataBound");
@@ -92,6 +93,25 @@
     }
     .k-grid-header th.k-header {
         border-width: 0;
+    }
+    .k-grid-header th.k-header {
+        position: relative;
+    }
+    .k-grid-header tr th {
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-39%);
+    }
+    .k-grid-header tr th .k-link{
+        font-weight: bolder;
+
+    }
+    .k-grid .grid-header-subtitle {
+        display: block;
+        margin: 0;
+        font-weight: normal;
+        font-size: 13px;
     }
 </style>
 
