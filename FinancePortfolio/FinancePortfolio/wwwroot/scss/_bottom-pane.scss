@@ -4,3 +4,18 @@
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
 }
+
+#removeButton.k-button.k-button-icontext {
+    color: $negative-value;
+    border-color: transparent;
+    background: 0 0;
+
+    &:hover {
+        border-color: $hover-bg;
+        background-color: $hover-bg;
+    }
+
+    &:focus:after {
+        box-shadow: none;
+    }
+}

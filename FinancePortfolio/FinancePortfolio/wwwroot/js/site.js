@@ -91,3 +91,7 @@ function showDeletBttnOnChange() {
 function closeProfile() {
     window.location.href = '/Home';
 }
+
+function handleRangeChange() {
+    var range = this.range();
+}

@@ -30,7 +30,19 @@ namespace FinancePortfolio.Controllers
 
         public IActionResult MyFunc(string symbol, DateTime start, DateTime end, int interval)
         {
-            return new JsonResult(generator.GetStockIntervalDetails(symbol, start, end, interval));
+                
+                return new JsonResult(generator.GetStockIntervalDetails(symbol, start, end, interval));
+        }
+
+        public IActionResult ReadDropDownListIntervals()
+        {
+            var list = generator.GetDropDownListIntervals();
+            return new JsonResult(list);
+        }
+        public IActionResult GetTimeFilters()
+        {
+            var list = generator.GetTimeFilters();
+            return new JsonResult(list);
         }
 
         public IActionResult GetTopPaneContent()

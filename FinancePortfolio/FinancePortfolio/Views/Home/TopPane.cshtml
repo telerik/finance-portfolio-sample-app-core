@@ -5,6 +5,7 @@
             .Name("daterangepicker")
             .Max(DateTime.Today)
             .Labels(false)
+            .Events(e => e.Change("handleRangeChange"))
             .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
             )
         </div>
@@ -23,24 +24,16 @@
         <div class="col-4">
             @(Html.Kendo().DropDownList()
           .Name("interval")
-          .DataTextField("Text")
-          .DataValueField("Value")
-          //.Events(e => e.Change("change"))
-          .BindTo(new List<SelectListItem>() {
-              new SelectListItem() {
-                  Text = "Interval: 5M",
-                  Value = "1"
-              },
-              new SelectListItem() {
-                  Text = "Interval: 15M",
-                  Value = "2"
-              },
-              new SelectListItem() {
-                  Text = "Interval: 30M",
-                  Value = "3"
-              }
+          .DataTextField("Name")
+          .DataValueField("Interval")
+          .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("ReadDropDownListIntervals", "Home");
+              });
           })
-          .Value("1")
           .HtmlAttributes(new { style = "width: 40%" })
             )
 
