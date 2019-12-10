@@ -20,37 +20,37 @@ namespace FinancePortfolio.Models
             this.rand = new Random();
         }
 
-        public IEnumerable<GridStock> GetRandomStocks(int count, string currency)
-        {
-            ICollection<GridStock> list = new List<GridStock>();
+        //public IEnumerable<GridStock> GetRandomStocks(int count, string currency)
+        //{
+        //    ICollection<GridStock> list = new List<GridStock>();
 
-            for (int i = 0; i < count; i++)
-            {
-                string symbol = CreateSymbol(letters, length, rand);
-                decimal price = rand.Next(15, 47);
-                GridStock model = new GridStock()
-                {
-                    Id = i,
-                    Symbol = symbol,
-                    Name = symbol + " Inc.",
-                    Currency = currency,
-                    Price = price,
-                    DayChange = 0,
-                    StockExchangeLong = "New York Stock Exchange",
-                    StockExchangeShort = "NYSE",
-                    Timezone = "EDT",
-                    TimezoneName = "America/New_York",
-                    YearHigh = price + price / 3,
-                    YearLow = price - price / 3,
-                    Volume = short.MaxValue * rand.Next(0, ushort.MaxValue),
-                    MarketCap = uint.MaxValue * rand.Next(0, ushort.MaxValue)
-                };
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        string symbol = CreateSymbol(letters, length, rand);
+        //        decimal price = rand.Next(15, 47);
+        //        GridStock model = new GridStock()
+        //        {
+        //            Id = i,
+        //            Symbol = symbol,
+        //            Name = symbol + " Inc.",
+        //            Currency = currency,
+        //            Price = price,
+        //            DayChange = 0,
+        //            StockExchangeLong = "New York Stock Exchange",
+        //            StockExchangeShort = "NYSE",
+        //            Timezone = "EDT",
+        //            TimezoneName = "America/New_York",
+        //            YearHigh = price + price / 3,
+        //            YearLow = price - price / 3,
+        //            Volume = short.MaxValue * rand.Next(0, ushort.MaxValue),
+        //            MarketCap = uint.MaxValue * rand.Next(0, ushort.MaxValue)
+        //        };
 
-                list.Add(model);
-            }
+        //        list.Add(model);
+        //    }
 
-            return list;
-        }
+        //    return list;
+        //}
 
         public IEnumerable<DropDownListInterval> GetDropDownListIntervals()
         {

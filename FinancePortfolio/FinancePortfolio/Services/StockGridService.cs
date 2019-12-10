@@ -14,14 +14,19 @@ namespace FinancePortfolio.Services
     {
         private Timer _timer;
         private readonly IHubContext<StockHub> _hubContext;
+        private List<GridStock> stocks;
+        private readonly StockService service;
 
         public StockGridService(IHubContext<StockHub> hubContext)
         {
             _hubContext = hubContext;
+            this.service = new StockService();
+            this.stocks = new List<GridStock>();
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            this.stocks.AddRange(service.GetStocks());
             _timer = new Timer(UpdateStocks, null, TimeSpan.Zero,
             TimeSpan.FromSeconds(5));
 
@@ -30,7 +35,16 @@ namespace FinancePortfolio.Services
 
         private void UpdateStocks(object state)
         {
-            var list = new StockDataGenerator().GetRandomStocks(20, "USD");
+            var list = this.stocks;
+
+            foreach (var item in list)
+            {
+                item.DayChange = GetChange();
+                if (item.DayChange != 0)
+                {
+                    item.Price = item.Price + item.DayChange;
+                }
+            }
 
             _hubContext.Clients.All.SendAsync("Read", list);
         }
@@ -40,6 +54,13 @@ namespace FinancePortfolio.Services
             _timer?.Change(Timeout.Infinite, 0);
 
             return Task.CompletedTask;
+        }
+
+        private decimal GetChange()
+        {
+            var rnd = new Random().NextDouble();
+            var change = rnd > 0.5 ? rnd > 0.75 ? -rnd * 2 : rnd * 2 : 0;
+            return (decimal)change;
         }
 
     }

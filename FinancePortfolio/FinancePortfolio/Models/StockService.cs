@@ -43,5 +43,12 @@ namespace FinancePortfolio.Models
 
             return items;
         }
+
+        public IEnumerable<GridStock> GetStocks()
+        {
+            IEnumerable<GridStock> items = GetTables().Stocks;
+
+            return items;
+        }
     }
 }

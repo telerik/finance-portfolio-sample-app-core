@@ -10,5 +10,6 @@ namespace FinancePortfolio.Models
         public IEnumerable<Stock> StocksInPortfolio { get; set; }
         public IEnumerable<Stock> UncategorizedStocks { get; set; }
         public IEnumerable<TreeMapStock> TreeMapStocks{ get; set; }
+        public IEnumerable<GridStock> Stocks{ get; set; }
     }
 }

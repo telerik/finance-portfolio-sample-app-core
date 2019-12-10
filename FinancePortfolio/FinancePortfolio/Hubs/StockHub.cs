@@ -11,19 +11,18 @@ namespace FinancePortfolio.Hubs
     public class StockHub : Hub
     {
         private List<GridStock> stocks;
-        private readonly StockDataGenerator generator;
+        private readonly StockService service;
 
         public StockHub()
         {
             this.stocks = new List<GridStock>();
-            this.generator = new StockDataGenerator();
+            this.service = new StockService();
         }
 
         public IEnumerable<GridStock> Read()
         {
-            this.stocks.AddRange(generator.GetRandomStocks(20, "USD"));
-
-            return stocks;
+            this.stocks.AddRange(service.GetStocks());
+            return this.stocks;
         }
     }
 }

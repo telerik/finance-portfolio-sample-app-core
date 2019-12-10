@@ -5,9 +5,9 @@
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
 
 function onCurrencyChange(e) {
-    if (document.location.pathname == "/Home/DataVirtualization") {
-        $("#stocksGrid").getKendoGrid().dataSource.read();
-    }
+    //if (document.location.pathname == "/Home/DataVirtualization") {
+    //    $("#stocksGrid").getKendoGrid().refresh();
+    //}
     if (document.location.pathname == "/") {
         $("#Grid").getKendoGrid().dataSource.read();
     }
@@ -24,7 +24,7 @@ function additionalData(e) {
 }
 
 function priceTemplate(dataItem) {
-    var color = dataItem.Price == 0 ? "none" : (dataItem.Price > 0 ? "green" : "red");
+    var color = dataItem.DayChange == 0 ? "none" : (dataItem.DayChange > 0 ? "green" : "red");
     var currencySymbol = symbols[dataItem.Currency];
 
     return "<span style='color: " + color + "'>" + currencySymbol + ' ' + kendo.toString(dataItem.Price, "0.00") + "</span>";
@@ -45,8 +45,7 @@ function dayChangePctTemplate(data) {
 }
 
 function changeTemplate(dataItem) {
-    var color = dataItem.DayChange == 0 ? "none" : (dataItem.Price > 0 ? "green" : "red");
-
+    var color = dataItem.DayChange == 0 ? "none" : (dataItem.DayChange > 0 ? "green" : "red");
     return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
 }
 
