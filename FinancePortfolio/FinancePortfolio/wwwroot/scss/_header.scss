@@ -5,7 +5,6 @@
     background: url('./../assets/header-bg.svg');
     background-position: bottom;
     background-repeat: no-repeat;
-    background-size: 100%;
 
     h1 {
         padding-top: $header-title-padding;
@@ -120,10 +119,11 @@
     }
 }
 
-.k-item.k-state-selected.k-state-focused.k-state-hover {
+/*.k-item.k-state-selected.k-state-focused {
+    border-radius: 0px;
     box-shadow: none;
     background-color: red;
-}
+}*/
 
 
     

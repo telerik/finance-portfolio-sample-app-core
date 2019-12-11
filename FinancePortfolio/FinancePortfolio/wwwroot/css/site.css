@@ -3298,8 +3298,7 @@ a {
   height: 140px;
   background: url("./../assets/header-bg.svg");
   background-position: bottom;
-  background-repeat: no-repeat;
-  background-size: 100%; }
+  background-repeat: no-repeat; }
   .header h1 {
     padding-top: 0.5rem;
     font-family: "Ubuntu", sans-serif;
@@ -3372,10 +3371,6 @@ a {
   box-shadow: none;
   background-color: #E9ECEF;
   color: #1C7CD5; }
-
-li .k-item.k-state-selected.k-state-focused.k-state-hover {
-  box-shadow: none;
-  background-color: red; }
 
 .footer {
   position: fixed;
