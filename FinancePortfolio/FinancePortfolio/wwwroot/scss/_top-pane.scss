@@ -1,0 +1,7 @@
+﻿@import "_variables.scss";
+
+span.selected {
+    font-weight: bold;
+    color: black;
+    border-bottom: 3px solid $active-state-base;
+}

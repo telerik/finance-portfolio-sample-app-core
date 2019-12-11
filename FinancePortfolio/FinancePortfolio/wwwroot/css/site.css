@@ -3372,6 +3372,11 @@ a {
   background-color: #E9ECEF;
   color: #1C7CD5; }
 
+/*.k-item.k-state-selected.k-state-focused {
+    border-radius: 0px;
+    box-shadow: none;
+    background-color: red;
+}*/
 .footer {
   position: fixed;
   bottom: 0;
@@ -3479,9 +3484,9 @@ h1 {
 td {
   padding: 8px 12px 8px 0; }
 
-td:last-of-type {
-  font-weight: bold; }
-
+/*td:last-of-type {
+    font-weight: bold;
+}*/
 .green {
   color: #5CB85C; }
 
@@ -3521,10 +3526,10 @@ td:last-of-type {
 .k-alt {
   background-color: #FFF; }
 
-tr td[role="gridcell"]:first-child {
-  color: #007BFF;
-  font-weight: bold; }
-
+/*tr td[role="gridcell"]:first-child {
+    color: $grid-row-selection-bg;
+    font-weight: bold;
+}*/
 .profile-stocks-grid.k-grid tr td {
   border: 0; }
 
@@ -3544,6 +3549,25 @@ tr td[role="gridcell"]:first-child {
 .data-virtualization-container .py-5 {
   padding-top: 2rem !important;
   padding-bottom: 2rem !important; }
+
+.bottom-pane-container .py-5 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important; }
+
+#removeButton.k-button.k-button-icontext {
+  color: #D9534F;
+  border-color: transparent;
+  background: 0 0; }
+  #removeButton.k-button.k-button-icontext:hover {
+    border-color: #e6e6e6;
+    background-color: #e6e6e6; }
+  #removeButton.k-button.k-button-icontext:focus:after {
+    box-shadow: none; }
+
+span.selected {
+  font-weight: bold;
+  color: black;
+  border-bottom: 3px solid #1C7CD5; }
 
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif; }

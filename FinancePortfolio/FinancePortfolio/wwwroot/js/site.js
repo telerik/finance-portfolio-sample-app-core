@@ -95,3 +95,20 @@ function closeProfile() {
 function handleRangeChange() {
     var range = this.range();
 }
+
+function onIntervalDDLDataBound(e) {
+    var defaultItem = e.sender.dataSource.at(3);
+    e.sender.value(defaultItem.Interval);
+}
+
+function changeChartType() {
+    var dropdownlist = $("#dropdown-list-selection").data("kendoDropDownList");
+    var selectedValue = dropdownlist.value()
+    if (selectedValue === "line") {
+        //#dropdownChartSelection.setOptions(
+        //    {
+
+        //    })
+    }
+
+}
