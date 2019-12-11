@@ -5,9 +5,9 @@
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
 
 function onCurrencyChange(e) {
-    //if (document.location.pathname == "/Home/DataVirtualization") {
-    //    $("#stocksGrid").getKendoGrid().refresh();
-    //}
+    if (document.location.pathname == "/Home/DataVirtualization") {
+        $("#stocksGrid").getKendoGrid().refresh();
+    }
     if (document.location.pathname == "/") {
         $("#Grid").getKendoGrid().dataSource.read();
     }
@@ -25,9 +25,26 @@ function additionalData(e) {
 
 function priceTemplate(dataItem) {
     var color = dataItem.DayChange == 0 ? "none" : (dataItem.DayChange > 0 ? "green" : "red");
-    var currencySymbol = symbols[dataItem.Currency];
+    var fade = dataItem.DayChange == 0 ? '' : "class='price-change'";
+    var selected = $("#currency").getKendoDropDownList().select();
+    var currency = $("#currency").getKendoDropDownList().dataItem(selected).Text;
+    var currencySymbol = symbols[currency];
 
-    return "<span style='color: " + color + "'>" + currencySymbol + ' ' + kendo.toString(dataItem.Price, "0.00") + "</span>";
+    return "<span " + fade + " style='color: " + color + "'>" + currencySymbol + ' ' + kendo.toString(dataItem.Price, "0.00") + "</span>";
+}
+
+function changeTemplate(dataItem) {
+    var color = dataItem.DayChange == 0 ? "none" : (dataItem.DayChange > 0 ? "green" : "red");
+    var fade = dataItem.DayChange == 0 ? '' : "class='price-change'";
+
+    return "<span " + fade + "style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00") + "%</span>";
+}
+
+function stockCurrencyTemplate(dataItem){
+    var selected = $("#currency").getKendoDropDownList().select();
+    var currency = $("#currency").getKendoDropDownList().dataItem(selected).Text;
+
+    return currency;
 }
 
 function currencyTemplate(data) {
@@ -37,17 +54,14 @@ function currencyTemplate(data) {
 
 function dayChangeTemplate(data) {
     var color = data.DayChange == 0 ? "none" : (data.DayChange > 0 ? "green" : "red");
-    return "<span style='color: " + color + "'>" + kendo.toString(data.DayChange, "0.00") + "</span>";
+    return "<span  style='color: " + color + "'>" + kendo.toString(data.DayChange, "0.00") + "</span>";
 }
 function dayChangePctTemplate(data) {
     var color = data.ChangePct == 0 ? "none" : (data.ChangePct > 0 ? "green" : "red");
     return "<span style='color: " + color + "'>" + kendo.toString(data.ChangePct, "0.00") + "%</span>";
 }
 
-function changeTemplate(dataItem) {
-    var color = dataItem.DayChange == 0 ? "none" : (dataItem.DayChange > 0 ? "green" : "red");
-    return "<span style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00")+ "%</span>";
-}
+
 
 function numbersTemplate(data, fieldName) {
 
@@ -85,7 +99,7 @@ function additionalChartData() {
 
 function showDeletBttnOnChange() {
     var grid = $("#Grid").data("kendoGrid");
-    var row = grid.select()
+    var row = grid.select();
     return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
 }
 function closeProfile() {

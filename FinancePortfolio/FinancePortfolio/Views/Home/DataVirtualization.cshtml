@@ -22,7 +22,7 @@
             {
                 columns.Bound(p => p.Symbol).Width(90).Locked(true);
                 columns.Bound(p => p.Name).Width(120);
-                columns.Bound(p => p.Currency).Title("Currency").Width(90);
+                columns.Bound(p => p.Currency).Title("Currency").Width(90).ClientTemplate("#=stockCurrencyTemplate(data)#");
                 columns.Bound(p => p.Price).Width(90).ClientTemplate("#=priceTemplate(data)#");
                 columns.Bound(p => p.DayChange).Width(90).Title("Change").ClientTemplate("#=changeTemplate(data)#");
                 columns.Bound(p => p.StockExchangeLong).Title("Full Name").Width(240);
@@ -34,7 +34,6 @@
                 columns.Bound(p => p.Volume).Width(190);
                 columns.Bound(p => p.MarketCap).Width(220);
             })
-            .Pageable()
             .Scrollable()
             .Editable()
             .HtmlAttributes(new { style = "height:100%;" })
@@ -46,7 +45,7 @@
                     .Promise("hubStart")
                     .Server(s=>s.Read("Read"))
                 )
-                .PageSize(12)
+                .PageSize(20)
             )
     )
 </div>

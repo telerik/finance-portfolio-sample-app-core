@@ -28,7 +28,7 @@ namespace FinancePortfolio.Services
         {
             this.stocks.AddRange(service.GetStocks());
             _timer = new Timer(UpdateStocks, null, TimeSpan.Zero,
-            TimeSpan.FromSeconds(5));
+            TimeSpan.FromSeconds(2));
 
             return Task.CompletedTask;
         }

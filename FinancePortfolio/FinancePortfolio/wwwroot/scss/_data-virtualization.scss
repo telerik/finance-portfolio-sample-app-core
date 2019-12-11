@@ -4,3 +4,21 @@
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
 }
+
+.price-change{
+    animation-duration: 700ms;
+    animation-name: blink;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: .4;
+    }
+}
