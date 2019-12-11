@@ -5,6 +5,7 @@
     background: url('./../assets/header-bg.svg');
     background-position: bottom;
     background-repeat: no-repeat;
+    background-size: 100%;
 
     h1 {
         padding-top: $header-title-padding;
@@ -32,68 +33,28 @@
         color: rgba(255, 255, 255, 0.5);
     }
 
-
-    .k-widget.k-dropdown {
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .k-list > .k-state-focused.k-state-selected, .k-popup .k-list .k-state-focused {
-        box-shadow: none;
-    }
-
-    .k-item .k-state-hover {
-
-    .k-state-selected {
-        background-color: red;
-        box-shadow: none;
+    .k-widget {
+        background-color: transparent;
     }
 
     .k-dropdown {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-
-
-
         .k-dropdown-wrap .k-input {
             font-size: $dropdownlist-font-size;
             padding: 0;
-            text-indent: 0em;
-        }
-
-        .k-input {
-            color: rgba(255, 255, 255, 0.5);
         }
 
         .k-select {
             color: $white;
         }
 
-        .k-dropdown-wrap .k-state-default .k-state-hover {
-            color: $white-50;
-            border: 0px;
-            box-shadow: none;
-        }
-
-        .k-dropdown-wrap > hover {
-            border: none;
-            box-shadow: none;
-        }
-
-        .k-dropdown :focus {
+        > :hover {
             background: transparent;
-            border: none;
-        }
-
-        .k-dropdown-wrap .k-state-focused {
-            box-shadow: 0px;
-            border: none;
-        }
-
-        .k-dropdown-wrap.k-state-default {
-            background-color: transparent;
-            border: none;
             box-shadow: none;
+        }
+
+        span .k-input {
+            text-indent: 0.1em;
+            color: $white-50;
         }
     }
 
@@ -108,8 +69,61 @@
         }
     }
 
-    .k-list-scroller {
-        background-color: red;
-        color: red;
+    .k-widget.k-dropdown {
+        color: rgba(255, 255, 255, 0.5);
+        background-color: transparent;
     }
 }
+
+.k-dropdown-wrap, .k-dropdown-wrap.k-state-default, .k-dropdown-wrap.k-state-default.k-focused {
+    background-color: transparent;
+    box-shadow: none !important;
+    border: none;
+    width: 130px;
+}
+
+#currency, #currency :focus {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: red;
+}
+
+#currency-list {
+    background: $white;
+    box-shadow: none;
+    color: $black;
+    border-radius: 5%;
+    padding: 0;
+
+    li {
+        padding-left: $dropownlist-add-new-padding;
+        border-radius: 0px;
+    }
+
+    .k-item.k-state-hover {
+        background-color: transparent;
+    }
+
+}
+
+.k-icon.k-i-arrow-chevron-down {
+    top: -5px;
+    left: -10px;
+}
+
+.k-item {
+    &.k-state-selected.k-state-focused {
+        box-shadow: none;
+        background-color: $dropdownlist-item-selected-bg;
+        color: $dropdownlist-item-selected-text;
+    }
+}
+
+.k-item.k-state-selected.k-state-focused.k-state-hover {
+    box-shadow: none;
+    background-color: red;
+}
+
+
+    

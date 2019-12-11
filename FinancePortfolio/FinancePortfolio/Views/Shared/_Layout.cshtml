@@ -44,8 +44,7 @@
                                   .Events(ev=>ev.Change("onCurrencyChange"))
                                   .Value("1")
                                   .ValueTemplate("<span>Currency in #= data.Text #</span>")
-                                  .HtmlAttributes(new { style = "width: 160px" })
-                                  
+                                  .HtmlAttributes(new { style="width:140px" })
                     ) 
                 </div>
                 <div class="profile-wrapper d-flex flex-column align-self-center" onclick="onProfileClick()" routerLink="/profile">
@@ -69,4 +68,10 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
+<script>
+    $(document).ready(function () {
+        $(".k-icon.k-i-arrow-60-down").addClass("k-i-arrow-chevron-down");
+        $(".k-icon.k-i-arrow-60-down").removeClass("k-i-arrow-60-down");
+    })
+</script>
 </html>
