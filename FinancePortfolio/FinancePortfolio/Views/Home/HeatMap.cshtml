@@ -55,17 +55,38 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-      $("#treeMap").kendoTooltip({
-          filter: ".k-leaf",
-          position: "center",
-          showOn: "click",
-          content: function(e) {
-              var target = e.target; 
-              console.log(target.data());
-          return target.data("title") + " " + target.text(); // set the element text as content of the tooltip
-        }
-      });
+    $(document).ready(function () {
+        $("#treeMap").kendoTooltip({
+            filter: ".k-leaf",
+            position: "center",
+            showOn: "click",
+            content: function (e) {
+                var treemap = $("#treeMap").data("kendoTreeMap");
+                var item = treemap.dataItem(e.target.closest(".k-treemap-tile"));
+                const cssClass = (value) => {
+                    return value > 0 ? 'positive-value' : 'negative-value';
+                };
+                return `
+                    <div class="hm-symbol">${ item.Symbol}</div>
+                    <div class="hm-symbol-long-name">${ item.Name}</div>
+                    <div>
+                        <span class="mr-2">Price: </span>
+                        <span>
+                            ${ item.Price}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="mr-2">Change: </span>
+                        <span class="${ cssClass(item.Change)}">
+                            ${ (item.Change > 0 ? '+' : '')}${item.Change}%
+                        <span>
+                    </div>
+                    <div>
+                        <span class="mr-2">Market Cap: </span><span>${ item.Value}<span>
+                    </div>
+                `;
+            }
+        });
     });
 </script>
 
@@ -78,65 +99,3 @@
     </div>
 </script>
 
-<style>
-    body {
-        background: rgba(236, 238, 239, 0.5);
-    }
-
-    .size-container {
-        margin-bottom: -35px;
-    }
-
-    .scale-wrap {
-        width: 385px;
-    }
-
-    .scale-blocks span {
-        width: 35px;
-        height: 18px;
-    }
-
-    .heatmap-container {
-        margin-bottom: 50px;
-    }
-
-
-    .k-widget .k-treemap {
-        border-width: 0;
-        background-color: transparent;
-    }
-
-        .k-widget .k-treemap .k-treemap-title {
-            display: none;
-        }
-
-        .k-widget .k-treemap .k-treemap-tile {
-            background-color: transparent;
-            border-width: 0;
-            margin: 0;
-        }
-
-
-
-    .k-tooltip .k-tooltip-content {
-        padding: 6px 12px;
-    }
-
-    .k-tooltip .hm-symbol {
-        font-weight: bold;
-        font-size: 16px;
-        color: #1C7CD5;
-    }
-
-    .k-tooltip .hm-symbol-long-name {
-        margin-bottom: 8px;
-    }
-
-    .k-tooltip .positive-value {
-        color: #5CB85C;
-    }
-
-    .k-tooltip .negative-value {
-        color: #D9534F;
-    }
-</style>

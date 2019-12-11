@@ -38,6 +38,11 @@ body {
 }
 
 .k-widget {
+    &.k-tooltip {
+        background-color: #FFF;
+        color: #333;
+    }
+
     &.k-treemap {
         border-width: 0;
         background-color: transparent;
