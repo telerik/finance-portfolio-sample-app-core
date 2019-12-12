@@ -49,15 +49,14 @@
         })
 
         $('.chart').each(function (i) {
-
             var chart = $(this);
+            var item = data[i];
+            var color = item.ChangePct > 0 ? "green" : "red"; 
 
             chart.kendoChart({
                 chartArea: {
-                    background: "transparent"
-                },
-                dataSource: {
-                    data: data
+                    background: "transparent",
+                    opacity: 0.2
                 },
                 legend: {
                     visible: false
@@ -70,7 +69,21 @@
                     }
                 },
                 series: [{
-                    data: intradayCollection[i]
+                    type: "area",
+                    data: intradayCollection[i],
+                    markers: {
+                        visible: false
+                    },
+                    color: color,
+                    opacity: 0.2
+                },
+                    {
+                    type: "line",
+                    data: intradayCollection[i],
+                    markers: {
+                        visible: false
+                    },
+                    color: color
                 }],
                 valueAxis: {
                     line: {
@@ -115,8 +128,6 @@
         if (e.sender.select() != -1) {
             var item = e.sender.dataSource.data()[e.sender.select()].toJSON();
             e.sender.dataSource.remove(e.sender.dataSource.data()[e.sender.select()]);
-            //e.sender.dataSource.data().splice(e.sender.select(), 1)
-            //e.sender.dataSource.data(e.sender.dataSource.data().splice(e.sender.select(), 1));
             grid.dataSource.insert(item, 0);
         }
     }

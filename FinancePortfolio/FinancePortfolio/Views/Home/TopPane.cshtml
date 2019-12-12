@@ -16,7 +16,7 @@
                 <span>4H</span>
                 <span>12H</span>
                 <span>1D</span>
-                <span>4H</span>
+                <span class="selected">4H</span>
                 <span>1W</span>
             </li>
         </ul>
@@ -89,7 +89,7 @@
                 .Series(series =>
                 {
                     series.Candlestick(s => s.Open, s => s.High, s => s.Low, s => s.Close)
-                        .Aggregate(c => c.Open(ChartSeriesAggregate.Min).High(ChartSeriesAggregate.Max).Low(ChartSeriesAggregate.Min).Close(ChartSeriesAggregate.Max))
+                        .Aggregate(c => c.Open(ChartSeriesAggregate.First).High(ChartSeriesAggregate.Max).Low(ChartSeriesAggregate.Min))
                         .Border(b => b.Color("transparent"))
                         .Color("#5CB85C")
                         .DownColor("#D9534F")
@@ -107,7 +107,9 @@
                 .Navigator(nav => nav
                 .Series(series =>
                 {
-                    series.Area(s => s.Close).Aggregate(ChartSeriesAggregate.Avg);
+                    series.Area(s => s.Close).Aggregate(ChartSeriesAggregate.Avg)
+                    .Color("#559DE0")
+                    .Field("Close");
                 })
                 )
             )
@@ -117,8 +119,9 @@
 
 
 <script>
-    $("#timeFilter li span:nth-child(5)").addClass("selected");
-    $("li span").click(function () {
+    //$("#timeFilter li span:nth-child(5)").addClass("selected");
+    $("#timeFilter li span").click(function () {
+        console.log(1)
         $("li span").not(this).removeClass("selected")
         if (!$(this).hasClass("selected")) {
             $(this).addClass("selected");

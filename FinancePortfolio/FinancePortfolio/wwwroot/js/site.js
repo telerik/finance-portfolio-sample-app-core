@@ -116,13 +116,70 @@ function onIntervalDDLDataBound(e) {
 }
 
 function changeChartType() {
-    var dropdownlist = $("#dropdown-list-selection").data("kendoDropDownList");
+    var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
     var selectedValue = dropdownlist.value()
-    if (selectedValue === "line") {
-        //#dropdownChartSelection.setOptions(
-        //    {
-
-        //    })
+    var chart = $("#stockChart").data("kendoStockChart");
+    console.log("chart", chart)
+    if (selectedValue == "line") {
+        chart.setOptions(
+            {
+                type: "line",
+                series: [{
+                    type: "line",
+                    field: "Open",
+                    categoryField: "Date",
+                    color: "#2D73F5"
+                }],
+                seriesDefaults: {
+                    type: "line"
+                },
+                navigator: {
+                    series: {
+                        color: "#559DE0"
+                    }
+                }
+            })
+    }
+    if (selectedValue == "area") {
+        chart.setOptions(
+            {
+                type: "area",
+                series: [{
+                    type: "area",
+                    field: "Open",
+                    categoryField: "Date",
+                    color: "#007BFF"
+                }],
+                seriesDefaults: {
+                    type: "area"
+                },
+                navigator: {
+                    series: {
+                        color: "#559DE0"
+                    }
+                }
+            })
+    }
+    if (selectedValue == "candle") {
+        chart.setOptions(
+            {
+                type: "candle",
+                series: [{
+                    type: "candlestick",
+                    color: "#5CB85C",
+                    downColor: "#D9534F",
+                    openField: "Open",
+                    highField: "High",
+                    lowField: "Low",
+                    closeField: "Close",
+                    categoryField: "Date"
+                }],
+                navigator: {
+                    series: {
+                        color: "#559DE0"
+                    }
+                }
+            })
     }
 
 }

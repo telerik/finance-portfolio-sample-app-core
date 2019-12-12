@@ -1,6 +1,6 @@
 ﻿@import "_variables.scss";
 
-span.selected {
+.ml-3 span.selected {
     font-weight: bold;
     color: black;
     border-bottom: 3px solid $active-state-base;
