@@ -1,7 +1,7 @@
 @import "_variables.scss";
 
 h1 {
-    font-family: $ubunto;
+    font-family: $roboto;
 }
 
 td {
@@ -9,7 +9,7 @@ td {
 }
 
 
-td:last-of-type {
+#grid-profile td:last-of-type {
     font-weight: bold;
 }
 
@@ -69,7 +69,7 @@ td:last-of-type {
 
 
 
-tr td[role="gridcell"]:first-child {
+#grid-profile tr td[role="gridcell"]:first-child {
     color: $grid-row-selection-bg;
     font-weight: bold;
 }
