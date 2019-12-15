@@ -3301,7 +3301,7 @@ a {
   background-repeat: no-repeat; }
   .header h1 {
     padding-top: 0.5rem;
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 200;
     color: #fff; }
   .header .profile-wrapper {
@@ -3361,7 +3361,7 @@ a {
     padding-left: 20px;
     border-radius: 0px; }
   #currency-list .k-item.k-state-hover {
-    background-color: transparent; }
+    border-radius: 2px; }
 
 .k-icon.k-i-arrow-chevron-down {
   top: -5px;
@@ -3370,13 +3370,16 @@ a {
 .k-item.k-state-selected.k-state-focused {
   box-shadow: none;
   background-color: #E9ECEF;
-  color: #1C7CD5; }
+  color: #1C7CD5;
+  border-radius: 3px !important; }
 
-/*.k-item.k-state-selected.k-state-focused {
-    border-radius: 0px;
-    box-shadow: none;
-    background-color: red;
-}*/
+.k-item.k-state-hover {
+  box-shadow: none;
+  background-color: transparent; }
+
+.k-calendar-header > .k-button.k-title {
+  width: 300px; }
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -3479,14 +3482,14 @@ body {
   display: none; }
 
 h1 {
-  font-family: "Ubuntu", sans-serif; }
+  font-family: "Roboto", sans-serif; }
 
 td {
   padding: 8px 12px 8px 0; }
 
-/*td:last-of-type {
-    font-weight: bold;
-}*/
+#grid-profile td:last-of-type {
+  font-weight: bold; }
+
 .green {
   color: #5CB85C; }
 
@@ -3526,10 +3529,10 @@ td {
 .k-alt {
   background-color: #FFF; }
 
-/*tr td[role="gridcell"]:first-child {
-    color: $grid-row-selection-bg;
-    font-weight: bold;
-}*/
+#grid-profile tr td[role="gridcell"]:first-child {
+  color: #007BFF;
+  font-weight: bold; }
+
 .profile-stocks-grid.k-grid tr td {
   border: 0; }
 
@@ -3550,6 +3553,19 @@ td {
   padding-top: 2rem !important;
   padding-bottom: 2rem !important; }
 
+.price-change {
+  animation-duration: 700ms;
+  animation-name: blink;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out; }
+
+@keyframes blink {
+  from {
+    opacity: 1; }
+  to {
+    opacity: .4; } }
+
 .bottom-pane-container .py-5 {
   padding-top: 2rem !important;
   padding-bottom: 2rem !important; }
@@ -3564,10 +3580,29 @@ td {
   #removeButton.k-button.k-button-icontext:focus:after {
     box-shadow: none; }
 
-span.selected {
+#Grid {
+  border-width: 0; }
+
+.k-grid tr td {
+  border-width: 0; }
+
+.k-grid-header th.k-header {
+  border-width: 0;
+  background-color: rgba(236, 238, 239, 0.5); }
+
+.k-grid-header tr th .k-link {
+  font-weight: bolder; }
+
+.k-grid .grid-header-subtitle {
+  display: block;
+  margin: 0;
+  font-weight: normal;
+  font-size: 13px; }
+
+.ml-3 span.selected {
   font-weight: bold;
   color: black;
   border-bottom: 3px solid #1C7CD5; }
 
 body {
-  font-family: "Roboto", Helvetica, Arial, sans-serif; }
+  font-family: "Roboto", sans-serif; }

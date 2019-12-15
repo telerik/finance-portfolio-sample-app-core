@@ -8,7 +8,7 @@
 
     h1 {
         padding-top: $header-title-padding;
-        font-family: $ubunto;
+        font-family: $roboto;
         font-weight: $font-weight-200;
         color: $white;
     }
@@ -101,7 +101,7 @@
     }
 
     .k-item.k-state-hover {
-        background-color: transparent;
+        border-radius: 2px;
     }
 
 }
@@ -116,14 +116,17 @@
         box-shadow: none;
         background-color: $dropdownlist-item-selected-bg;
         color: $dropdownlist-item-selected-text;
+        border-radius: 3px !important;
+    }
+
+    &.k-state-hover {
+        box-shadow: none;
+        background-color: transparent;
     }
 }
 
-/*.k-item.k-state-selected.k-state-focused {
-    border-radius: 0px;
-    box-shadow: none;
-    background-color: red;
-}*/
-
+.k-calendar-header > .k-button.k-title {
+    width: 300px;
+}
 
     
