@@ -41,6 +41,7 @@
 
 <script>
     function onDataBound(e) {
+        e.sender.select("tr:eq(0)");
         $("#Grid tr.k-alt").removeClass("k-alt");
         var intradayCollection = [];
         var data = this.dataSource.view();
@@ -120,7 +121,6 @@
         $("#addNew").data("kendoDropDownList").dataSource.data().unshift(selectedItem);
         $("#addNew").data("kendoDropDownList").dataSource.data()
         $("#removeButton").css("visibility", "hidden");
-
     }
 
     function addStock(e) {

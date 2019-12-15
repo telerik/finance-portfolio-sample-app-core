@@ -19,3 +19,27 @@
         box-shadow: none;
     }
 }
+
+#Grid {
+    border-width: 0;
+}
+
+.k-grid tr td {
+    border-width: 0;
+}
+
+.k-grid-header th.k-header {
+    border-width: 0;
+    background-color: $body-base-bg;
+}
+
+.k-grid-header tr th .k-link {
+    font-weight: bolder;
+}
+
+.k-grid .grid-header-subtitle {
+    display: block;
+    margin: 0;
+    font-weight: normal;
+    font-size: 13px;
+}

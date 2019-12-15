@@ -89,15 +89,39 @@ function onProfileClick() {
     window.location.href = '/Home/Profile';
 }
 function additionalChartData() {
+    var start, end, grid;
+    var range = $("#daterangepicker").getKendoDateRangePicker().range();
+    if (range) {
+        start = range.start;
+        end = range.end;
+    } else {
+        start = new Date(2019, 7, 10);
+        end = new Date(2019, 7, 14);
+    }
+
+    grid = $("#Grid").getKendoGrid()
+    if (grid.select().length) {
+        var row = grid.select();
+        var symbol = grid.dataItem(row).Symbol;
+    }
+
+    var interval = $("#interval").getKendoDropDownList().value()
+    var minsInterval = Math.floor(interval / 60000);
+    if (minsInterval === 0) {
+        minsInterval = 60;
+    }
+
     return {
-        symbol: "AAN",
-        start: new Date(2019, 7, 10).toUTCString(),
-        end: new Date(2019, 7, 14).toUTCString(),
-        interval: 15
+        symbol: symbol,
+        start: start.toUTCString(),
+        end: end.toUTCString(),
+        interval: minsInterval
     }
 }
 
 function showDeletBttnOnChange() {
+    var chart = $("#stockChart").data("kendoStockChart");;
+    chart.dataSource.read()
     var grid = $("#Grid").data("kendoGrid");
     var row = grid.select();
     return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
@@ -106,8 +130,14 @@ function closeProfile() {
     window.location.href = '/Home';
 }
 
-function handleRangeChange() {
-    var range = this.range();
+function handleRangeChange(e) {
+    var chart = $("#stockChart").data("kendoStockChart");
+    if (e.sender.range().end && e.sender.range().start) {
+
+        chart.dataSource.read();
+        chart.redraw();
+        chart.refresh();
+    }
 }
 
 function onIntervalDDLDataBound(e) {
@@ -115,11 +145,17 @@ function onIntervalDDLDataBound(e) {
     e.sender.value(defaultItem.Interval);
 }
 
+function onIntervalChange(e) {
+    var chart = $("#stockChart").data("kendoStockChart")
+    chart.dataSource.read();
+    chart.redraw();
+    chart.refresh();
+    }
+
 function changeChartType() {
     var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
     var selectedValue = dropdownlist.value()
     var chart = $("#stockChart").data("kendoStockChart");
-    console.log("chart", chart)
     if (selectedValue == "line") {
         chart.setOptions(
             {

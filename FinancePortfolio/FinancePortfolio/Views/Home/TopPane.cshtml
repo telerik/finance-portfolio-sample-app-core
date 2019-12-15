@@ -25,7 +25,7 @@
             @(Html.Kendo().DropDownList()
           .Name("interval")
           .DataTextField("Name")
-          .DataValueField("Interval")
+          .DataValueField("Duration")
           .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
           .DataSource(source =>
           {
@@ -34,7 +34,7 @@
                   read.Action("ReadDropDownListIntervals", "Home");
               });
           })
-          .Events(events => events.DataBound("onIntervalDDLDataBound"))
+          .Events(events => events.DataBound("onIntervalDDLDataBound").Change("onIntervalChange"))
           .HtmlAttributes(new { style = "width: 40%" })
             )
 
@@ -70,7 +70,7 @@
             @(Html.Kendo().StockChart<FinancePortfolio.Models.StockIntervalDetails>()
                 .Name("stockChart")
                 .DataSource(ds =>
-                    ds.Read(read => read.Action("MyFunc", "Home").Data("additionalChartData")
+                    ds.Read(read => read.Action("MyFunc", "Home").Data("additionalChartData") // ('AAN',new Date(2019, 7, 10).toUTCString(), end: new Date(2019, 7, 14).toUTCString(), 15 )
                 ))
                 .DateField("Date")
                 //.CategoryAxis(axis => axis
@@ -104,6 +104,7 @@
                     //    .CategoryField("Date");
 
                 })
+                .AutoBind(false)
                 .Navigator(nav => nav
                 .Series(series =>
                 {
@@ -119,9 +120,7 @@
 
 
 <script>
-    //$("#timeFilter li span:nth-child(5)").addClass("selected");
     $("#timeFilter li span").click(function () {
-        console.log(1)
         $("li span").not(this).removeClass("selected")
         if (!$(this).hasClass("selected")) {
             $(this).addClass("selected");
