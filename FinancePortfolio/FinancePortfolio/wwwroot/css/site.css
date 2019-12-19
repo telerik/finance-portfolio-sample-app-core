@@ -3412,7 +3412,8 @@ a {
     background-color: #fff; }
 
 .k-button {
-  width: 150px; }
+  width: 150px;
+  text-transform: none; }
   .k-button.k-state-active {
     color: #fff; }
   .k-button:focus {
@@ -3420,6 +3421,13 @@ a {
   .k-button.k-state-active {
     background: #1C7CD5;
     border-color: #1C7CD5; }
+
+.bottom-pane {
+  text-align: center;
+  background-color: transparent; }
+
+.k-button-group {
+  margin-top: 15px; }
 
 body {
   background: rgba(236, 238, 239, 0.5); }
@@ -3603,6 +3611,12 @@ td {
   font-weight: bold;
   color: black;
   border-bottom: 3px solid #1C7CD5; }
+
+#top-pane {
+  background-color: #FFF; }
+
+#removeButton {
+  visibility: hidden; }
 
 body {
   font-family: "Roboto", sans-serif; }
