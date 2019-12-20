@@ -68,7 +68,7 @@ namespace FinancePortfolio
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapHub<StockHub>("/stockHub");
+                endpoints.MapHub<StockHub>("~/stockHub");
             });
         }
     }

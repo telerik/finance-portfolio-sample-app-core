@@ -5,7 +5,7 @@
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
 
 function onCurrencyChange(e) {
-    if (document.location.pathname == "/Home/DataVirtualization") {
+    if (document.location.pathname.endsWith("/Home/DataVirtualization")) {
         $("#stocksGrid").getKendoGrid().refresh();
     }
     if (document.location.pathname == "/") {
@@ -14,7 +14,7 @@ function onCurrencyChange(e) {
 }
 
 function additionalData(e) {
-    var ddl = $("#currency").getKendoDropDownList()
+    var ddl = $("#currency").getKendoDropDownList();
     var ddlValue = ddl.value();
     var dataItem = ddl.dataItem(ddlValue - 1);
 
@@ -56,16 +56,14 @@ function dayChangeTemplate(data) {
     var color = data.DayChange == 0 ? "none" : (data.DayChange > 0 ? "green" : "red");
     return "<span  style='color: " + color + "'>" + kendo.toString(data.DayChange, "0.00") + "</span>";
 }
+
 function dayChangePctTemplate(data) {
     var color = data.ChangePct == 0 ? "none" : (data.ChangePct > 0 ? "green" : "red");
     return "<span style='color: " + color + "'>" + kendo.toString(data.ChangePct, "0.00") + "%</span>";
 }
 
-
-
 function numbersTemplate(data, fieldName) {
-
-    return formatCurrency(data[fieldName])
+    return formatCurrency(data[fieldName]);
 }
 
 function formatCurrency (value) {
@@ -84,10 +82,6 @@ function formatCurrency (value) {
     return value;
 };
 
-
-function onProfileClick() {
-    window.location.href = '/Home/Profile';
-}
 function additionalChartData() {
     var start, end, grid;
     var range = $("#daterangepicker").getKendoDateRangePicker().range();
@@ -126,14 +120,10 @@ function showDeletBttnOnChange() {
     var row = grid.select();
     return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
 }
-function closeProfile() {
-    window.location.href = '/Home';
-}
 
 function handleRangeChange(e) {
     var chart = $("#stockChart").data("kendoStockChart");
     if (e.sender.range().end && e.sender.range().start) {
-
         chart.dataSource.read();
         chart.redraw();
         chart.refresh();

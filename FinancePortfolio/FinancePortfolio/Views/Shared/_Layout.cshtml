@@ -41,16 +41,18 @@
                                           Value = "3"
                                       }
                                   })
-                                  .Events(ev=>ev.Change("onCurrencyChange"))
+                                  .Events(ev => ev.Change("onCurrencyChange"))
                                   .Value("1")
                                   .ValueTemplate("<span>Currency in #= data.Text #</span>")
-                                  .HtmlAttributes(new { style="width:140px" })
-                    ) 
+                                  .HtmlAttributes(new { style = "width:140px" })
+                    )
                 </div>
-                <div class="profile-wrapper d-flex flex-column align-self-center" onclick="onProfileClick()" routerLink="/profile">
-                    <div class="profile-image"></div>
-                    <div class="profile-text">Collin Johnson</div>
-                </div>
+                <a href="~/Home/Profile">
+                    <div class="profile-wrapper d-flex flex-column align-self-center" routerLink="/profile">
+                        <div class="profile-image"></div>
+                        <div class="profile-text">Collin Johnson</div>
+                    </div>
+                </a>
             </div>
         </nav>
     </header>
