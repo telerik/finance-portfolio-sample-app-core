@@ -28,10 +28,10 @@ namespace FinancePortfolio.Controllers
             return View();
         }
 
-        public IActionResult MyFunc(string symbol, DateTime start, DateTime end, int interval)
+        public IActionResult GetChartIntervalDetails(string symbol, DateTime start, DateTime end, int interval)
         {
-                
-                return new JsonResult(generator.GetStockIntervalDetails(symbol, start, end, interval));
+            var data = generator.GetStockIntervalDetails(symbol, start, end, interval);
+            return new JsonResult(data);
         }
 
         public IActionResult ReadDropDownListIntervals()

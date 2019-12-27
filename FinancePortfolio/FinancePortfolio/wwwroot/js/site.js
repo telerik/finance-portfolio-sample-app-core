@@ -3,6 +3,17 @@
 
 // Write your JavaScript code.
 const symbols = { USD: "$", EUR: "€", GBP: "£" }
+const MS_PER_DAY = 60 * 60 * 24 * 1000;
+var timeFilters = [
+    { Name: "1H", Duration: MS_PER_DAY / 24 },
+    { Name: "4H", Duration: MS_PER_DAY / 6 },
+    { Name: "12H", Duration: MS_PER_DAY / 2 },
+    { Name: "1D", Duration: MS_PER_DAY },
+    { Name: "4D", Duration: MS_PER_DAY * 4 },
+    { Name: "1W", Duration: MS_PER_DAY * 7 }
+];
+var prevItemValue;
+
 
 function onCurrencyChange(e) {
     if (document.location.pathname.endsWith("/Home/DataVirtualization")) {
@@ -83,14 +94,29 @@ function formatCurrency (value) {
 };
 
 function additionalChartData() {
-    var start, end, grid;
+    var toMins = 60000;
+    var activeTimeFilter = timeFilters[4].Duration / toMins;
+    var start, end, grid, interval;
     var range = $("#daterangepicker").getKendoDateRangePicker().range();
-    if (range) {
+    interval = ($("#interval").getKendoDropDownList().value() / toMins) || 60;
+
+    if ($("#timeFilter li span").hasClass("selected")) {
+        var fixedRangeIndex = $("#timeFilter li span.selected").index()
+        var duration = timeFilters[fixedRangeIndex].Duration / toMins;
+    }
+
+    if (!range) {
+        end = new Date();
+        start = new Date();
+        start.setMinutes(end.getMinutes() - duration);
+        console.log("no range")
+
+    }
+    else {
         start = range.start;
         end = range.end;
-    } else {
-        start = new Date(2019, 7, 10);
-        end = new Date(2019, 7, 14);
+        console.log("initialstart", start)
+        console.log("initialend", end)
     }
 
     grid = $("#Grid").getKendoGrid()
@@ -99,22 +125,21 @@ function additionalChartData() {
         var symbol = grid.dataItem(row).Symbol;
     }
 
-    var interval = $("#interval").getKendoDropDownList().value()
-    var minsInterval = Math.floor(interval / 60000);
-    if (minsInterval === 0) {
-        minsInterval = 60;
-    }
+    console.log("start", start)
+    console.log("end", end)
+    console.log("refresh range", range)
 
     return {
         symbol: symbol,
-        start: start.toUTCString(),
-        end: end.toUTCString(),
-        interval: minsInterval
+        start: start,
+        end: end,
+        interval: interval
     }
 }
 
 function showDeletBttnOnChange() {
-    var chart = $("#stockChart").data("kendoStockChart");;
+    var chart = $("#stockChart").data("kendoStockChart");
+    chart.one("dataBound", calculateColumnsMax)
     chart.dataSource.read()
     var grid = $("#Grid").data("kendoGrid");
     var row = grid.select();
@@ -123,23 +148,25 @@ function showDeletBttnOnChange() {
 
 function handleRangeChange(e) {
     var chart = $("#stockChart").data("kendoStockChart");
+    var navi = chart.navigator;
+    $("#timeFilter li span.selected").removeClass("selected");
     if (e.sender.range().end && e.sender.range().start) {
+        navi.select(e.sender.range().start, e.sender.range().end)
         chart.dataSource.read();
-        chart.redraw();
-        chart.refresh();
     }
 }
 
 function onIntervalDDLDataBound(e) {
     var defaultItem = e.sender.dataSource.at(3);
-    e.sender.value(defaultItem.Interval);
+    e.sender.value(defaultItem.Duration);
+    debugger;
 }
 
 function onIntervalChange(e) {
-    var chart = $("#stockChart").data("kendoStockChart")
+    var chart = $("#stockChart").data("kendoStockChart");
     chart.dataSource.read();
-    chart.redraw();
-    chart.refresh();
+    //chart.redraw();
+    //chart.refresh();
     }
 
 function changeChartType() {
@@ -209,3 +236,26 @@ function changeChartType() {
     }
 
 }
+
+function onGridDataBound(e) {
+    this.tbody.find('tr').each(function () {
+        eval($(this).find('script').html())
+    })
+}
+function itemColor(e) {
+    var currentItemValue = e.dataItem;
+    var currentLargerThenPrev = !prevItemValue || currentItemValue.Volume >= prevItemValue.Volume
+    if (currentItemValue.Volume) {
+        prevItemValue = currentItemValue
+    }
+    return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
+}
+
+function calculateColumnsMax() {
+    var chart = this;
+    var volumeValueAxisMax = Math.max(...chart.dataSource.data().map(stock => stock.Volume)) * 4;
+    chart.options.valueAxis[1].max = volumeValueAxisMax;
+    chart.redraw();
+    console.log("Nikooooo", chart.options.valueAxis[1].max)
+}
+

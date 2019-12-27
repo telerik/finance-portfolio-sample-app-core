@@ -144,7 +144,7 @@ namespace FinancePortfolio.Models
                     Close = Math.Round(newPrice, 2),
                     High = Math.Round(high + (0.015m * high), 2),
                     Low = Math.Round(low + (0.015m * low), 2),
-                    Volume = GetStocksTradeVolume(previousInterval.Volume),
+                    Volume = GetStocksTradeVolume(standingPoint.Volume),
                     Date = date
                 });
             }

@@ -1,6 +1,7 @@
 {
   "StocksInPortfolio": [
     {
+	  "id":1,
       "symbol": "AAN",
       "name": "Aaron's, Inc.",
       "price": 76.61,
@@ -92,6 +93,7 @@
       ]
     },
     {
+	  "id": 2,
       "symbol": "AAPL",
       "name": "Apple Inc.",
       "price": 246.58,
@@ -183,6 +185,7 @@
       ]
     },
     {
+	  "id": 3,
       "symbol": "ACN",
       "name": "Accenture plc",
       "price": 183.07,
@@ -274,6 +277,7 @@
       ]
     },
     {
+	  "id": 4,
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "price": 270.98,
@@ -365,6 +369,7 @@
       ]
     },
     {
+	  "id": 5,
       "symbol": "AGM",
       "name": "Federal Agricultural Mortgage Corporation",
       "price": 84.57,
@@ -440,6 +445,7 @@
       ]
     },
     {
+	  "id": 6,
       "symbol": "AMZN",
       "name": "Amazon.com, Inc.",
       "price": 1779.99,
@@ -531,6 +537,7 @@
       ]
     },
     {
+	  "id": 7,
       "symbol": "ASML",
       "name": "ASML Holding N.V.",
       "price": 263.99,
@@ -619,6 +626,7 @@
       ]
     },
     {
+	  "id": 8,
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "price": 289.82,
@@ -710,6 +718,7 @@
       ]
     },
     {
+	  "id": 9,
       "symbol": "BNPQY",
       "name": "BNP Paribas SA",
       "price": 26.43,
@@ -796,6 +805,7 @@
       ]
     },
     {
+	  "id": 10,
       "symbol": "CACC",
       "name": "Credit Acceptance Corporation",
       "price": 439.2,
@@ -883,6 +893,7 @@
   ],
   "UncategorizedStocks": [
     {
+	  "id": 11,
       "symbol": "CAI",
       "name": "CAI International, Inc.",
       "price": 23.77,
@@ -974,6 +985,7 @@
       ]
     },
     {
+	  "id": 12,
       "symbol": "CBTX",
       "name": "CBTX, Inc.",
       "price": 28.71,
@@ -1046,6 +1058,7 @@
       ]
     },
     {
+	  "id": 13,
       "symbol": "CMA",
       "name": "Comerica Incorporated",
       "price": 66.52,
@@ -1137,6 +1150,7 @@
       ]
     },
     {
+	  "id": 14,
       "symbol": "CRM",
       "name": "salesforce.com, inc.",
       "price": 150.49,
@@ -1228,6 +1242,7 @@
       ]
     },
     {
+	  "id": 15,
       "symbol": "CSCO",
       "name": "Cisco Systems, Inc.",
       "price": 46.9,
@@ -1319,6 +1334,7 @@
       ]
     },
     {
+	  "id": 16,
       "symbol": "ECPG",
       "name": "Encore Capital Group, Inc.",
       "price": 33.79,
@@ -1409,6 +1425,7 @@
       ]
     },
     {
+	  "id": 17,
       "symbol": "EPRT",
       "name": "Essential Properties Realty Trust, Inc.",
       "price": 25.58,
@@ -1500,6 +1517,7 @@
       ]
     },
     {
+	  "id": 18,
       "symbol": "FB",
       "name": "Facebook, Inc.",
       "price": 187.89,
@@ -1591,6 +1609,7 @@
       ]
     },
     {
+	  "id": 19,
       "symbol": "FOR",
       "name": "Forestar Group Inc.",
       "price": 18.5,
@@ -1678,6 +1697,7 @@
       ]
     },
     {
+	  "id": 20,
       "symbol": "GATX",
       "name": "GATX Corporation",
       "price": 80.2,
@@ -1769,6 +1789,7 @@
       ]
     },
     {
+	  "id": 21,
       "symbol": "GOOGL",
       "name": "Alphabet Inc.",
       "price": 1264.3,
@@ -1860,6 +1881,7 @@
       ]
     },
     {
+	  "id": 22,
       "symbol": "IBM",
       "name": "International Business Machines Corporation",
       "price": 135.44,
@@ -1951,6 +1973,7 @@
       ]
     },
     {
+	  "id": 23,
       "symbol": "INTC",
       "name": "Intel Corporation",
       "price": 56.46,
@@ -2042,6 +2065,7 @@
       ]
     },
     {
+	  "id": 24,
       "symbol": "INTU",
       "name": "Intuit Inc.",
       "price": 257.67,
@@ -2133,6 +2157,7 @@
       ]
     },
     {
+	  "id": 25,
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
       "price": 125.73,
@@ -2224,6 +2249,7 @@
       ]
     },
     {
+	 "id": 26,
       "symbol": "MSFT",
       "name": "Microsoft Corporation",
       "price": 140.73,
@@ -2315,6 +2341,7 @@
       ]
     },
     {
+	  "id": 27,
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
       "price": 204.54,
@@ -2406,6 +2433,7 @@
       ]
     },
     {
+	  "id": 28,
       "symbol": "ORCL",
       "name": "Oracle Corporation",
       "price": 54.17,
@@ -2497,6 +2525,7 @@
       ]
     },
     {
+	  "id": 29,
       "symbol": "PRGS",
       "name": "Progress Software Corporation",
       "price": 40.31,
@@ -2588,6 +2617,7 @@
       ]
     },
     {
+	  "id": 30,
       "symbol": "QCOM",
       "name": "QUALCOMM Incorporated",
       "price": 80.17,
@@ -2679,6 +2709,7 @@
       ]
     },
     {
+	  "id": 31,
       "symbol": "SAP",
       "name": "SAP SE",
       "price": 131.87,
@@ -2769,6 +2800,7 @@
       ]
     },
     {
+	  "id": 32,
       "symbol": "SNAP",
       "name": "Snap Inc.",
       "price": 13.52,
@@ -2860,6 +2892,7 @@
       ]
     },
     {
+	  "id": 33,
       "symbol": "SNE",
       "name": "Sony Corporation",
       "price": 58.51,
@@ -2951,6 +2984,7 @@
       ]
     },
     {
+	  "id": 34,
       "symbol": "TSM",
       "name": "Taiwan Semiconductor Manufacturing Company Limited",
       "price": 51.13,
@@ -3042,6 +3076,7 @@
       ]
     },
     {
+	  "id": 35,
       "symbol": "TWTR",
       "name": "Twitter, Inc.",
       "price": 30.75,
@@ -3133,6 +3168,7 @@
       ]
     },
     {
+	  "id": 36,
       "symbol": "TXN",
       "name": "Texas Instruments Incorporated",
       "price": 120.51,
@@ -3224,6 +3260,7 @@
       ]
     },
     {
+	  "id": 37,
       "symbol": "XOM",
       "name": "Exxon Mobil Corporation",
       "price": 67.72,
