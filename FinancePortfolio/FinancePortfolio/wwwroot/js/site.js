@@ -22,6 +22,7 @@ function onCurrencyChange() {
     }
     if (document.location.pathname == "/") {
         $("#Grid").getKendoGrid().dataSource.read();
+        $("#stockChart").data("kendoStockChart").redraw();
     }
 }
 
@@ -62,6 +63,11 @@ function stockCurrencyTemplate(){
 function currencyTemplate(data) {
     var currency = $("#currency").data("kendoDropDownList").value();
     return currency == 1 ? kendo.toString(data.Price, "$###.##") : (currency == 2 ? kendo.toString(data.Price, "€###.##") : kendo.toString(data.Price, "£###.##"))
+}
+
+function currencyTemplateChartValueAxis(data) {
+    var currency = $("#currency").data("kendoDropDownList").value();
+    return currency == 1 ? kendo.toString(data.value, "$###.##") : (currency == 2 ? kendo.toString(data.value, "€###.##") : kendo.toString(data.value, "£###.##"))
 }
 
 function dayChangeTemplate(data) {
@@ -129,7 +135,6 @@ function additionalChartData() {
     console.log("end", end)
     console.log("refresh range", range)
     console.log("interval". interval)
-    debugger;
     return {
         symbol: symbol,
         start: start,
@@ -154,6 +159,7 @@ function handleRangeChange(e) {
     $("#timeFilter li span.selected").removeClass("selected");
     if (e.sender.range().end && e.sender.range().start) {
         navi.select(e.sender.range().start, e.sender.range().end)
+        chart.one("dataBound", calculateColumnsMaxAndPlotBands)
         chart.dataSource.read();
     }
 }
@@ -174,27 +180,63 @@ function onIntervalChange() {
     end = new Date();
     start = new Date();
     start.setMinutes(end.getMinutes() - duration);
-    navi.select(start, end);
+    //navi.select.from = start;
+    //navi.select.to = end;
+    chart._navigator.options.select.from = start;
+    chart._navigator.options.select.to = end
+    chart.redraw();
     chart.dataSource.read();
+
     }
 
 function changeChartType() {
     var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
     var selectedValue = dropdownlist.value()
     var chart = $("#stockChart").data("kendoStockChart");
+    var volumeValueAxisMax = Math.max(...chart.dataSource.data().map(stock => stock.Volume)) * 4;
+    var plotBands = calculateColumnsMaxAndPlotBands();
+    console.log("plotBands", plotBands)
+
     if (selectedValue == "line") {
         chart.setOptions(
             {
                 type: "line",
                 series: [{
-                    type: "line",
-                    field: "Open",
+                    type: "column",
+                    field: "Volume",
                     categoryField: "Date",
-                    color: "#2D73F5"
+                    axis: "Volume",
+                    color: itemColor,
+                    border: "transparent",
+                    gap: 0.75
+                },
+                    {
+                     type: "line",
+                     field: "Open",
+                     categoryField: "Date",
+                     color: "#2D73F5"
+                    }],
+                valueAxis: [{
+                    name: "Close",
+                    type: "numeric",
+                    visible: true,
+                    crosshair: {
+                        visible: true
+                    }
+                },
+                {
+                    name: "Volume",
+                    type: "numeric",
+                    min: 0,
+                    max: volumeValueAxisMax,
+                    visible: false,
                 }],
                 seriesDefaults: {
                     type: "line"
                 },
+                categoryAxis: [{
+                    plotBands: plotBands
+                }],
                 navigator: {
                     series: {
                         color: "#559DE0"
@@ -207,14 +249,40 @@ function changeChartType() {
             {
                 type: "area",
                 series: [{
+                    type: "column",
+                    field: "Volume",
+                    categoryField: "Date",
+                    axis: "Volume",
+                    color: itemColor,
+                    border: "transparent",
+                    gap: 0.75
+                },
+                    {
                     type: "area",
                     field: "Open",
                     categoryField: "Date",
                     color: "#007BFF"
+                    }],
+                valueAxis: [{
+                    name: "Close",
+                    type: "numeric",
+                    visible: true,
+                    crosshair: {
+                        visible: true
+                    }
+                },
+                {
+                    name: "Volume",
+                    type: "numeric",
+                    min: 0,
+                    max: volumeValueAxisMax,
+                    visible: false
                 }],
                 seriesDefaults: {
                     type: "area"
-                },
+                }, categoryAxis: [{
+                    plotBands: plotBands
+                }],
                 navigator: {
                     series: {
                         color: "#559DE0"
@@ -227,6 +295,14 @@ function changeChartType() {
             {
                 type: "candle",
                 series: [{
+                    type: "column",
+                    field: "Volume",
+                    categoryField: "Date",
+                    axis: "Volume",
+                    color: itemColor,
+                    border: "transparent",
+                    gap: 0.75
+                },{
                     type: "candlestick",
                     color: "#5CB85C",
                     downColor: "#D9534F",
@@ -235,6 +311,23 @@ function changeChartType() {
                     lowField: "Low",
                     closeField: "Close",
                     categoryField: "Date"
+                    }],
+                valueAxis: [{
+                    name: "Close",
+                    type: "numeric",
+                    visible: true,
+                    crosshair: {
+                        visible: true
+                    },                },
+                {
+                    name: "Volume",
+                    type: "numeric",
+                    min: 0,
+                    max: volumeValueAxisMax,
+                    visible: false
+                    }],
+                categoryAxis: [{
+                    plotBands: plotBands
                 }],
                 navigator: {
                     series: {
@@ -244,6 +337,7 @@ function changeChartType() {
             })
     }
 
+    
 }
 
 function onGridDataBound() {
@@ -261,7 +355,7 @@ function itemColor(e) {
 }
 
 function calculateColumnsMaxAndPlotBands() {
-    var chart = this;
+    var chart = $("#stockChart").data("kendoStockChart");
     var volumeValueAxisMax = Math.max(...chart.dataSource.data().map(stock => stock.Volume)) * 4;
     chart.options.valueAxis[1].max = volumeValueAxisMax;
     var categoryPlotBands = chart.dataSource.data().reduce((bands, current, index, allStocks) => {
@@ -277,6 +371,9 @@ function calculateColumnsMaxAndPlotBands() {
     }, []);
     chart.options.categoryAxis[0].plotBands = categoryPlotBands;
     chart.redraw();
+    console.log("categoryPlotBands", categoryPlotBands)
+
+    return categoryPlotBands;
 }
 
 
@@ -300,14 +397,3 @@ function toggleDisabledStateIntervalDropDown(e) {
     });
 }
 
-function refreshNavigatorDateRange() {
-    var chart = $("#stockChart").data("kendoStockChart");
-    var navi = chart.navigator;
-    var fixedRangeIndex = $("#timeFilter li span.selected").index()
-    var duration = timeFilters[fixedRangeIndex].Duration / toMins;
-
-    end = new Date();
-    start = new Date();
-    start.setMinutes(end.getMinutes() - duration);
-    navi.select(start, end);
-}

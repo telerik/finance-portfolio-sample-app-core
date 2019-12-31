@@ -71,7 +71,7 @@
         <div class="col">
             @(Html.Kendo().StockChart<FinancePortfolio.Models.StockIntervalDetails>()
                 .Name("stockChart")
-               // .Events(e => e.DataBound("onDataBound"))
+                // .Events(e => e.DataBound("onDataBound"))
                 .DataSource(ds =>
                     ds.Read(read => read.Action("GetChartIntervalDetails", "Home").Data("additionalChartData")
                 ))
@@ -86,10 +86,16 @@
                     )
                 .ValueAxis(axis =>
                 {
-                    axis.Numeric("Close").Visible(false);
+                    axis.Numeric("Close").Visible(true);
                     axis.Crosshair(x => x.Visible(true));
+                    axis.Labels(l => l.Template("#= currencyTemplateChartValueAxis(data)#"));
                 })
-                .ValueAxis(axis => axis.Numeric("Volume").Visible(true).Min(0))
+                .ValueAxis(axis =>
+                {
+                    axis.Numeric("Volume");
+                    axis.Visible(false);
+                    axis.Min(0);
+                })
                 .Series(series =>
                 {
                     series.Candlestick(s => s.Open, s => s.High, s => s.Low, s => s.Close)
@@ -146,8 +152,17 @@
         start.setMinutes(end.getMinutes() - duration);
         $("#daterangepicker").getKendoDateRangePicker().range("")
 
-        navi.select(start, end);
-        chart.dataSource.read();
+        chart.one("dataBound", calculateColumnsMaxAndPlotBands)
+        chart._navigator.options.select.from = start;
+        chart._navigator.options.select.to = end
+        chart.redraw();
+
+        //navi.select.from = start;
+        //navi.select.to = end;
+        //navi.select(start, end);
+
+        chart.dataSource.read()
+
     });
 
 </script>
