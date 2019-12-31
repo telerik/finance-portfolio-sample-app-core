@@ -27,15 +27,17 @@
           .DataTextField("Name")
           .DataValueField("Duration")
           .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
-          .DataSource(source =>
-          {
-              source.Read(read =>
-              {
-                  read.Action("ReadDropDownListIntervals", "Home");
-              });
-          })
-          .Events(events => events.DataBound("onIntervalDDLDataBound").Change("onIntervalChange"))
-          .HtmlAttributes(new { style = "width: 40%" })
+            .DataSource(source =>
+            {
+            source.Read(read => read.Action("ReadDropDownListIntervals", "Home"));
+            })
+            .Events(events =>
+                    {
+                events.DataBound("onIntervalDDLDataBound");
+                events.Change("onIntervalChange");
+                events.Open("toggleDisabledStateIntervalDropDown");
+                })
+            .HtmlAttributes(new { style = "width: 40%" })
             )
 
             @(Html.Kendo().DropDownList()
@@ -71,19 +73,13 @@
                 .Name("stockChart")
                // .Events(e => e.DataBound("onDataBound"))
                 .DataSource(ds =>
-                    ds.Read(read => read.Action("GetChartIntervalDetails", "Home").Data("additionalChartData") // ('AAN',new Date(2019, 7, 10).toUTCString(), end: new Date(2019, 7, 14).toUTCString(), 15 )
+                    ds.Read(read => read.Action("GetChartIntervalDetails", "Home").Data("additionalChartData")
                 ))
                 .DateField("Date")
-                
-               // 
                 .CategoryAxis(axis => axis
-                    //.Categories("start")
-                    //.Field("Date")
                     .BaseUnitStep(1)
                     .BaseUnit(ChartAxisBaseUnit.Hours)
                     .Crosshair(xh => xh.Visible(true))
-                    //.MaxDateGroups(20)
-                    //.PlotBands()
                     .MaxDivisions(20)
                     .MinorGridLines(mgl => mgl.Visible(true))
                     .MajorGridLines(mgl => mgl.Visible(true))
@@ -139,20 +135,19 @@
         if (!$(this).hasClass("selected")) {
             $(this).addClass("selected");
         }
+       
         var chart = $("#stockChart").data("kendoStockChart")
         var navi = chart.navigator;
-        var toMins = 60000;
         var fixedRangeIndex = $("#timeFilter li span.selected").index()
         var duration = timeFilters[fixedRangeIndex].Duration / toMins;
+
         end = new Date();
         start = new Date();
-        console.log("startttt", start)
         start.setMinutes(end.getMinutes() - duration);
-
-        //var range = $("#daterangepicker").getKendoDateRangePicker().range();
         $("#daterangepicker").getKendoDateRangePicker().range("")
 
-        navi.select(start, end)
+        navi.select(start, end);
         chart.dataSource.read();
     });
+
 </script>
