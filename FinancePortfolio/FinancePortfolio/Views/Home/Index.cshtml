@@ -27,79 +27,6 @@
 
 
 <script>
-    function onDataBound(e) {
-        e.sender.select("tr:eq(0)");
-        $("#Grid tr.k-alt").removeClass("k-alt");
-        var intradayCollection = [];
-        var data = this.dataSource.view();
-        $(data).each(function () {
-            intradayCollection.push(this.Intraday)
-        })
-
-        $('.chart').each(function (i) {
-            var chart = $(this);
-            var item = data[i];
-            var color = item.ChangePct > 0 ? "green" : "red"; 
-
-            chart.kendoChart({
-                chartArea: {
-                    background: "transparent",
-                    opacity: 0.2
-                },
-                legend: {
-                    visible: false
-                },
-                seriesDefaults: {
-                    type: "area",
-                    labels: {
-                        visible: false,
-                        background: "transparent"
-                    }
-                },
-                series: [{
-                    type: "area",
-                    data: intradayCollection[i],
-                    markers: {
-                        visible: false
-                    },
-                    color: color,
-                    opacity: 0.2
-                },
-                    {
-                    type: "line",
-                    data: intradayCollection[i],
-                    markers: {
-                        visible: false
-                    },
-                    color: color
-                }],
-                valueAxis: {
-                    line: {
-                        visible: false
-                    },
-                    majorGridLines: {
-                        visible: false
-                    },
-                    labels: {
-                        visible: false,
-                    }
-                },
-                categoryAxis: {
-                    line: {
-                        visible: false
-                    },
-                    majorGridLines: {
-                        visible: false,
-                    }
-                },
-                tooltip: {
-                    visible: true
-                }
-            });
-        });
-
-    }
-
     function removeRow() {
         var grid = $("#Grid").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
@@ -118,5 +45,4 @@
             grid.dataSource.insert(item, 0);
         }
     }
-
 </script>

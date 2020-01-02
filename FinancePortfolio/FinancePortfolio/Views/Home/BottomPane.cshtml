@@ -63,23 +63,24 @@
                 columns.Bound(p => p.VolumeAvg).ClientHeaderTemplate("Avg Vol <span class='grid-header-subtitle'>(3 month)</span>").ClientTemplate("#= numbersTemplate(data, 'VolumeAvg')#").Title("Avg Vol").Media("(min-width: 768px)");
                 columns.Bound(p => p.MarketCap).ClientTemplate("#= numbersTemplate(data, 'MarketCap')#").Format("").Title("Market Cap").Media("(min-width: 1200px)");
                 columns.Bound(p => p.Pe).ClientHeaderTemplate("PE Ratio <span class='grid-header-subtitle'>(TTM)</span>").Title("PE Ratio").Media("(min-width: 1200px)");
-                columns.Bound(p => p.Intraday).ClientHeaderTemplate("<strong>1 Day Chart</strong>").ClientTemplate("<div class='chart' style='width: 200px; height: 70px;'></div>").Title("1 Day Chart").Width(215).Sortable(false);
-                //columns.Bound(p => p.Intraday).ClientHeaderTemplate("<strong>1 Day Chart</strong>").ClientTemplate(
-                //    Html.Kendo().Chart()
-                //        .Name("chart#=Id#")
-                //        .DataSource(ds => ds.Read(read => read.Action("ReadGridData", "Grid")))
-                //        .ChartArea(x => x.Background("transparent").Opacity(0.2))
-                //        .Legend(l => l.Visible(false))
-                //        .SeriesDefaults(x => x.Area().Labels(l => l.Visible(false).Background("transparent")))
-                //        .Series(s => {
-                //            s.Area(model => model.int).Markers(m => m.Visible(false)).Color("color").Opacity(0.2);
-                //            s.Line(model => model.).Markers(m => m.Visible(false)).Color("color").Opacity(0.2);
-                //            })
-                //        .ValueAxis(x => x.Line(l => l.Visible(false)).MajorGridLines(x => x.Visible(false)).Labels(l => l.Visible(false)))
-                //        .CategoryAxis(x => x.Line(l => l.Visible(false)).MajorGridLines(x => x.Visible(false)))
-                //        .Tooltip(t => t.Visible(true))
-                //        .ToClientTemplate().Value)
-                //.Title("1 Day Chart").Width(215).Sortable(false);
+                columns.Bound(p => p.Intraday).ClientHeaderTemplate("<strong>1 Day Chart</strong>").ClientTemplate(
+                    Html.Kendo().Chart()
+                        .Name("chart#=Id#")
+                        .HtmlAttributes(new {  style = "height: 70px;" })
+                        .ChartArea(x => x.Background("transparent").Opacity(0.2))
+                        .Legend(l => l.Visible(false))
+                        .SeriesDefaults(x => x.Area().Labels(l => l.Visible(false).Background("transparent")))
+                        .Series(s =>
+                        {
+                            s.Area("Intraday").Markers(m => m.Visible(false)).Opacity(0.2);
+                            s.Line("Intraday").Markers(m => m.Visible(false));
+                        })
+                        .Events(ev=>ev.DataBound("setNestedChartColor"))
+                        .ValueAxis(x => x.Line(l => l.Visible(false)).MajorGridLines(x => x.Visible(false)).Labels(l => l.Visible(false)))
+                        .CategoryAxis(x => x.Line(l => l.Visible(false)).MajorGridLines(x => x.Visible(false)))
+                        .Tooltip(t => t.Visible(true))
+                        .ToClientTemplate().Value)
+                .Title("1 Day Chart").Width(215).Sortable(false);
             })
             .HtmlAttributes(new { style = "height: 920px" })
             .Editable(c=>c.DisplayDeleteConfirmation(true))
@@ -88,8 +89,7 @@
             .Scrollable(s => s.Virtual(true))
             .Events(e =>
             {
-                e.DataBound("onDataBound");
-                //e.DataBound("onGridDataBound");
+                e.DataBound("onGridDataBound");
                 e.Change("showDeletBttnOnChange");
             })
             .DataSource(dataSource => dataSource
@@ -102,6 +102,3 @@
             )
     </div>
 </div>
-
-
-@*"<div class='chart' style='width: 200px; height: 70px;'></div>*@

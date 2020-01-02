@@ -71,7 +71,6 @@
         <div class="col">
             @(Html.Kendo().StockChart<FinancePortfolio.Models.StockIntervalDetails>()
                 .Name("stockChart")
-                // .Events(e => e.DataBound("onDataBound"))
                 .DataSource(ds =>
                     ds.Read(read => read.Action("GetChartIntervalDetails", "Home").Data("additionalChartData")
                 ))
@@ -153,13 +152,13 @@
         $("#daterangepicker").getKendoDateRangePicker().range("")
 
         chart.one("dataBound", calculateColumnsMaxAndPlotBands)
-        chart._navigator.options.select.from = start;
-        chart._navigator.options.select.to = end
-        chart.redraw();
+        //chart._navigator.options.select.from = start;
+        //chart._navigator.options.select.to = end
+        //chart.redraw();
 
-        //navi.select.from = start;
-        //navi.select.to = end;
-        //navi.select(start, end);
+        navi.select.from = start;
+        navi.select.to = end;
+        navi.select(start, end);
 
         chart.dataSource.read()
 

@@ -182,9 +182,11 @@ function onIntervalChange() {
     start.setMinutes(end.getMinutes() - duration);
     //navi.select.from = start;
     //navi.select.to = end;
-    chart._navigator.options.select.from = start;
-    chart._navigator.options.select.to = end
-    chart.redraw();
+
+    //chart._navigator.options.select.from = start;
+    //chart._navigator.options.select.to = end
+    //chart.redraw();
+    navi.select(start, end);
     chart.dataSource.read();
 
     }
@@ -340,11 +342,28 @@ function changeChartType() {
     
 }
 
-function onGridDataBound() {
-    this.tbody.find('tr').each(function () {
+
+
+function onGridDataBound(e) {
+    e.sender.select("tr:eq(0)");
+    $("#Grid tr.k-alt").removeClass("k-alt");
+    var intradayCollection = [];
+    var data = this.dataSource.view();
+    $(data).each(function () {
+        intradayCollection.push(this.Intraday)
+    });
+
+    this.tbody.find('tr').each(function (idx) {
         eval($(this).find('script').html())
+        var chart = $(this).find("[data-role='chart']").getKendoChart();
+        var chartData = jQuery.map(intradayCollection[idx], function (a) {
+            return { Intraday: a };
+        });
+
+        chart.dataSource.data(chartData)
     })
 }
+
 function itemColor(e) {
     var currentItemValue = e.dataItem;
     var currentLargerThenPrev = !prevItemValue || currentItemValue.Volume >= prevItemValue.Volume
@@ -352,6 +371,15 @@ function itemColor(e) {
         prevItemValue = currentItemValue
     }
     return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
+}
+
+function setNestedChartColor(e) {
+    var grid = $("#Grid").getKendoGrid();
+    var dataItem = grid.dataItem($(e.sender.element).closest("tr"));
+    var color = dataItem.ChangePct > 0 ? "green" : "red"; 
+    $(e.sender.options.series).each(function () {
+        this.color = color;
+    });
 }
 
 function calculateColumnsMaxAndPlotBands() {
@@ -371,7 +399,6 @@ function calculateColumnsMaxAndPlotBands() {
     }, []);
     chart.options.categoryAxis[0].plotBands = categoryPlotBands;
     chart.redraw();
-    console.log("categoryPlotBands", categoryPlotBands)
 
     return categoryPlotBands;
 }
