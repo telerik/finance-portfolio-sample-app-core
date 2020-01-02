@@ -2,8 +2,9 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-const symbols = { USD: "$", EUR: "€", GBP: "£" }
-const MS_PER_DAY = 86400000; /*60 * 60 * 24 * 1000*/;
+const symbols = { USD: "$", EUR: "€", GBP: "£" };
+const MS_PER_DAY = 86400000; /*60 * 60 * 24 * 1000*/
+var defaultIntervalDuration = 3600000;
 var timeFilters = [
     { Name: "1H", Duration: MS_PER_DAY / 24 },
     { Name: "4H", Duration: MS_PER_DAY / 6 },
@@ -20,7 +21,7 @@ function onCurrencyChange() {
     if (document.location.pathname.endsWith("/Home/DataVirtualization")) {
         $("#stocksGrid").getKendoGrid().refresh();
     }
-    if (document.location.pathname == "/") {
+    if (document.location.pathname === "/") {
         $("#Grid").getKendoGrid().dataSource.read();
         $("#stockChart").data("kendoStockChart").redraw();
     }
@@ -33,7 +34,7 @@ function additionalData() {
 
     return {
         currency: dataItem.Text
-    }
+    };
 }
 
 function priceTemplate(dataItem) {
@@ -53,7 +54,7 @@ function changeTemplate(dataItem) {
     return "<span " + fade + "style='color: " + color + "'>" + kendo.toString(dataItem.DayChange, "0.00") + "%</span>";
 }
 
-function stockCurrencyTemplate(){
+function stockCurrencyTemplate() {
     var selected = $("#currency").getKendoDropDownList().select();
     var currency = $("#currency").getKendoDropDownList().dataItem(selected).Text;
 
@@ -84,7 +85,7 @@ function numbersTemplate(data, fieldName) {
     return formatCurrency(data[fieldName]);
 }
 
-function formatCurrency (value) {
+function formatCurrency(value) {
     if (value >= 1000000000) {
         return (value / 1000000000).toFixed(3) + 'B';
     }
@@ -98,16 +99,16 @@ function formatCurrency (value) {
     }
 
     return value;
-};
+}
 
 function additionalChartData() {
     var start, end, grid, interval;
     var range = $("#daterangepicker").getKendoDateRangePicker().range();
     interval = ($("#interval").getKendoDropDownList().value() / toMins) || 60;
-    console.log("interval", interval)
+    console.log("interval", interval);
 
     if ($("#timeFilter li span").hasClass("selected")) {
-        var fixedRangeIndex = $("#timeFilter li span.selected").index()
+        var fixedRangeIndex = $("#timeFilter li span.selected").index();
         var duration = timeFilters[fixedRangeIndex].Duration / toMins;
     }
 
@@ -115,91 +116,60 @@ function additionalChartData() {
         end = new Date();
         start = new Date();
         start.setMinutes(end.getMinutes() - duration);
-        console.log("no range")
-
+        console.log("no range", start);
     }
     else {
         start = range.start;
         end = range.end;
-        console.log("initialstart", start)
-        console.log("initialend", end)
     }
 
-    grid = $("#Grid").getKendoGrid()
-    if (grid.select().length) {
+    grid = $("#Grid").getKendoGrid();
+    if (grid && grid.select().length) {
         var row = grid.select();
         var symbol = grid.dataItem(row).Symbol;
     }
-
-    console.log("start", start)
-    console.log("end", end)
-    console.log("refresh range", range)
-    console.log("interval". interval)
+    console.log(start, end, interval);
     return {
-        symbol: symbol,
+        symbol: symbol || "AAN",
         start: start,
         end: end,
         interval: interval
-    }
-
+    };
 }
 
 function showDeletBttnOnChange() {
-    var chart = $("#stockChart").data("kendoStockChart");
-    chart.one("dataBound", calculateColumnsMaxAndPlotBands)
-    chart.dataSource.read()
     var grid = $("#Grid").data("kendoGrid");
     var row = grid.select();
     return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
 }
 
 function handleRangeChange(e) {
-    var chart = $("#stockChart").data("kendoStockChart");
-    var navi = chart.navigator;
-    $("#timeFilter li span.selected").removeClass("selected");
-    if (e.sender.range().end && e.sender.range().start) {
-        navi.select(e.sender.range().start, e.sender.range().end)
-        chart.one("dataBound", calculateColumnsMaxAndPlotBands)
-        chart.dataSource.read();
-    }
-}
+    var rangePicker = this;
+    setTimeout(function () {
+        var range = rangePicker.range();
+        if (range.start && range.end) {
+            var start = new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDay());
+            var end = new Date(range.end.getFullYear(), range.end.getMonth(), range.end.getDay());
+            var normalizedRange = normalizeSelectionRange(start, end, rangePicker.options.min, rangePicker.options.max);
 
-function onIntervalDDLDataBound(e) {
-    var defaultItem = e.sender.dataSource.at(3);
-    e.sender.value(defaultItem.Duration);
-    intervalDuration = defaultItem.Duration
+            if (normalizedRange.start && normalizedRange.end) {
+                $("#timeFilter li span.selected").removeClass("selected");
+                $("#interval").getKendoDropDownList().value(MS_PER_DAY.toString());
+                updateChart(normalizedRange.start && normalizedRange.end);
+            }
+        }
+    });   
 }
-
 
 function onIntervalChange() {
-    var chart = $("#stockChart").data("kendoStockChart");
-    var navi = chart.navigator;
-    var fixedRangeIndex = $("#timeFilter li span.selected").index()
-    var duration = timeFilters[fixedRangeIndex].Duration / toMins;
-
-    end = new Date();
-    start = new Date();
-    start.setMinutes(end.getMinutes() - duration);
-    //navi.select.from = start;
-    //navi.select.to = end;
-
-    //chart._navigator.options.select.from = start;
-    //chart._navigator.options.select.to = end
-    //chart.redraw();
-    navi.select(start, end);
-    chart.dataSource.read();
-
-    }
+    updateChart();
+}
 
 function changeChartType() {
     var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
-    var selectedValue = dropdownlist.value()
-    var chart = $("#stockChart").data("kendoStockChart");
-    var volumeValueAxisMax = Math.max(...chart.dataSource.data().map(stock => stock.Volume)) * 4;
-    var plotBands = calculateColumnsMaxAndPlotBands();
-    console.log("plotBands", plotBands)
-
-    if (selectedValue == "line") {
+    var selectedValue = dropdownlist.value();
+    var chart = $("#stockChart").getKendoStockChart();
+    if (selectedValue === "line") {
         chart.setOptions(
             {
                 type: "line",
@@ -224,7 +194,7 @@ function changeChartType() {
                     tooltip: {
                         visible: true,
                         template: $('#tooltipTemplate').html()
-                    },
+                    }
                 }],
                 valueAxis: [{
                     name: "Close",
@@ -238,14 +208,12 @@ function changeChartType() {
                     name: "Volume",
                     type: "numeric",
                     min: 0,
-                    max: volumeValueAxisMax,
-                    visible: false,
+                    visible: false
                 }],
                 seriesDefaults: {
                     type: "line"
                 },
                 categoryAxis: [{
-                    plotBands: plotBands,
                     baseUnitStep: 1,
                     baseUnit: "hours",
                     crosshair: {
@@ -264,9 +232,9 @@ function changeChartType() {
                         color: "#559DE0"
                     }
                 }
-            })
+            });
     }
-    if (selectedValue == "area") {
+    if (selectedValue === "area") {
         chart.setOptions(
             {
                 type: "area",
@@ -291,7 +259,7 @@ function changeChartType() {
                     tooltip: {
                         visible: true,
                         template: $('#tooltipTemplate').html()
-                    },
+                    }
                 }],
                 valueAxis: [{
                     name: "Close",
@@ -305,14 +273,12 @@ function changeChartType() {
                     name: "Volume",
                     type: "numeric",
                     min: 0,
-                    max: volumeValueAxisMax,
                     visible: false
                 }],
                 seriesDefaults: {
                     type: "area"
                 },
                 categoryAxis: [{
-                    plotBands: plotBands,
                     baseUnitStep: 1,
                     baseUnit: "hours",
                     crosshair: {
@@ -331,9 +297,9 @@ function changeChartType() {
                         color: "#559DE0"
                     }
                 }
-            })
+            });
     }
-    if (selectedValue == "candle") {
+    if (selectedValue === "candle") {
         chart.setOptions(
             {
                 type: "candle",
@@ -366,7 +332,7 @@ function changeChartType() {
                     tooltip: {
                         visible: true,
                         template: $('#tooltipTemplate').html()
-                    },
+                    }
                 }],
                 valueAxis: [{
                     name: "Close",
@@ -374,16 +340,15 @@ function changeChartType() {
                     visible: true,
                     crosshair: {
                         visible: true
-                    },                },
+                    }
+                },
                 {
                     name: "Volume",
                     type: "numeric",
                     min: 0,
-                    max: volumeValueAxisMax,
                     visible: false
-                    }],
+                }],
                 categoryAxis: [{
-                    plotBands: plotBands,
                     baseUnitStep: 1,
                     baseUnit: "hours",
                     crosshair: {
@@ -402,10 +367,8 @@ function changeChartType() {
                         color: "#559DE0"
                     }
                 }
-            })
+            });
     }
-
-    
 }
 
 function onGridDataBound(e) {
@@ -430,13 +393,12 @@ function onGridDataBound(e) {
 
 function itemColor(e) {
     var currentItemValue = e.dataItem;
-    var currentLargerThenPrev = !prevItemValue || currentItemValue.Volume >= prevItemValue.Volume
+    var currentLargerThenPrev = !prevItemValue || currentItemValue.Volume >= prevItemValue.Volume;
     if (currentItemValue.Volume) {
-        prevItemValue = currentItemValue
+        prevItemValue = currentItemValue;
     }
     return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
 }
-
 function setNestedChartColor(e) {
     var grid = $("#Grid").getKendoGrid();
     var dataItem = grid.dataItem($(e.sender.element).closest("tr"));
@@ -446,10 +408,22 @@ function setNestedChartColor(e) {
     });
 }
 
-function calculateColumnsMaxAndPlotBands() {
-    var chart = $("#stockChart").data("kendoStockChart");
-    var volumeValueAxisMax = Math.max(...chart.dataSource.data().map(stock => stock.Volume)) * 4;
-    chart.options.valueAxis[1].max = volumeValueAxisMax;
+// we can improve this to only loop once
+function calculateColumnsMaxAndPlotBands(e) {
+    var chart = this;
+    var currentMax = 0;
+    var series = e.sender.options.series;
+    for (let i = 0; i < series.length; i++) {
+        for (let k = 0; k < series[i].data.length; k++) {
+            if (series[i].data[k].Volume > currentMax) {
+                currentMax = series[i].data[k].Volume;
+            }
+        }
+    }
+
+    // set hidden valueAxis max so the bars are always 1/4 of the chart height
+    chart.options.valueAxis[1].max = currentMax * 4;
+
     var categoryPlotBands = chart.dataSource.data().reduce((bands, current, index, allStocks) => {
         bands.push({
             from: current.Date,
@@ -463,24 +437,94 @@ function calculateColumnsMaxAndPlotBands() {
     }, []);
     chart.options.categoryAxis[0].plotBands = categoryPlotBands;
     chart.redraw();
-
-    return categoryPlotBands;
 }
 
+function updateChart(rangeStart, rangeEnd) {
+    var chart = $("#stockChart").data("kendoStockChart");
+    var interval = $("#interval").getKendoDropDownList().dataItem().Interval;
+    chart.options.categoryAxis[0].baseUnit = interval.Unit.toLowerCase();
+    chart.options.categoryAxis[0].baseUnitStep = interval.Step;
+    var navi = chart.navigator;
+    var fixedRangeIndex = $("#timeFilter li span.selected").index();
+    var duration = fixedRangeIndex !== -1 ? timeFilters[fixedRangeIndex].Duration / toMins : defaultIntervalDuration;
 
-function rangeAndIntervalCompatible(rangeDuration, intervalDuration) {
+    end = rangeEnd || new Date();
+    start = rangeStart || new Date();
+    start.setMinutes(end.getMinutes() - duration);
+    navi.select(start, end);
+    chart.dataSource.read();
+}
+
+function onTimeFilterClick(e) {
+    $("li span").removeClass("selected");
+    $(e.target).addClass("selected");
+    $("#daterangepicker").getKendoDateRangePicker().range("");
+    var fixedRangeIndex = $(e.target).index();
+    var duration = timeFilters[fixedRangeIndex].Duration;
+    selectFirstCompatibleInterval(duration);
+}
+
+function selectFirstCompatibleInterval(displayedDuration) {
+    var intervalDropDown = $("#interval").getKendoDropDownList();
+    var selectedInterval = intervalDropDown.dataItem().Duration;
+    if (rangeAndIntervalCompatible(displayedDuration, selectedInterval)) {
+        intervalDropDown.trigger("change");
+        return;
+    }
+    const firstCompatibleInterval = intervalDropDown.dataItems().find(interval => rangeAndIntervalCompatible(displayedDuration, interval.Duration));
+    if (firstCompatibleInterval) {
+        intervalDropDown.value(firstCompatibleInterval.Duration.toString());
+        intervalDropDown.trigger("change");
+    }
+}
+
+function normalizeSelectionRange(start, end, min, max) {
+    if (!(start && end && isDateInRange(start, min, max) && isDateInRange(end, min, max))) {
+        return { start: null, end: null };
+    }
+
+    const normalizedStart = new Date(start.getFullYear(), start.getMonth(), start.getDay());
+    const normalizedEnd = new Date(end.getFullYear(), end.getMonth(), end.getDay() + 1);
+
+    return {
+        start: dateInRange(normalizedStart, min, max),
+        end: dateInRange(normalizedEnd, min, max)
+    };
+}
+
+function isDateInRange(candidate, min, max) {
+    return !candidate || !((min && min > candidate) || (max && max < candidate));
+}
+
+function dateInRange(candidate, min, max) {
+    if (!candidate) {
+        return candidate;
+    }
+
+    if (min && candidate < min) {
+        return min;
+    }
+
+    if (max && candidate > max) {
+        return max;
+    }
+
+    return candidate;
+}
+
+function rangeAndIntervalCompatible(rangeDuration, defaultIntervalDuration) {
     // disallow the selection of intervals greater than the currently selected range
-    var intervalGreaterThanRange = intervalDuration > rangeDuration;
+    var intervalGreaterThanRange = defaultIntervalDuration > rangeDuration;
 
     // disallow the selection of intervals smaller than 1 hour for ranges greater than 3 days
-    var intervalTooSmallForRange = rangeDuration > (MS_PER_DAY * 3) && intervalDuration < (MS_PER_DAY / 24);
+    var intervalTooSmallForRange = rangeDuration > (MS_PER_DAY * 3) && defaultIntervalDuration < (MS_PER_DAY / 24);
 
     return !intervalGreaterThanRange && !intervalTooSmallForRange;
 }
 
 function toggleDisabledStateIntervalDropDown(e) {
     var fixedRangeIndex = $("#timeFilter li span.selected").index();
-    var duration = timeFilters[fixedRangeIndex].Duration;
+    var duration = timeFilters[fixedRangeIndex] ? timeFilters[fixedRangeIndex].Duration : defaultIntervalDuration;
     var intervalDDL = e.sender;
     $(intervalDDL.items()).each(function (idx, dropDownItem) {
         var dataItem = intervalDDL.dataItem(idx);

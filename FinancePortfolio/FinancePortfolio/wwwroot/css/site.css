@@ -3612,6 +3612,9 @@ td {
   color: black;
   border-bottom: 3px solid #1C7CD5; }
 
+li {
+  cursor: pointer; }
+
 #top-pane {
   background-color: #FFF; }
 

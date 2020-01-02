@@ -5,7 +5,9 @@
             .Name("daterangepicker")
             .Max(DateTime.Today)
             .Labels(false)
-            .Events(e => e.Change("handleRangeChange"))
+            .Events(e => e.Close("handleRangeChange"))
+            .Min(DateTime.Today.AddMonths(-6))
+            .Max(DateTime.Today)
             .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
             )
         </div>
@@ -32,12 +34,12 @@
             source.Read(read => read.Action("ReadDropDownListIntervals", "Home"));
             })
             .Events(events =>
-                    {
-                events.DataBound("onIntervalDDLDataBound");
+              {
                 events.Change("onIntervalChange");
                 events.Open("toggleDisabledStateIntervalDropDown");
-                })
+              })
             .HtmlAttributes(new { style = "width: 40%" })
+            .Value("3600000")
             )
 
             @(Html.Kendo().DropDownList()
@@ -71,6 +73,7 @@
         <div class="col">
             @(Html.Kendo().StockChart<FinancePortfolio.Models.StockIntervalDetails>()
                 .Name("stockChart")
+                .Events((Action<Kendo.Mvc.UI.Fluent.StockChartEventBuilder>)(x=> x.DataBound("calculateColumnsMaxAndPlotBands")))
                 .DataSource(ds =>
                     ds.Read(read => read.Action("GetChartIntervalDetails", "Home").Data("additionalChartData")
                 ))
@@ -120,7 +123,6 @@
                         .Tooltip(t => t.Format("{0:0}"));
 
                 })
-                .AutoBind(false)
                 .Navigator(nav => nav
                 .Series(series =>
                 {
@@ -133,37 +135,8 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    $("#timeFilter li span").click(function () {
-        $("li span").not(this).removeClass("selected")
-        if (!$(this).hasClass("selected")) {
-            $(this).addClass("selected");
-        }
-
-        var chart = $("#stockChart").data("kendoStockChart")
-        var navi = chart.navigator;
-        var fixedRangeIndex = $("#timeFilter li span.selected").index()
-        var duration = timeFilters[fixedRangeIndex].Duration / toMins;
-
-        end = new Date();
-        start = new Date();
-        start.setMinutes(end.getMinutes() - duration);
-        $("#daterangepicker").getKendoDateRangePicker().range("")
-
-        chart.one("dataBound", calculateColumnsMaxAndPlotBands)
-        //chart._navigator.options.select.from = start;
-        //chart._navigator.options.select.to = end
-        //chart.redraw();
-
-        navi.select.from = start;
-        navi.select.to = end;
-        navi.select(start, end);
-
-        chart.dataSource.read()
-
-    });
+     $("#timeFilter li span").click(onTimeFilterClick);
 </script>
 
 <script id="tooltipTemplate" type="text/x-kendo-template">

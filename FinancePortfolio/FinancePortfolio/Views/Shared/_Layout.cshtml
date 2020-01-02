@@ -13,7 +13,7 @@
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.aspnetmvc.min.js"></script>
-
+    <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/cultures/kendo.culture.en-US.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
@@ -23,6 +23,9 @@
             <div class="container d-flex justify-content-between">
                 <div>
                     <h1 class="mb-0 header-title">My Stocks Portfolio</h1>
+                    <script>
+                        kendo.culture("en-US");
+                    </script>
                     @(Html.Kendo().DropDownList()
                                   .Name("currency")
                                   .DataTextField("Text")
