@@ -210,14 +210,22 @@ function changeChartType() {
                     axis: "Volume",
                     color: itemColor,
                     border: "transparent",
-                    gap: 0.75
+                    gap: 0.75,
+                    aggregate: "avg",
+                    tooltip: {
+                        format: "{0:0}"
+                    }
                 },
-                    {
-                     type: "line",
-                     field: "Open",
-                     categoryField: "Date",
-                     color: "#2D73F5"
-                    }],
+                {
+                    type: "line",
+                    field: "Open",
+                    categoryField: "Date",
+                    color: "#2D73F5",
+                    tooltip: {
+                        visible: true,
+                        template: $('#tooltipTemplate').html()
+                    },
+                }],
                 valueAxis: [{
                     name: "Close",
                     type: "numeric",
@@ -237,7 +245,19 @@ function changeChartType() {
                     type: "line"
                 },
                 categoryAxis: [{
-                    plotBands: plotBands
+                    plotBands: plotBands,
+                    baseUnitStep: 1,
+                    baseUnit: "hours",
+                    crosshair: {
+                        visible: true
+                    },
+                    maxDivisions: 20,
+                    minorGridLines: {
+                        visible: true
+                    },
+                    majorGridLines: {
+                        visible: true
+                    }
                 }],
                 navigator: {
                     series: {
@@ -257,14 +277,22 @@ function changeChartType() {
                     axis: "Volume",
                     color: itemColor,
                     border: "transparent",
-                    gap: 0.75
+                    gap: 0.75,
+                    aggregate: "avg",
+                    tooltip: {
+                        format: "{0:0}"
+                    }
                 },
-                    {
+                {
                     type: "area",
                     field: "Open",
                     categoryField: "Date",
-                    color: "#007BFF"
-                    }],
+                    color: "#007BFF",
+                    tooltip: {
+                        visible: true,
+                        template: $('#tooltipTemplate').html()
+                    },
+                }],
                 valueAxis: [{
                     name: "Close",
                     type: "numeric",
@@ -282,8 +310,21 @@ function changeChartType() {
                 }],
                 seriesDefaults: {
                     type: "area"
-                }, categoryAxis: [{
-                    plotBands: plotBands
+                },
+                categoryAxis: [{
+                    plotBands: plotBands,
+                    baseUnitStep: 1,
+                    baseUnit: "hours",
+                    crosshair: {
+                        visible: true
+                    },
+                    maxDivisions: 20,
+                    minorGridLines: {
+                        visible: true
+                    },
+                    majorGridLines: {
+                        visible: true
+                    }
                 }],
                 navigator: {
                     series: {
@@ -303,8 +344,12 @@ function changeChartType() {
                     axis: "Volume",
                     color: itemColor,
                     border: "transparent",
-                    gap: 0.75
-                },{
+                    gap: 0.75,
+                    aggregate: "avg",
+                    tooltip: {
+                        format: "{0:0}"
+                    }
+                }, {
                     type: "candlestick",
                     color: "#5CB85C",
                     downColor: "#D9534F",
@@ -312,8 +357,17 @@ function changeChartType() {
                     highField: "High",
                     lowField: "Low",
                     closeField: "Close",
-                    categoryField: "Date"
-                    }],
+                    categoryField: "Date",
+                    axis: "Close",
+                    gap: 0.75,
+                    border: {
+                        color: "transparent"
+                    },
+                    tooltip: {
+                        visible: true,
+                        template: $('#tooltipTemplate').html()
+                    },
+                }],
                 valueAxis: [{
                     name: "Close",
                     type: "numeric",
@@ -329,7 +383,19 @@ function changeChartType() {
                     visible: false
                     }],
                 categoryAxis: [{
-                    plotBands: plotBands
+                    plotBands: plotBands,
+                    baseUnitStep: 1,
+                    baseUnit: "hours",
+                    crosshair: {
+                        visible: true
+                    },
+                    maxDivisions: 20,
+                    minorGridLines: {
+                        visible: true
+                    },
+                    majorGridLines: {
+                        visible: true
+                    }
                 }],
                 navigator: {
                     series: {
@@ -341,8 +407,6 @@ function changeChartType() {
 
     
 }
-
-
 
 function onGridDataBound(e) {
     e.sender.select("tr:eq(0)");

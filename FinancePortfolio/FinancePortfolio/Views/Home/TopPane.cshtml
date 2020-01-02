@@ -109,6 +109,7 @@
                         .CloseField("Close")
                         .HighField("High")
                         .LowField("Low")
+                        .Tooltip(t => t.TemplateId("tooltipTemplate"))
                         .Gap(0.75);
                     series.Column(s => s.Volume, s => s.Date)
                         .ColorHandler("itemColor")
@@ -140,7 +141,7 @@
         if (!$(this).hasClass("selected")) {
             $(this).addClass("selected");
         }
-       
+
         var chart = $("#stockChart").data("kendoStockChart")
         var navi = chart.navigator;
         var fixedRangeIndex = $("#timeFilter li span.selected").index()
@@ -163,5 +164,35 @@
         chart.dataSource.read()
 
     });
+</script>
 
+<script id="tooltipTemplate" type="text/x-kendo-template">
+    #if(value.open){#
+    <table>
+        <tbody>
+            <tr>
+                <th>#=kendo.toString(kendo.parseDate(data.category), 'HH:mm')#</th>
+                <th>#=kendo.toString(kendo.parseDate(data.category), 'd/M')#</th>
+            </tr>
+            <tr>
+                <td>Open:</td>
+                <td>#: value.open #</td>
+            </tr>
+            <tr>
+                <td>High:</td>
+                <td>#: value.high #</td>
+            </tr>
+            <tr>
+                <td>Low:</td>
+                <td>#: value.low #</td>
+            </tr>
+            <tr>
+                <td>Close:</td>
+                <td>#: value.close #</td>
+            </tr>
+        </tbody>
+    </table>
+    #} else {#
+    #: data.value #
+    #}#
 </script>
