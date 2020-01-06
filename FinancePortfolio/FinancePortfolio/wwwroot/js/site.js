@@ -16,12 +16,13 @@ var timeFilters = [
 var prevItemValue;
 const toMins = 60000;
 
-
 function onCurrencyChange() {
     if (document.location.pathname.endsWith("/Home/DataVirtualization")) {
         $("#stocksGrid").getKendoGrid().refresh();
+        return;
     }
-    if (document.location.pathname === "/") {
+
+    if (!document.location.pathname.endsWith("/Home/Profile")) {
         $("#Grid").getKendoGrid().dataSource.read();
         $("#stockChart").data("kendoStockChart").redraw();
     }
