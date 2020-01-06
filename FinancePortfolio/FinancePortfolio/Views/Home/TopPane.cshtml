@@ -46,8 +46,8 @@
           .Name("dropdownChartSelection")
           .DataTextField("Text")
           .DataValueField("Value")
-          .ValueTemplate("<span><img src='/assets/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
-          .Template("<span><img src='/assets/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
+          .ValueTemplate("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
+          .Template("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
           .Events(e => e.Change("changeChartType"))
           .BindTo(new List<SelectListItem>() {
               new SelectListItem() {
