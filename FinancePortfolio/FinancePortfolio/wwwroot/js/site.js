@@ -138,6 +138,8 @@ function additionalChartData() {
 }
 
 function showDeletBttnOnChange() {
+    var chart = $("#stockChart").getKendoStockChart(); 
+    chart.dataSource.read()
     var grid = $("#Grid").data("kendoGrid");
     var row = grid.select();
     return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
@@ -168,7 +170,7 @@ function onIntervalChange() {
 function changeChartType() {
     var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
     var selectedValue = dropdownlist.value();
-    var chart = $("#stockChart").getKendoStockChart();
+    var chart = $("#stockChart").getKendoStockChart();    
     if (selectedValue === "line") {
         chart.setOptions(
             {
@@ -369,6 +371,7 @@ function changeChartType() {
                 }
             });
     }
+    chart.options.categoryAxis[0].baseUnitStep = 1;
 }
 
 function onGridDataBound(e) {
