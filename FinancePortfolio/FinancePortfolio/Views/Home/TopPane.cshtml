@@ -2,13 +2,13 @@
     <div class="row py-4 d-flex justify-content-between align-items-center">
         <div class="col col-4 d-flex daterange-input-wrap">
             @(Html.Kendo().DateRangePicker()
-            .Name("daterangepicker")
-            .Max(DateTime.Today)
-            .Labels(false)
-            .Events(e => e.Close("handleRangeChange"))
-            .Min(DateTime.Today.AddMonths(-6))
-            .Max(DateTime.Today)
-            .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
+                .Name("daterangepicker")
+                .Max(DateTime.Today)
+                .Labels(false)
+                .Events(e => e.Close("handleRangeChange"))
+                .Min(DateTime.Today.AddMonths(-6))
+                .Max(DateTime.Today)
+                .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
             )
         </div>
 
@@ -25,46 +25,46 @@
 
         <div class="col-4">
             @(Html.Kendo().DropDownList()
-          .Name("interval")
-          .DataTextField("Name")
-          .DataValueField("Duration")
-          .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
-            .DataSource(source =>
-            {
-            source.Read(read => read.Action("ReadDropDownListIntervals", "Home"));
-            })
-            .Events(events =>
-              {
-                events.Change("onIntervalChange");
-                events.Open("toggleDisabledStateIntervalDropDown");
-              })
-            .HtmlAttributes(new { style = "width: 40%" })
-            .Value("3600000")
+                .Name("interval")
+                .DataTextField("Name")
+                .DataValueField("Duration")
+                .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
+                  .DataSource(source =>
+                  {
+                  source.Read(read => read.Action("ReadDropDownListIntervals", "Home"));
+                  })
+                  .Events(events =>
+                    {
+                      events.Change("updateChart");
+                      events.Open("toggleDisabledStateIntervalDropDown");
+                    })
+                  .HtmlAttributes(new { style = "width: 40%" })
+                  .Value("3600000")
             )
 
             @(Html.Kendo().DropDownList()
-          .Name("dropdownChartSelection")
-          .DataTextField("Text")
-          .DataValueField("Value")
-          .ValueTemplate("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
-          .Template("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
-          .Events(e => e.Change("changeChartType"))
-          .BindTo(new List<SelectListItem>() {
-              new SelectListItem() {
-                  Text = "Candle",
-                  Value = "candle"
-              },
-              new SelectListItem() {
-                  Text = "Line",
-                  Value = "line"
-              },
-              new SelectListItem() {
-                  Text = "Area",
-                  Value = "area"
-              }
-          })
-          .Value("1")
-          .HtmlAttributes(new { style = "width: 40%" })
+                .Name("dropdownChartSelection")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .ValueTemplate("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
+                .Template("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
+                .Events(e => e.Change("changeChartType"))
+                .BindTo(new List<SelectListItem>() {
+                    new SelectListItem() {
+                        Text = "Candle",
+                        Value = "candle"
+                    },
+                    new SelectListItem() {
+                        Text = "Line",
+                        Value = "line"
+                    },
+                    new SelectListItem() {
+                        Text = "Area",
+                        Value = "area"
+                    }
+                })
+                .Value("1")
+                .HtmlAttributes(new { style = "width: 40%" })
             )
         </div>
     </div>

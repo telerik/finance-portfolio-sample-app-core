@@ -85,9 +85,9 @@ namespace FinancePortfolio.Models
 
         public IEnumerable<StockIntervalDetails> GetStockIntervalDetails(string symbol, DateTime rangeStart, DateTime rangeEnd, int intervalInMinutes)
         {
-            List<Stock> stocks = service.GetPortfolioStocks().ToList();
+            var stocks = service.GetPortfolioStocks();
             var uncategorizedStocks = service.GetUncategorizedStocks();
-            List<Stock> data = stocks.Concat(uncategorizedStocks).ToList();
+            var data = stocks.Concat(uncategorizedStocks);
             
             return GenerateDataForSymbol(data.FirstOrDefault(s => s.Symbol == symbol), rangeStart, rangeEnd, intervalInMinutes);
         }

@@ -103,9 +103,18 @@ function formatCurrency(value) {
 }
 
 function additionalChartData() {
-    var start, end, grid, interval;
-    var range = $("#daterangepicker").getKendoDateRangePicker().range();
-    interval = ($("#interval").getKendoDropDownList().value() / toMins) || 60;
+    var start,
+        end,
+        symbol,
+        interval,
+        range;
+
+    var rangePicker = $("#daterangepicker").getKendoDateRangePicker();
+    var intervalDdl = $("#interval").getKendoDropDownList();
+    var grid = $("#Grid").getKendoGrid(); 
+
+    range = rangePicker.range();
+    interval = kendo.parseInt(intervalDdl.value()) / toMins || 60;
     console.log("interval", interval);
 
     if ($("#timeFilter li span").hasClass("selected")) {
@@ -124,10 +133,9 @@ function additionalChartData() {
         end = range.end;
     }
 
-    grid = $("#Grid").getKendoGrid();
     if (grid && grid.select().length) {
         var row = grid.select();
-        var symbol = grid.dataItem(row).Symbol;
+        symbol = grid.dataItem(row).Symbol;
     }
     console.log(start, end, interval);
     return {
@@ -138,241 +146,217 @@ function additionalChartData() {
     };
 }
 
-function showDeletBttnOnChange() {
-    var chart = $("#stockChart").getKendoStockChart(); 
-    chart.dataSource.read()
-    var grid = $("#Grid").data("kendoGrid");
-    var row = grid.select();
-    return row.hasClass("k-state-selected") ? $("#removeButton").css("visibility", "visible") : $("#removeButton").css("visibility", "hidden");
-}
-
 function handleRangeChange(e) {
     var rangePicker = this;
     setTimeout(function () {
         var range = rangePicker.range();
-        if (range.start && range.end) {
-            var start = new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDay());
-            var end = new Date(range.end.getFullYear(), range.end.getMonth(), range.end.getDay());
-            var normalizedRange = normalizeSelectionRange(start, end, rangePicker.options.min, rangePicker.options.max);
-
-            if (normalizedRange.start && normalizedRange.end) {
-                $("#timeFilter li span.selected").removeClass("selected");
-                $("#interval").getKendoDropDownList().value(MS_PER_DAY.toString());
-                updateChart(normalizedRange.start && normalizedRange.end);
-            }
+        if (range.start && range.end) {            
+            $("#timeFilter li span.selected").removeClass("selected");
+            $("#interval").getKendoDropDownList().value(timeFilters[0].Duration.toString());
+            updateChart();
         }
     });   
-}
-
-function onIntervalChange() {
-    updateChart();
 }
 
 function changeChartType() {
     var dropdownlist = $("#dropdownChartSelection").data("kendoDropDownList");
     var selectedValue = dropdownlist.value();
-    var chart = $("#stockChart").getKendoStockChart();    
+    var chart = $("#stockChart").getKendoStockChart();
+    var interval = $("#interval").getKendoDropDownList().dataItem().Interval;
+    var categoryAxisBaseUnit = interval.Unit.toLowerCase();
+    var categoryAxisBaseUnitStep = interval.Step;
     if (selectedValue === "line") {
-        chart.setOptions(
-            {
-                type: "line",
-                series: [{
-                    type: "column",
-                    field: "Volume",
-                    categoryField: "Date",
-                    axis: "Volume",
-                    color: itemColor,
-                    border: "transparent",
-                    gap: 0.75,
-                    aggregate: "avg",
-                    tooltip: {
-                        format: "{0:0}"
-                    }
-                },
-                {
-                    type: "line",
-                    field: "Open",
-                    categoryField: "Date",
-                    color: "#2D73F5",
-                    tooltip: {
-                        visible: true,
-                        template: $('#tooltipTemplate').html()
-                    }
-                }],
-                valueAxis: [{
-                    name: "Close",
-                    type: "numeric",
-                    visible: true,
-                    crosshair: {
-                        visible: true
-                    }
-                },
-                {
-                    name: "Volume",
-                    type: "numeric",
-                    min: 0,
-                    visible: false
-                }],
-                seriesDefaults: {
-                    type: "line"
-                },
-                categoryAxis: [{
-                    baseUnitStep: 1,
-                    baseUnit: "hours",
-                    crosshair: {
-                        visible: true
-                    },
-                    maxDivisions: 20,
-                    minorGridLines: {
-                        visible: true
-                    },
-                    majorGridLines: {
-                        visible: true
-                    }
-                }],
-                navigator: {
-                    series: {
-                        color: "#559DE0"
-                    }
+        chart.setOptions({
+            type: "line",
+            series: [{
+                type: "column",
+                field: "Volume",
+                categoryField: "Date",
+                axis: "Volume",
+                color: itemColor,
+                border: "transparent",
+                gap: 0.75,
+                aggregate: "avg",
+                tooltip: {
+                    format: "{0:0}"
                 }
-            });
+            }, {
+                type: "line",
+                field: "Open",
+                categoryField: "Date",
+                color: "#2D73F5",
+                tooltip: {
+                    visible: true,
+                    template: $('#tooltipTemplate').html()
+                }
+            }],
+            valueAxis: [{
+                name: "Close",
+                type: "numeric",
+                visible: true,
+                crosshair: {
+                    visible: true
+                }
+            }, {
+                name: "Volume",
+                type: "numeric",
+                min: 0,
+                visible: false
+            }],
+            seriesDefaults: {
+                type: "line"
+            },
+            categoryAxis: [{
+                baseUnitStep: categoryAxisBaseUnitStep,
+                baseUnit: categoryAxisBaseUnit,
+                crosshair: {
+                    visible: true
+                },
+                maxDivisions: 20,
+                minorGridLines: {
+                    visible: true
+                },
+                majorGridLines: {
+                    visible: true
+                }
+            }],
+            navigator: {
+                series: {
+                    color: "#559DE0"
+                }
+            }
+        });
     }
     if (selectedValue === "area") {
-        chart.setOptions(
-            {
-                type: "area",
-                series: [{
-                    type: "column",
-                    field: "Volume",
-                    categoryField: "Date",
-                    axis: "Volume",
-                    color: itemColor,
-                    border: "transparent",
-                    gap: 0.75,
-                    aggregate: "avg",
-                    tooltip: {
-                        format: "{0:0}"
-                    }
-                },
-                {
-                    type: "area",
-                    field: "Open",
-                    categoryField: "Date",
-                    color: "#007BFF",
-                    tooltip: {
-                        visible: true,
-                        template: $('#tooltipTemplate').html()
-                    }
-                }],
-                valueAxis: [{
-                    name: "Close",
-                    type: "numeric",
-                    visible: true,
-                    crosshair: {
-                        visible: true
-                    }
-                },
-                {
-                    name: "Volume",
-                    type: "numeric",
-                    min: 0,
-                    visible: false
-                }],
-                seriesDefaults: {
-                    type: "area"
-                },
-                categoryAxis: [{
-                    baseUnitStep: 1,
-                    baseUnit: "hours",
-                    crosshair: {
-                        visible: true
-                    },
-                    maxDivisions: 20,
-                    minorGridLines: {
-                        visible: true
-                    },
-                    majorGridLines: {
-                        visible: true
-                    }
-                }],
-                navigator: {
-                    series: {
-                        color: "#559DE0"
-                    }
+        chart.setOptions({
+            type: "area",
+            series: [{
+                type: "column",
+                field: "Volume",
+                categoryField: "Date",
+                axis: "Volume",
+                color: itemColor,
+                border: "transparent",
+                gap: 0.75,
+                aggregate: "avg",
+                tooltip: {
+                    format: "{0:0}"
                 }
-            });
+            }, {
+                type: "area",
+                field: "Open",
+                categoryField: "Date",
+                color: "#007BFF",
+                tooltip: {
+                    visible: true,
+                    template: $('#tooltipTemplate').html()
+                }
+            }],
+            valueAxis: [{
+                name: "Close",
+                type: "numeric",
+                visible: true,
+                crosshair: {
+                    visible: true
+                }
+            }, {
+                name: "Volume",
+                type: "numeric",
+                min: 0,
+                visible: false
+            }],
+            seriesDefaults: {
+                type: "area"
+            },
+            categoryAxis: [{
+                baseUnitStep: categoryAxisBaseUnitStep,
+                baseUnit: categoryAxisBaseUnit,
+                crosshair: {
+                    visible: true
+                },
+                maxDivisions: 20,
+                minorGridLines: {
+                    visible: true
+                },
+                majorGridLines: {
+                    visible: true
+                }
+            }],
+            navigator: {
+                series: {
+                    color: "#559DE0"
+                }
+            }
+        });
     }
     if (selectedValue === "candle") {
-        chart.setOptions(
-            {
-                type: "candle",
-                series: [{
-                    type: "column",
-                    field: "Volume",
-                    categoryField: "Date",
-                    axis: "Volume",
-                    color: itemColor,
-                    border: "transparent",
-                    gap: 0.75,
-                    aggregate: "avg",
-                    tooltip: {
-                        format: "{0:0}"
-                    }
-                }, {
-                    type: "candlestick",
-                    color: "#5CB85C",
-                    downColor: "#D9534F",
-                    openField: "Open",
-                    highField: "High",
-                    lowField: "Low",
-                    closeField: "Close",
-                    categoryField: "Date",
-                    axis: "Close",
-                    gap: 0.75,
-                    border: {
-                        color: "transparent"
-                    },
-                    tooltip: {
-                        visible: true,
-                        template: $('#tooltipTemplate').html()
-                    }
-                }],
-                valueAxis: [{
-                    name: "Close",
-                    type: "numeric",
-                    visible: true,
-                    crosshair: {
-                        visible: true
-                    }
-                },
-                {
-                    name: "Volume",
-                    type: "numeric",
-                    min: 0,
-                    visible: false
-                }],
-                categoryAxis: [{
-                    baseUnitStep: 1,
-                    baseUnit: "hours",
-                    crosshair: {
-                        visible: true
-                    },
-                    maxDivisions: 20,
-                    minorGridLines: {
-                        visible: true
-                    },
-                    majorGridLines: {
-                        visible: true
-                    }
-                }],
-                navigator: {
-                    series: {
-                        color: "#559DE0"
-                    }
+        chart.setOptions({
+            type: "candle",
+            series: [{
+                type: "column",
+                field: "Volume",
+                categoryField: "Date",
+                axis: "Volume",
+                color: itemColor,
+                border: "transparent",
+                gap: 0.75,
+                aggregate: "avg",
+                tooltip: {
+                    format: "{0:0}"
                 }
-            });
+            }, {
+                type: "candlestick",
+                color: "#5CB85C",
+                downColor: "#D9534F",
+                openField: "Open",
+                highField: "High",
+                lowField: "Low",
+                closeField: "Close",
+                categoryField: "Date",
+                axis: "Close",
+                gap: 0.75,
+                border: {
+                    color: "transparent"
+                },
+                tooltip: {
+                    visible: true,
+                    template: $('#tooltipTemplate').html()
+                }
+            }],
+            valueAxis: [{
+                name: "Close",
+                type: "numeric",
+                visible: true,
+                crosshair: {
+                    visible: true
+                }
+            }, {
+                name: "Volume",
+                type: "numeric",
+                min: 0,
+                visible: false
+            }],
+            categoryAxis: [{
+                baseUnitStep: categoryAxisBaseUnitStep,
+                baseUnit: categoryAxisBaseUnit,
+                crosshair: {
+                    visible: true
+                },
+                maxDivisions: 20,
+                minorGridLines: {
+                    visible: true
+                },
+                majorGridLines: {
+                    visible: true
+                }
+            }],
+            navigator: {
+                series: {
+                    color: "#559DE0"
+                }
+            }
+        });
     }
-    chart.options.categoryAxis[0].baseUnitStep = 1;
 }
 
 function onGridDataBound(e) {
@@ -390,7 +374,6 @@ function onGridDataBound(e) {
         var chartData = jQuery.map(intradayCollection[idx], function (a) {
             return { Intraday: a };
         });
-
         chart.dataSource.data(chartData)
     })
 }
@@ -416,19 +399,12 @@ function setNestedChartColor(e) {
 function calculateColumnsMaxAndPlotBands(e) {
     var chart = this;
     var currentMax = 0;
-    var series = e.sender.options.series;
-    for (let i = 0; i < series.length; i++) {
-        for (let k = 0; k < series[i].data.length; k++) {
-            if (series[i].data[k].Volume > currentMax) {
-                currentMax = series[i].data[k].Volume;
-            }
-        }
-    }
-
-    // set hidden valueAxis max so the bars are always 1/4 of the chart height
-    chart.options.valueAxis[1].max = currentMax * 4;
 
     var categoryPlotBands = chart.dataSource.data().reduce((bands, current, index, allStocks) => {
+        if (current.Volume > currentMax) {
+            currentMax = current.Volume;
+        }
+
         bands.push({
             from: current.Date,
             to: (allStocks[index + 1] || current).Date,
@@ -439,21 +415,25 @@ function calculateColumnsMaxAndPlotBands(e) {
 
         return bands;
     }, []);
+
+    // set hidden valueAxis max so the bars are always 1/4 of the chart height
+    chart.options.valueAxis[1].max = currentMax * 4;
     chart.options.categoryAxis[0].plotBands = categoryPlotBands;
     chart.redraw();
 }
 
-function updateChart(rangeStart, rangeEnd) {
+function updateChart() {
     var chart = $("#stockChart").data("kendoStockChart");
+    var range = $("#daterangepicker").getKendoDateRangePicker().range();
     var interval = $("#interval").getKendoDropDownList().dataItem().Interval;
     chart.options.categoryAxis[0].baseUnit = interval.Unit.toLowerCase();
     chart.options.categoryAxis[0].baseUnitStep = interval.Step;
     var navi = chart.navigator;
     var fixedRangeIndex = $("#timeFilter li span.selected").index();
-    var duration = fixedRangeIndex !== -1 ? timeFilters[fixedRangeIndex].Duration / toMins : defaultIntervalDuration;
+    var duration = fixedRangeIndex !== -1 ? timeFilters[fixedRangeIndex].Duration / toMins : timeFilters[0].Duration / toMins;
 
-    end = rangeEnd || new Date();
-    start = rangeStart || new Date();
+    end = range.end || new Date();
+    start = range.start || new Date();
     start.setMinutes(end.getMinutes() - duration);
     navi.select(start, end);
     chart.dataSource.read();
@@ -466,54 +446,19 @@ function onTimeFilterClick(e) {
     var fixedRangeIndex = $(e.target).index();
     var duration = timeFilters[fixedRangeIndex].Duration;
     selectFirstCompatibleInterval(duration);
+    updateChart();
 }
 
 function selectFirstCompatibleInterval(displayedDuration) {
     var intervalDropDown = $("#interval").getKendoDropDownList();
     var selectedInterval = intervalDropDown.dataItem().Duration;
     if (rangeAndIntervalCompatible(displayedDuration, selectedInterval)) {
-        intervalDropDown.trigger("change");
         return;
     }
     const firstCompatibleInterval = intervalDropDown.dataItems().find(interval => rangeAndIntervalCompatible(displayedDuration, interval.Duration));
     if (firstCompatibleInterval) {
         intervalDropDown.value(firstCompatibleInterval.Duration.toString());
-        intervalDropDown.trigger("change");
     }
-}
-
-function normalizeSelectionRange(start, end, min, max) {
-    if (!(start && end && isDateInRange(start, min, max) && isDateInRange(end, min, max))) {
-        return { start: null, end: null };
-    }
-
-    const normalizedStart = new Date(start.getFullYear(), start.getMonth(), start.getDay());
-    const normalizedEnd = new Date(end.getFullYear(), end.getMonth(), end.getDay() + 1);
-
-    return {
-        start: dateInRange(normalizedStart, min, max),
-        end: dateInRange(normalizedEnd, min, max)
-    };
-}
-
-function isDateInRange(candidate, min, max) {
-    return !candidate || !((min && min > candidate) || (max && max < candidate));
-}
-
-function dateInRange(candidate, min, max) {
-    if (!candidate) {
-        return candidate;
-    }
-
-    if (min && candidate < min) {
-        return min;
-    }
-
-    if (max && candidate > max) {
-        return max;
-    }
-
-    return candidate;
 }
 
 function rangeAndIntervalCompatible(rangeDuration, defaultIntervalDuration) {
@@ -528,7 +473,7 @@ function rangeAndIntervalCompatible(rangeDuration, defaultIntervalDuration) {
 
 function toggleDisabledStateIntervalDropDown(e) {
     var fixedRangeIndex = $("#timeFilter li span.selected").index();
-    var duration = timeFilters[fixedRangeIndex] ? timeFilters[fixedRangeIndex].Duration : defaultIntervalDuration;
+    var duration = timeFilters[fixedRangeIndex] ? timeFilters[fixedRangeIndex].Duration : 345600000; // should not be hardcoded
     var intervalDDL = e.sender;
     $(intervalDDL.items()).each(function (idx, dropDownItem) {
         var dataItem = intervalDDL.dataItem(idx);
