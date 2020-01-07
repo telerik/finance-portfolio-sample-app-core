@@ -1,16 +1,4 @@
-﻿@*<div id="bottom-pane-content">
-        Bottom pane
-        @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 0, currentView = "Home" })
-
-        @model IEnumerable<Stock>
-
-        @{
-            foreach (var item in Model)
-            {
-                <div>@item.Name</div>
-            }
-        }
-    </div>*@
+﻿
 
 <div class="container bottom-pane-container">
     <div class="d-flex justify-content-center py-5 align-items-center">

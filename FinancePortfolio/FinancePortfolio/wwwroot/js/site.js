@@ -154,6 +154,7 @@ function handleRangeChange(e) {
             $("#timeFilter li span.selected").removeClass("selected");
             $("#interval").getKendoDropDownList().value(timeFilters[0].Duration.toString());
             updateChart();
+
         }
     });   
 }
