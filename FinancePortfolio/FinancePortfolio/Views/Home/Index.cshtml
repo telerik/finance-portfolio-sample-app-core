@@ -34,14 +34,13 @@
 
         $("#addNew").data("kendoDropDownList").dataSource.data().unshift(selectedItem);
         $("#addNew").data("kendoDropDownList").dataSource.data()
-        $("#removeButton").css("visibility", "hidden");
     }
 
     function addStock(e) {
         var grid = $("#Grid").data("kendoGrid");
-        if (e.sender.select() != -1) {            var itemUid = e.sender.dataSource.view()[e.sender.select()].uid;
+        if (e.sender.select() != -1) {
+            var itemUid = e.sender.dataSource.view()[e.sender.select()].uid;
             var item = e.sender.dataSource.getByUid(itemUid);
-            console.log(item);
             e.sender.dataSource.remove(item);
             grid.dataSource.insert(item, 0);
         }

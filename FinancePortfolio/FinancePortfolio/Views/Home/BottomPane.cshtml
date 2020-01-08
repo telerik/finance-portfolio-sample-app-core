@@ -72,12 +72,12 @@
             })
             .HtmlAttributes(new { style = "height: 920px" })
             .Editable(c=>c.DisplayDeleteConfirmation(true))
-            .Selectable(selectable => selectable.Mode(GridSelectionMode.Single))
             .Sortable(true)
             .Scrollable(s => s.Virtual(true))
             .Events(e =>
             {
                 e.DataBound("onGridDataBound");
+                e.Change("onGridChange");
             })
             .DataSource(dataSource => dataSource
             .Ajax()
@@ -89,3 +89,25 @@
             )
     </div>
 </div>
+
+<script>
+    // Select Only One Grid Row with the Checkbox Selectable Column
+    function onClick(e) {
+        var grid = $("#Grid").data("kendoGrid");
+        var row = $(e.target).closest("tr");
+
+        if (row.hasClass("k-state-selected")) {
+            setTimeout(function () {
+                var grid = $("#Grid").data("kendoGrid");
+                grid.clearSelection();
+            })
+        } else {
+            grid.clearSelection();
+        };
+    };
+
+    $(function () {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.tbody.on("click", ".k-checkbox", onClick);
+    })
+</script>

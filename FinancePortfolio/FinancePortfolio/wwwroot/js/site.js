@@ -368,6 +368,7 @@ function changeChartType() {
 function onGridDataBound(e) {
     e.sender.select("tr:eq(0)");
     $("#Grid tr.k-alt").removeClass("k-alt");
+
     var intradayCollection = [];
     var data = this.dataSource.view();
     $(data).each(function () {
@@ -382,6 +383,13 @@ function onGridDataBound(e) {
         });
         chart.dataSource.data(chartData)
     })
+}
+
+function onGridChange(e) {
+    var grid = e.sender;
+    var row = grid.select();
+    var chart = $("#stockChart").getKendoStockChart();
+    return row.hasClass("k-state-selected") ? ($("#removeButton").css("visibility", "visible") && chart.dataSource.read()) : $("#removeButton").css("visibility", "hidden");
 }
 
 function itemColor(e) {
