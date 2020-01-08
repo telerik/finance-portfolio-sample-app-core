@@ -152,8 +152,9 @@ function onRangePickerClose(e) {
             $("#timeFilter li span.selected").removeClass("selected");
             $("#interval").getKendoDropDownList().value(timeFilters[0].Duration.toString());
 
-            // TO DO: calculate duration to disable interval dropdown items
-            //selectFirstCompatibleInterval(duration);
+            //calculate duration to disable interval dropdown items
+            var duration = range.end - range.start
+            selectFirstCompatibleInterval(duration)
 
             // if start and end are the same - show 1 day of data in the stock chart
             if (range.start.getTime() === range.end.getTime()) {
@@ -487,7 +488,7 @@ function rangeAndIntervalCompatible(rangeDuration, defaultIntervalDuration) {
 
 function toggleDisabledStateIntervalDropDown(e) {
     var fixedRangeIndex = $("#timeFilter li span.selected").index();
-    var duration = timeFilters[fixedRangeIndex] ? timeFilters[fixedRangeIndex].Duration : 345600000; // should not be hardcoded
+    var duration = timeFilters[fixedRangeIndex] ? timeFilters[fixedRangeIndex].Duration : timeFilters[4].Duration; // should not be hardcoded
     var intervalDDL = e.sender;
     $(intervalDDL.items()).each(function (idx, dropDownItem) {
         var dataItem = intervalDDL.dataItem(idx);
