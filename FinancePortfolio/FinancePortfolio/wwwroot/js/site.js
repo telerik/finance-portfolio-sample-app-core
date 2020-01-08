@@ -115,7 +115,6 @@ function additionalChartData() {
 
     range = rangePicker.range();
     interval = kendo.parseInt(intervalDdl.value()) / toMins || 60;
-    console.log("interval", interval);
 
     if ($("#timeFilter li span").hasClass("selected")) {
         var fixedRangeIndex = $("#timeFilter li span.selected").index();
@@ -126,7 +125,6 @@ function additionalChartData() {
         end = new Date();
         start = new Date();
         start.setMinutes(end.getMinutes() - duration);
-        console.log("no range", start);
     }
     else {
         start = range.start;
@@ -137,7 +135,7 @@ function additionalChartData() {
         var row = grid.select();
         symbol = grid.dataItem(row).Symbol;
     }
-    console.log(start, end, interval);
+
     return {
         symbol: symbol || "AAN",
         start: start,
@@ -146,15 +144,22 @@ function additionalChartData() {
     };
 }
 
-function handleRangeChange(e) {
+function onRangePickerClose(e) {
     var rangePicker = this;
     setTimeout(function () {
         var range = rangePicker.range();
-        if (range.start && range.end) {            
+        if (range.start && range.end) {
             $("#timeFilter li span.selected").removeClass("selected");
             $("#interval").getKendoDropDownList().value(timeFilters[0].Duration.toString());
-            updateChart();
 
+            // TO DO: calculate duration to disable interval dropdown items
+            //selectFirstCompatibleInterval(duration);
+
+            // if start and end are the same - show 1 day of data in the stock chart
+            if (range.start.getTime() === range.end.getTime()) {
+                range.end.setDate(range.end.getDate() + 1);
+            }
+            updateChart();
         }
     });   
 }

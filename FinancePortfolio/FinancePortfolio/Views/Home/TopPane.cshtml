@@ -5,7 +5,7 @@
                 .Name("daterangepicker")
                 .Max(DateTime.Today)
                 .Labels(false)
-                .Events(e => e.Close("handleRangeChange"))
+                .Events(e => e.Close("onRangePickerClose"))
                 .Min(DateTime.Today.AddMonths(-6))
                 .Max(DateTime.Today)
                 .HtmlAttributes(new { style = "width: 100%", title = "daterangepicker" })
