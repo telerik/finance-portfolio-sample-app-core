@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace FinancePortfolio.Services
 {
-    public class StockGridService : IHostedService
+    public class StockGridService : IHostedService, IDisposable
     {
+        private int executionCount = 0;
         private Timer _timer;
         private readonly IHubContext<StockHub> _hubContext;
         private List<GridStock> stocks;
@@ -27,6 +28,7 @@ namespace FinancePortfolio.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             this.stocks.AddRange(service.GetStocks());
+            
             _timer = new Timer(UpdateStocks, null, TimeSpan.Zero,
             TimeSpan.FromSeconds(2));
 
@@ -35,6 +37,18 @@ namespace FinancePortfolio.Services
 
         private void UpdateStocks(object state)
         {
+            executionCount++;
+
+            if (executionCount == 150)
+            {
+                this.stocks = service.GetStocks().ToList();
+                executionCount = 0;
+            }
+            else
+            {
+                this.stocks = this.service.GetStocks().ToList();
+            }
+
             var list = this.stocks;
 
             foreach (var item in list)
@@ -63,5 +77,9 @@ namespace FinancePortfolio.Services
             return (decimal)change;
         }
 
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
     }
 }
