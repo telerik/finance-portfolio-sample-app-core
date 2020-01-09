@@ -1,4 +1,4 @@
-﻿<div class="container data-virtualization-container">
+﻿<div class="container data-virtualization-container" style="padding-bottom: 100px;">
     @{
         ViewData["Title"] = "DataVirtualization";
     }
@@ -37,7 +37,8 @@
             })
             .Scrollable()
             .Editable()
-            .HtmlAttributes(new { style = "height:100%;" })
+            .Mobile()
+            .HtmlAttributes(new { style = "height:600px;" })
             .DataSource(dataSource => dataSource
                 .SignalR()
                 .AutoSync(true)
