@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-center py-5 align-items-center">
         @await Html.PartialAsync("Navigation", new NavigationModel { navigationIndex = 2, currentView = "DataVirtualization" })
     </div>
-    <h1>DataVirtualization</h1>
+    <h1 style="text-align: center;">Column Virtualization</h1>
 
 <script>
     var url = "@Url.Content("~/stockHub")"
@@ -35,10 +35,10 @@
                 columns.Bound(p => p.Volume).Width(190);
                 columns.Bound(p => p.MarketCap).Width(220);
             })
-            .Scrollable()
+            .Scrollable(scrollable=>scrollable.Virtual(GridVirtualizationMode.Columns))
             .Editable()
             .Mobile()
-            .HtmlAttributes(new { style = "height:600px;" })
+            .HtmlAttributes(new { style = "height:600px; width: 700px; margin: auto;" })
             .DataSource(dataSource => dataSource
                 .SignalR()
                 .AutoSync(true)
