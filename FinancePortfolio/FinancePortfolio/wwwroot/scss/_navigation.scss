@@ -26,3 +26,16 @@
 .k-button-group {
     margin-top: 15px;
 }
+
+
+.source-code-link {
+    padding: .375rem .75rem;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    .navbar-nav-svg {
+        width: 20px;
+    }
+}
