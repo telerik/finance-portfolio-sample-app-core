@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
@@ -18,16 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2022.1.119" />
   </ItemGroup>
 
@@ -39,52 +39,51 @@
   <ItemGroup>
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-grid.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap-reboot.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\bootstrap-utilities.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\bootstrap.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_floating-labels.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_form-check.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_form-control.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_form-range.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_form-select.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_form-text.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_input-group.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_labels.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\forms\_validation.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_clearfix.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_colored-links.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_position.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_ratio.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_stretched-link.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_text-truncation.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\helpers\_visually-hidden.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_alert.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_background-variant.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_badge.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_border-radius.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_box-shadow.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_breakpoints.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_buttons.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_caret.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_clearfix.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_float.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_color-scheme.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_container.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_deprecate.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_forms.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_gradients.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_grid-framework.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_grid.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_hover.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_image.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_list-group.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_lists.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_nav-divider.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_navbar-align.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_pagination.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_reset-text.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_resize.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_screen-reader.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_size.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_table-row.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_text-emphasis.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_text-hide.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_table-variants.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_text-truncate.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\mixins\_transition.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\mixins\_visibility.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_align.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_background.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_borders.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_clearfix.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_display.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_embed.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_flex.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_float.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_position.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_screenreaders.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_sizing.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_spacing.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_text.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\utilities\_visibility.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_utilities.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\mixins\_visually-hidden.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\utilities\_api.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\vendor\_rfs.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_accordion.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_alert.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_badge.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_breadcrumb.scss" />
@@ -93,28 +92,27 @@
     <None Include="wwwroot\lib\bootstrap\scss\_card.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_carousel.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_close.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_code.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_custom-forms.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_containers.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_dropdown.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_forms.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_functions.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_grid.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_helpers.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_images.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_input-group.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_jumbotron.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_list-group.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_media.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_mixins.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_modal.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_nav.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_navbar.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_offcanvas.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_pagination.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_popover.scss" />
-    <None Include="wwwroot\lib\bootstrap\scss\_print.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_progress.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_reboot.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_root.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_spinners.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_tables.scss" />
+    <None Include="wwwroot\lib\bootstrap\scss\_toasts.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_tooltip.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_transitions.scss" />
     <None Include="wwwroot\lib\bootstrap\scss\_type.scss" />

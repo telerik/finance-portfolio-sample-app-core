@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FinancePortfolio</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://kendo.cdn.telerik.com/2022.1.119/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://kendo.cdn.telerik.com/2022.1.119/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.1.119/styles/kendo.bootstrap-main.min.css" />
 
     <script src="~/js/signalr.js"></script>
     <script src="https://kendo.cdn.telerik.com/2022.1.119/js/jquery.min.js"></script>
@@ -47,8 +46,8 @@
                                   })
                                   .Events(ev => ev.Change("onCurrencyChange"))
                                   .Value("1")
-                                  .ValueTemplate("<span>Currency in #= data.Text #</span>")
-                                  .HtmlAttributes(new { style = "width:200px" })
+                                  .ValueTemplate("<span>Currency in #= data.Text #</span>") 
+                                  .HtmlAttributes(new { style = "width: 50%" })
                     )
 
                         <a href="https://github.com/telerik/finance-portfolio-sample-app-core" target="_blank" class="source-code-link profile-text d-flex align-items-center">

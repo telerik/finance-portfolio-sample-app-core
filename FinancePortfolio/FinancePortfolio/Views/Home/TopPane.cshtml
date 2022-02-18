@@ -23,7 +23,7 @@
             </li>
         </ul>
 
-        <div class="col-4">
+        <div class="col-4" style='display: flex'>
             @(Html.Kendo().DropDownList()
                 .Name("interval")
                 .DataTextField("Name")
@@ -38,7 +38,6 @@
                       events.Change("updateChart");
                       events.Open("toggleDisabledStateIntervalDropDown");
                     })
-                  .HtmlAttributes(new { style = "width: 40%" })
                   .Value("3600000")
             )
 
@@ -64,7 +63,6 @@
                     }
                 })
                 .Value("1")
-                .HtmlAttributes(new { style = "width: 40%" })
             )
         </div>
     </div>
