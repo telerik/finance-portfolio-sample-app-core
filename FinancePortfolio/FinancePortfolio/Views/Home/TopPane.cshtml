@@ -26,6 +26,7 @@
         <div class="col-4" style='display: flex'>
             @(Html.Kendo().DropDownList()
                 .Name("interval")
+                .FillMode(FillMode.Flat)
                 .DataTextField("Name")
                 .DataValueField("Duration")
                 .ValueTemplate("<span class='service-category'><strong>Interval: #: Name# </strong></span>")
@@ -43,6 +44,7 @@
 
             @(Html.Kendo().DropDownList()
                 .Name("dropdownChartSelection")
+                .FillMode(FillMode.Flat)
                 .DataTextField("Text")
                 .DataValueField("Value")
                 .ValueTemplate("<span><img src='" + @Url.Content("~/assets") + "/#: Value #.png' alt='#: Text #' />   #: Text #</span>")
