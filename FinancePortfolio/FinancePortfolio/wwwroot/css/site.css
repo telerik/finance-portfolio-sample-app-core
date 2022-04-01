@@ -3176,6 +3176,9 @@ td {
   font-weight: normal;
   font-size: 13px; }
 
+.k-grid td > .k-checkbox {
+  margin-top: 4px; }
+
 .ml-3 span.selected {
   font-weight: bold;
   color: black;

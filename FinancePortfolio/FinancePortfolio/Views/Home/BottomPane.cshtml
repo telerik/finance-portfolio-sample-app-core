@@ -29,6 +29,7 @@
             @(Html.Kendo().Button()
                     .Name("removeButton")
                     .Icon("trash")
+                    .FillMode(ButtonFillMode.Flat)
                     .HtmlAttributes(new { type = "button" })
                     .Events(ev => ev.Click("removeRow"))
                     .Content("Remove"))
@@ -41,7 +42,7 @@
             .Name("Grid")
             .Columns(columns =>
             {
-                columns.Select().Width(27).ClientHeaderTemplate(" ");
+                columns.Select().Width(24).ClientHeaderTemplate(" ");
                 columns.Bound(p => p.Symbol).Title("Symbol").Width(80);
                 columns.Bound(p => p.Name).Title("Name").Width(140);
                 columns.Bound(p => p.Price).Title("Price").ClientHeaderTemplate("Price <span class='grid-header-subtitle'>(Intraday)</span>").ClientTemplate("<strong>#= currencyTemplate(data)# </strong>").Width(80);
