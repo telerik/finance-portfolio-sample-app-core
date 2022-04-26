@@ -16,12 +16,11 @@
 <div class="bottom-pane k-content">
     @(Html.Kendo().ButtonGroup()
        .Name("select-period")
-       .Index(Model.navigationIndex)
        .Items(t =>
        {
-           t.Add().Text("Result List");
-           t.Add().Text("Heatmap View");
-           t.Add().Text("Data Virtualization");
+           t.Add().Text("Result List").HtmlAttributes(new {@class="k-button-flat"});
+           t.Add().Text("Heatmap View").HtmlAttributes(new {@class="k-button-flat"});
+           t.Add().Text("Data Virtualization").HtmlAttributes(new {@class="k-button-flat"});
        })
        .Events(e => e.Select("onSelect"))
     )
