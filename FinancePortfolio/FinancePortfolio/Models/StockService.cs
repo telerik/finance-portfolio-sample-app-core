@@ -14,7 +14,9 @@ namespace FinancePortfolio.Models
         {
             DbContext context = new DbContext();
 
-            using (StreamReader r = new StreamReader(@"Data\data.json"))
+            var dataJson = Path.Combine("Data", "data.json");
+
+            using (StreamReader r = new StreamReader(dataJson))
             {
                 string json = r.ReadToEnd();
                 context = JsonConvert.DeserializeObject<DbContext>(json);
