@@ -18,9 +18,9 @@
        .Name("select-period")
        .Items(t =>
        {
-           t.Add().Text("Result List").HtmlAttributes(new {@class="k-button-flat"});
-           t.Add().Text("Heatmap View").HtmlAttributes(new {@class="k-button-flat"});
-           t.Add().Text("Data Virtualization").HtmlAttributes(new {@class="k-button-flat"});
+            t.Add().Text("Result List").Selected(@Html.Raw(Model.currentView).ToString() == "Home");
+            t.Add().Text("Heatmap View").Selected(@Html.Raw(Model.currentView).ToString() == "HeatMap");
+            t.Add().Text("Data Virtualization").Selected(@Html.Raw(Model.currentView).ToString() == "DataVirtualization");
        })
        .Events(e => e.Select("onSelect"))
     )

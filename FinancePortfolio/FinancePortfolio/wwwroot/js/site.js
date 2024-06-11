@@ -446,9 +446,9 @@ function updateChart() {
     var navi = chart.navigator;
     var fixedRangeIndex = $("#timeFilter li span.selected").index();
     var duration = fixedRangeIndex !== -1 ? timeFilters[fixedRangeIndex].Duration / toMins : timeFilters[0].Duration / toMins;
-
-    end = range.end || new Date();
-    start = range.start || new Date();
+    
+    end = range ? range.end : new Date();
+    start = range? range.start : new Date();
     start.setMinutes(end.getMinutes() - duration);
     navi.select(start, end);
     chart.dataSource.read();
