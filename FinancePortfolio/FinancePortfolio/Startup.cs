@@ -66,6 +66,7 @@ namespace FinancePortfolio
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UsePathBase("/aspnet-core/finance-portfolio/");
             app.UseStaticFiles();
 
             app.UseRouting();

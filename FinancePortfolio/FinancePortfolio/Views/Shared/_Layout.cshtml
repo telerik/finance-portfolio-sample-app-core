@@ -8,13 +8,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/10.2.0/bootstrap/bootstrap-main.css" />
 
-    <script src="~/js/signalr.js"></script>
+    <script src="@Url.Content("~/js/signalr.js")"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2025.1.227/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2025.1.227/js/kendo.aspnetmvc.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2025.1.227/js/cultures/kendo.culture.en-US.min.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
 </head>
 <body>
     <header>
@@ -77,8 +77,8 @@
             <span class="progress-logo d-inline-flex"></span>
         </div>
     </footer>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="@Url.Content("~/lib/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 <script>
