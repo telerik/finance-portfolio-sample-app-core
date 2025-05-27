@@ -22,7 +22,7 @@ function onCurrencyChange() {
         return;
     }
 
-    if (!document.location.pathname.endsWith("/Home/Profile")) {
+    if (!document.location.pathname.endsWith("/Home/Profile") && !document.location.pathname.endsWith("/Home/HeatMap")) {
         $("#Grid").getKendoGrid().dataSource.read();
         $("#stockChart").data("kendoStockChart").redraw();
     }
@@ -495,4 +495,3 @@ function toggleDisabledStateIntervalDropDown(e) {
         !rangeAndIntervalCompatible(duration, dataItem.Duration) ? $(dropDownItem).addClass("k-state-disabled") : $(dropDownItem).removeClass("k-state-disabled");
     });
 }
-
