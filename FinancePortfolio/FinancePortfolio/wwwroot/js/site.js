@@ -394,9 +394,9 @@ function onGridChange(e) {
 }
 
 function itemColor(e) {
-    var currentItemValue = e.dataItem;
-    var currentLargerThenPrev = !prevItemValue || currentItemValue.Volume >= prevItemValue.Volume;
-    if (currentItemValue.Volume) {
+    var currentItemValue = e.value;
+    var currentLargerThenPrev = !prevItemValue || currentItemValue >= prevItemValue;
+    if (currentItemValue) {
         prevItemValue = currentItemValue;
     }
     return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
